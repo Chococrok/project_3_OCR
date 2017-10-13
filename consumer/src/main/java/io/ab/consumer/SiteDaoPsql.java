@@ -1,7 +1,9 @@
 package io.ab.consumer;
 
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,14 +17,31 @@ public class SiteDaoPsql implements SiteDao {
 		this.daoFactory = daoFactory;
 	}
 
-	public List<Site> getAll() {
+	public List<Site> findAll() {
+		List<Site> sites = new ArrayList<Site>();
 		try {
 			Connection connection = this.daoFactory.getConnection();
+			Statement statement = connection.createStatement();
+            ResultSet results = statement.executeQuery("SELECT * FROM site;");
+
+            while (results.next()) {
+
+                Site site = new Site();
+                
+                site.setName(results.getString("name"));
+                site.setId(results.getInt("id"));
+                site.setHowToFind(results.getString("how_to_find"));
+                site.setLatitude(results.getBigDecimal("lat"));
+                site.setLongitude(results.getBigDecimal("long"));
+                site.setDescription(results.getString("description"));
+                
+                sites.add(site);
+            }
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return new ArrayList<Site>();
+		return sites;
 	}
 
 }

@@ -7,9 +7,7 @@
     <artifactId>climbing</artifactId>
     <version>1.0-SNAPSHOT</version>
   </parent>
-  <groupId>io.ab</groupId>
   <artifactId>web</artifactId>
-  <version>1.0-SNAPSHOT</version>
   <packaging>war</packaging>
   <name>web</name>
   <url>http://maven.apache.org</url>
@@ -29,7 +27,6 @@
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
-      <version>3.8.1</version>
       <scope>test</scope>
     </dependency>
 
@@ -39,7 +36,14 @@
       <artifactId>javax.servlet-api</artifactId>
       <scope>provided</scope>
     </dependency>
-  </dependencies>
+
+    <dependency>
+    		<groupId>javax.servlet</groupId>
+	    	<artifactId>jstl</artifactId>
+	    	<scope>runtime</scope>
+	</dependency>
+	
+	</dependencies>
 
   <build>
     <finalName>web</finalName>

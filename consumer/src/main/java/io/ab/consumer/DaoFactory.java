@@ -23,7 +23,7 @@ public class DaoFactory {
         }
 
         DaoFactory instance = new DaoFactory(
-                "jdbc:postgresql://localhost:5432/javaee", "dbuser", "dbuser");
+                "jdbc:postgresql://localhost:5432/climbing", "dbuser", "dbuser");
         return instance;
     }
 

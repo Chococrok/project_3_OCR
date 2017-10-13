@@ -57,7 +57,7 @@ public class Site {
 		this.latitude = latitude;
 	}
 
-	public BigDecimal getLongigutde() {
+	public BigDecimal getLongitude() {
 		return this.longitude;
 	}
 

@@ -13,8 +13,8 @@ public class SiteService {
 	public SiteService() {
 		this.siteDao = DaoFactory.getInstance().getSiteDao();
 	}
-	public List<Site> getAll() {
-		return siteDao.getAll();
+	public List<Site> findAll() {
+		return siteDao.findAll();
 	}
 
 }

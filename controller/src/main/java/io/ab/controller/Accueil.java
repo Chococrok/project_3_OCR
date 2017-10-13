@@ -7,17 +7,21 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import io.ab.business.SiteService;
+
 @WebServlet("/Accueil")
 public class Accueil extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	
+	SiteService siteService;
 
-    public Accueil() {
-        super();
-        // TODO Auto-generated constructor stub
+	@Override
+    public void init() throws ServletException {
+    		siteService = new SiteService();
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setAttribute("str", "dodo");
+		request.setAttribute("sites", this.siteService.findAll());
 		this.getServletContext().getRequestDispatcher("/WEB-INF/index.jsp").forward(request, response);
 	}
 

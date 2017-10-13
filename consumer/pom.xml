@@ -7,9 +7,7 @@
     <artifactId>climbing</artifactId>
     <version>1.0-SNAPSHOT</version>
   </parent>
-  <groupId>io.ab</groupId>
   <artifactId>consumer</artifactId>
-  <version>1.0-SNAPSHOT</version>
   <name>consumer</name>
   <url>http://maven.apache.org</url>
   
