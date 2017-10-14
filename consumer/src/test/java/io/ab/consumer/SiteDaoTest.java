@@ -1,6 +1,5 @@
 package io.ab.consumer;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import io.ab.model.Site;
@@ -32,10 +31,8 @@ public class SiteDaoTest
         return new TestSuite( SiteDaoTest.class );
     }
 
-    /**
-     * Rigourous Test :-)
-     */
-    public void testApp()
+    
+    public void testfindAll()
     {
     		SiteDao siteDao = DaoFactory.getInstance().getSiteDao();
     		
@@ -47,5 +44,19 @@ public class SiteDaoTest
         assertTrue( sites.get(0).getLatitude() != null );
         assertTrue( sites.get(0).getLongitude() != null );
         assertTrue( sites.get(0).getDescription() != null );
+    }
+    
+    public void testfindOne()
+    {
+    		SiteDao siteDao = DaoFactory.getInstance().getSiteDao();
+    		
+    		Site site = siteDao.findOne(2);
+    		
+        assertTrue( site.getName() != null );
+        assertTrue( site.getHowToFind() != null );
+        assertTrue( site.getId() != null );
+        assertTrue( site.getLatitude() != null );
+        assertTrue( site.getLongitude() != null );
+        assertTrue( site.getDescription() != null );
     }
 }

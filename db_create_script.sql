@@ -1,8 +1,6 @@
 
-CREATE SEQUENCE public.owner_id_seq;
-
 CREATE TABLE public.owner (
-                id INTEGER NOT NULL DEFAULT nextval('public.owner_id_seq'),
+                id INTEGER NOT NULL,
                 first_name VARCHAR NOT NULL,
                 last_name VARCHAR NOT NULL,
                 email VARCHAR NOT NULL,
@@ -10,8 +8,6 @@ CREATE TABLE public.owner (
                 CONSTRAINT owner_pk PRIMARY KEY (id)
 );
 
-
-ALTER SEQUENCE public.owner_id_seq OWNED BY public.owner.id;
 
 CREATE SEQUENCE public.site_id_seq;
 
@@ -94,6 +90,7 @@ CREATE TABLE public.comment (
                 id INTEGER NOT NULL DEFAULT nextval('public.comment_id_seq'),
                 topo_id INTEGER,
                 site_id INTEGER,
+                content VARCHAR NOT NULL,
                 secteur_id INTEGER,
                 voie_id INTEGER,
                 longueure_id INTEGER,

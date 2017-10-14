@@ -6,4 +6,7 @@ import io.ab.model.Site;
 
 public interface SiteDao {
 	public List<Site> findAll();
+	public Site findOne(int id);
 }
+
+

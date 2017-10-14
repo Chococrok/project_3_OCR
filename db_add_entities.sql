@@ -17,4 +17,7 @@ INSERT INTO
         'Prendre à droite sur Avenue Saint-Jean/D8G. Prendre à gauche sur Rue Saint-Roch/D9. Continuer de suivre D9Prendre à droite sur Hameau de Bruncan/D9 (panneaux vers Genos/St Béat/Luchon/Boucou). Continuer de suivre D9',
         'Saint-Pé-d''Ardet est une commune française située dans le département de la Haute-Garonne en région Occitanie. Ses habitants sont appelés les Saint-Péens.'
     );
+
+INSERT INTO comment (site_id, content) VALUES(2, 'j''ai adoré ce spot. Les voies sont longues mais les prises sont plutôt bonne. Parfait pour un débutant.');
+INSERT INTO comment (site_id, content) VALUES(2, 'A ne pas manqué !');
    

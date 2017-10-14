@@ -44,4 +44,27 @@ public class SiteDaoPsql implements SiteDao {
 		return sites;
 	}
 
+	public Site findOne(int id) {
+		Site site = new Site();
+		try {
+			Connection connection = this.daoFactory.getConnection();
+			Statement statement = connection.createStatement();
+			ResultSet result = statement.executeQuery(String.format("SELECT * FROM site WHERE id = %d;", id));
+			
+			result.next();
+                
+            site.setName(result.getString("name"));
+            site.setId(result.getInt("id"));
+            site.setHowToFind(result.getString("how_to_find"));
+            site.setLatitude(result.getBigDecimal("lat"));
+            site.setLongitude(result.getBigDecimal("long"));
+            site.setDescription(result.getString("description"));
+                
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return site;
+	}
+
 }

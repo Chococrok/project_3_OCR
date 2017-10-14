@@ -9,8 +9,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import io.ab.business.SiteService;
 
-@WebServlet("/Accueil")
-public class Accueil extends HttpServlet {
+@WebServlet("/Home")
+public class Home extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	SiteService siteService;
@@ -22,7 +22,7 @@ public class Accueil extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setAttribute("sites", this.siteService.findAll());
-		this.getServletContext().getRequestDispatcher("/WEB-INF/index.jsp").forward(request, response);
+		this.getServletContext().getRequestDispatcher("/WEB-INF/jsp/page/home.jsp").forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

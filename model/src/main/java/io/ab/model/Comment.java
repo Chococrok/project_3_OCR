@@ -4,6 +4,8 @@ package io.ab.model;
 public class Comment {
 
 	private Integer id;
+	
+	private String content;
 
 	private Longueur longueur;
 
@@ -24,6 +26,15 @@ public class Comment {
 
 	public void setId(Integer id) {
 		this.id = id;
+	}
+	
+
+	public String getContent() {
+		return content;
+	}
+
+	public void setContent(String content) {
+		this.content = content;
 	}
 
 	public Longueur getLongueur() {

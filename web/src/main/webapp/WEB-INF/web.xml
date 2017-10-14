@@ -9,17 +9,18 @@
   <display-name>Archetype Created Web Application</display-name>
 
   <servlet>
-    <servlet-name>Accueil</servlet-name>
-    <servlet-class>io.ab.controller.Accueil</servlet-class>
+    <servlet-name>Home</servlet-name>
+    <servlet-class>io.ab.controller.Home</servlet-class>
   </servlet>
   <servlet-mapping>
-    <servlet-name>Accueil</servlet-name>
-    <url-pattern>/</url-pattern>
+    <servlet-name>Home</servlet-name>
+    <url-pattern>/home</url-pattern>
   </servlet-mapping>
   
   <jsp-config>
         <jsp-property-group>
             <url-pattern>*.jsp</url-pattern>
+            <page-encoding>UTF-8</page-encoding>
             <include-prelude>/WEB-INF/taglibs.jsp</include-prelude>
         </jsp-property-group>
     </jsp-config>
