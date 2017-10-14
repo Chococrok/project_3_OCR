@@ -28,7 +28,7 @@ public class CommentDaoTest
      */
     public static Test suite()
     {
-        return new TestSuite( SiteDaoTest.class );
+        return new TestSuite( CommentDaoTest.class );
     }
 
     
@@ -39,5 +39,6 @@ public class CommentDaoTest
     		List<Comment> comments = siteDao.findAllBySite(2);
     		
         assertTrue( comments.get(0).getContent() != null );
+        assertTrue( comments.get(0).getId() != null );
     }
 }

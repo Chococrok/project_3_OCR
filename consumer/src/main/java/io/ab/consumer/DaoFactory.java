@@ -36,12 +36,15 @@ public class DaoFactory {
         return DriverManager.getConnection(url, username, password);
     }
 
-    // Récupération du Dao
     public SiteDao getSiteDao() {
         return new SiteDaoPsql(this);
     }
     
     public CommentDao getCommentDao() {
         return new CommentDaoPsql(this);
+    }
+    
+    public SecteurDao getSecteurDao() {
+        return new SecteurDaoPsql(this);
     }
 }

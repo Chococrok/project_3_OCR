@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import io.ab.business.SiteService;
 
 @WebServlet("/Home")
-public class Home extends HttpServlet {
+public class HomeServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	SiteService siteService;

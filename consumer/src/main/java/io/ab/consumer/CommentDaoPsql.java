@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import io.ab.model.Comment;
-import io.ab.model.Site;
 
 public class CommentDaoPsql implements CommentDao {
 	
@@ -53,12 +52,11 @@ public class CommentDaoPsql implements CommentDao {
 		try {
 			Connection connection = this.daoFactory.getConnection();
 			Statement statement = connection.createStatement();
-            ResultSet results = statement.executeQuery(String.format("SELECT (id, content) FROM comment where %1s = %2d;", column, id));
+            ResultSet results = statement.executeQuery(String.format("SELECT id, content FROM comment where %1s = %2d;", column, id));
 
             while (results.next()) {
 
             		Comment comment = new Comment();
-                
                 comment.setId(results.getInt("id"));
                 comment.setContent(results.getString("content"));
                 
@@ -70,5 +68,4 @@ public class CommentDaoPsql implements CommentDao {
 		}
 		return comments;
 	}
-
 }

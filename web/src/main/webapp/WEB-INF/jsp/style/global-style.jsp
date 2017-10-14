@@ -27,6 +27,15 @@ h1 {
     -webkit-margin-before: 0;
 }
 
+h2 {
+    font-weight: normal;
+    text-decoration: underline;
+}
+
+h3 {
+    margin-top: 2.5em;
+}
+
 a {
     margin: 0.5em 1em 0 1em;
 	color: #966969;
@@ -62,22 +71,42 @@ button:focus {
 	background-color: #755252;
 }
 
+td {
+    padding: 0 5em 1em 0;
+}
+
 
 .margin {
 	margin: 2.5em;
 }
 
-.site-list-container {
-	width: 50vw;
+.card {
+	margin: 5%;
+    width: 50%;
 	display: flex;
     flex-direction: column;
     box-shadow: 5px 5px 20px 0px #888888;
+	background-color: white;
+   
 }
-.site-container {
+
+.card-header {
+    padding: 3em;
+    padding-bottom: 0;
+}
+.card-content {
+    padding: 2.5em 5em;
+;
+}
+.comment {
+    font-style: italic;
+    color: #888888;
+    font-size: 0.9em;
+}
+.list-item {
     padding: 1.5em;
     text-align: center;
     display: flex;
-    background-color: white;
     border-bottom: 1px solid black;
     justify-content: space-between;
 }
