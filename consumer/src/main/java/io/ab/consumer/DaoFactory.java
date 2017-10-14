@@ -5,9 +5,12 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class DaoFactory {
+	
     private String url;
     private String username;
     private String password;
+    
+    private static DaoFactory DAOFACTORY_INSTANCE = null;
 
     DaoFactory(String url, String username, String password) {
         this.url = url;
@@ -16,15 +19,17 @@ public class DaoFactory {
     }
 
     public static DaoFactory getInstance() {
-        try {
-            Class.forName("com.mysql.jdbc.Driver");
-        } catch (ClassNotFoundException e) {
-
-        }
-
-        DaoFactory instance = new DaoFactory(
-                "jdbc:postgresql://localhost:5432/climbing", "dbuser", "dbuser");
-        return instance;
+    		if (DAOFACTORY_INSTANCE == null) {
+	        try {
+	            Class.forName("com.mysql.jdbc.Driver");
+	        } catch (ClassNotFoundException e) {
+	
+	        }
+	
+	        DAOFACTORY_INSTANCE = new DaoFactory(
+	                "jdbc:postgresql://localhost:5432/climbing", "dbuser", "dbuser");
+    		}
+        return DAOFACTORY_INSTANCE;
     }
 
     public Connection getConnection() throws SQLException {
@@ -34,5 +39,9 @@ public class DaoFactory {
     // Récupération du Dao
     public SiteDao getSiteDao() {
         return new SiteDaoPsql(this);
+    }
+    
+    public CommentDao getCommentDao() {
+        return new CommentDaoPsql(this);
     }
 }

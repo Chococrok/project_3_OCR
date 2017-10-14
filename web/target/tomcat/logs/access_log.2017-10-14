@@ -1,3 +1,0 @@
-0:0:0:0:0:0:0:1 - - [14/Oct/2017:12:32:35 +0200] "GET /climbing/home HTTP/1.1" 200 2270 http-bio-8080-exec-1 2394
-0:0:0:0:0:0:0:1 - - [14/Oct/2017:12:32:38 +0200] "GET /favicon.ico HTTP/1.1" 404 - http-bio-8080-exec-3 0
-0:0:0:0:0:0:0:1 - - [14/Oct/2017:12:33:18 +0200] "GET /climbing/site?id=2 HTTP/1.1" 404 977 http-bio-8080-exec-4 3
