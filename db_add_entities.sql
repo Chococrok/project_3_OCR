@@ -18,6 +18,17 @@ INSERT INTO
         'Saint-Pé-d''Ardet est une commune française située dans le département de la Haute-Garonne en région Occitanie. Ses habitants sont appelés les Saint-Péens.'
     );
 
-INSERT INTO comment (site_id, content) VALUES(2, 'j''ai adoré ce spot. Les voies sont longues mais les prises sont plutôt bonne. Parfait pour un débutant.');
-INSERT INTO comment (site_id, content) VALUES(2, 'A ne pas manquer !');
+INSERT INTO 
+    comment (site_id, content, time_stamp) 
+    VALUES(1,
+    'j''ai adoré ce spot. Les voies sont longues mais les prises sont plutôt bonne. Parfait pour un débutant.',
+    '1999-01-08 04:05:06');
+INSERT INTO 
+    comment (site_id, content, time_stamp) 
+    VALUES(1, 'A ne pas manquer !',
+        '2015-01-08 05:05:06');
+
+INSERT INTO secteur (site_id, name, description) VALUES (1, 'Dunes', 'Un peu sabloneux');
+INSERT INTO secteur (site_id, name, description) VALUES (1, 'Doom', 'Un secteur très difficile');
+INSERT INTO secteur (site_id, name, description) VALUES (1, 'Desert', 'Peu de grimppeur sont capable d''afronter les voies de ce secteur, d''où son nom.');
    

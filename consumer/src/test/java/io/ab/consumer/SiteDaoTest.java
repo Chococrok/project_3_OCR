@@ -50,7 +50,7 @@ public class SiteDaoTest
     {
     		SiteDao siteDao = DaoFactory.getInstance().getSiteDao();
     		
-    		Site site = siteDao.findOne(2);
+    		Site site = siteDao.findOne(1);
     		
         assertTrue( site.getName() != null );
         assertTrue( site.getHowToFind() != null );

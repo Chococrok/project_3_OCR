@@ -27,9 +27,13 @@ public class SiteServlet extends HttpServlet {
 		this.getServletContext().getRequestDispatcher("/WEB-INF/jsp/page/site.jsp").forward(request, response);
 	}
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {	
+		int id = Integer.parseInt(request.getParameter("id"));
+		this.siteService.addComment(id, request.getParameter("content"));
+
+		request.setAttribute("site", this.siteService.findOneWithCommentsAndSecteurs(id));
+		
+		this.getServletContext().getRequestDispatcher("/WEB-INF/jsp/page/site.jsp").forward(request, response);
 	}
 
 }

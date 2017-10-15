@@ -6,7 +6,9 @@ import io.ab.consumer.CommentDao;
 import io.ab.consumer.DaoFactory;
 import io.ab.consumer.SecteurDao;
 import io.ab.consumer.SiteDao;
+import io.ab.model.Comment;
 import io.ab.model.Site;
+import java.sql.Timestamp;
 
 public class SiteService {
 	
@@ -26,9 +28,13 @@ public class SiteService {
 	
 	public Site findOneWithCommentsAndSecteurs(int id) {
 		Site site = this.siteDao.findOne(id);
-		site.setComments(this.commentDao.findAllBySite(id));
+		site.setComments(this.commentDao.findAllBy(Comment.SITE_ID, id));
 		site.setSecteurs(this.secteurDao.findAllBySite(id));
 		return site;
+	}
+	
+	public void addComment(int siteId, String content) {
+		this.commentDao.addOneBy(Comment.SITE_ID, siteId, content, new Timestamp(System.currentTimeMillis()));
 	}
 
 }

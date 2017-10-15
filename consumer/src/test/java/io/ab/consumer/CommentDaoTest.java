@@ -1,5 +1,6 @@
 package io.ab.consumer;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 import io.ab.model.Comment;
@@ -34,11 +35,18 @@ public class CommentDaoTest
     
     public void testFindAllBySite()
     {
-    		CommentDao siteDao = DaoFactory.getInstance().getCommentDao();
+    		CommentDao commentDao = DaoFactory.getInstance().getCommentDao();
     		
-    		List<Comment> comments = siteDao.findAllBySite(2);
+    		List<Comment> comments = commentDao.findAllBy(Comment.SITE_ID, 1);
     		
         assertTrue( comments.get(0).getContent() != null );
         assertTrue( comments.get(0).getId() != null );
+        assertTrue( comments.get(0).getTimestamp() != null );
+    }
+    
+    public void testAddOne() {
+    		CommentDao commentDao = DaoFactory.getInstance().getCommentDao();
+		
+		commentDao.addOneBy(Comment.SITE_ID, 1, "toto et tatta", new Timestamp(System.currentTimeMillis()));
     }
 }

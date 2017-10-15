@@ -81,8 +81,8 @@ td {
 }
 
 .card {
-	margin: 5%;
-    width: 50%;
+    margin: 5em 10em;
+    min-width: 50%;
 	display: flex;
     flex-direction: column;
     box-shadow: 5px 5px 20px 0px #888888;
@@ -93,22 +93,45 @@ td {
 .card-header {
     padding: 3em;
     padding-bottom: 0;
-}
-.card-content {
+}.card-content {
     padding: 2.5em 5em;
-;
 }
+
 .comment {
     font-style: italic;
     color: #888888;
     font-size: 0.9em;
 }
+
 .list-item {
     padding: 1.5em;
     text-align: center;
     display: flex;
     border-bottom: 1px solid black;
     justify-content: space-between;
+}
+
+.comment-item {
+	padding: 1.5em;
+    text-align: start;
+    display: flex;
+    flex-direction: column;
+    border-bottom: 1px solid black;
+    justify-content: space-between;
+} .date {
+   	text-align: end;
+    font-size: 0.75em;
+	color: #888888;;
+    margin: 0;
+}
+.input {
+    display: flex;
+    flex-direction: column;
+    margin: 1.5em;
+} .input > textarea {
+	height: 5em;
+} .input > input {
+	width: 5em;
 }
 
 </style>

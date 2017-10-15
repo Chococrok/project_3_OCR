@@ -1,3 +1,4 @@
+DROP TABLE IF EXISTS comment, longueur, owner, secteur, site, topo, topo_owner, voie CASCADE;
 
 CREATE TABLE public.owner (
                 id INTEGER NOT NULL,
@@ -90,6 +91,7 @@ CREATE TABLE public.comment (
                 id INTEGER NOT NULL DEFAULT nextval('public.comment_id_seq'),
                 topo_id INTEGER,
                 site_id INTEGER,
+                time_stamp TIMESTAMP NOT NULL,
                 content VARCHAR NOT NULL,
                 secteur_id INTEGER,
                 voie_id INTEGER,
