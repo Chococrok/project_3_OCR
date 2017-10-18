@@ -17,6 +17,7 @@ public class VoieDaoPsql implements VoieDao {
 	public VoieDaoPsql(DaoFactory daoFactory) {
 		this.daoFactory = daoFactory;
 	}
+	
 	public List<Voie> findAllBySecteur(int id) {
 		List<Voie> voies = new ArrayList<Voie>();
 		try {
@@ -41,5 +42,28 @@ public class VoieDaoPsql implements VoieDao {
 			e.printStackTrace();
 		}
 		return voies;
+	}
+	
+	public Voie findOne(int id) {
+		Voie voie = new Voie();
+		try {
+			Connection connection = this.daoFactory.getConnection();
+			Statement statement = connection.createStatement();
+			ResultSet result = statement.executeQuery(String.format("SELECT * FROM voie WHERE id = %d;", id));
+			
+			result.next();
+                
+			voie.setId(result.getInt("id"));
+	    		voie.setName(result.getString("name"));
+	    		voie.setDescription(result.getString("description"));
+	    		voie.setLength(result.getInt("length"));
+	    		voie.setPointNumber(result.getInt("point_number"));
+	    		voie.setCotation(result.getString("cotation"));
+                
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return voie;
 	}
 }

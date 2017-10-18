@@ -60,7 +60,8 @@ CREATE TABLE public.longueur (
                 id INTEGER NOT NULL DEFAULT nextval('public.longueur_id_seq'),
                 voie_id INTEGER NOT NULL,
                 name VARCHAR NOT NULL,
-                length VARCHAR,
+                lenght INTEGER,
+                cotation VARCHAR,
                 CONSTRAINT longueur_pk PRIMARY KEY (id)
 );
 

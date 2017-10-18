@@ -8,7 +8,7 @@
 	<div class="card">
 		<div class="card-header">
 			<h2>${ site.name }</h2>
-			<p class="comment">"${ site.description }"</p>
+			<p class="description">"${ site.description }"</p>
 		</div>
 		<div class="card-content">
 			<table>

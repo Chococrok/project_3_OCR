@@ -95,6 +95,8 @@ td {
     padding-bottom: 0;
 }.card-content {
     padding: 2.5em 5em;
+}.card-content > *:first-child {
+	margin-top:0;
 }
 
 .description {

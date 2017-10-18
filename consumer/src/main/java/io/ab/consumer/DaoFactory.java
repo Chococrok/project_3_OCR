@@ -51,4 +51,8 @@ public class DaoFactory {
     public VoieDao getVoieDao() {
         return new VoieDaoPsql(this);
     }
+    
+    public LongueurDao getLongueurDao() {
+        return new LongueurDaoPsql(this);
+    }
 }

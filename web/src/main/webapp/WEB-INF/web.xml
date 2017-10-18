@@ -20,6 +20,10 @@
   	<servlet-name>SecteurServlet</servlet-name>
   	<servlet-class>io.ab.controller.SecteurServlet</servlet-class>
   </servlet>
+     <servlet>
+  	<servlet-name>VoieServlet</servlet-name>
+  	<servlet-class>io.ab.controller.VoieServlet</servlet-class>
+  </servlet>
   <servlet-mapping>
     <servlet-name>HomeServlet</servlet-name>
     <url-pattern>/home</url-pattern>
@@ -31,6 +35,10 @@
    <servlet-mapping>
   	<servlet-name>SecteurServlet</servlet-name>
   	<url-pattern>/secteur</url-pattern>
+  </servlet-mapping>
+    <servlet-mapping>
+  	<servlet-name>VoieServlet</servlet-name>
+  	<url-pattern>/voie</url-pattern>
   </servlet-mapping>
   
   <jsp-config>

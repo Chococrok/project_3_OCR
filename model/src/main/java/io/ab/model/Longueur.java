@@ -6,7 +6,9 @@ public class Longueur {
 
 	private Integer id;
 
-	private String lenght;
+	private Integer lenght;
+	
+	private String cotation;
 
 	private String name;
 
@@ -25,12 +27,20 @@ public class Longueur {
 		this.id = id;
 	}
 
-	public String getLenght() {
+	public Integer getLenght() {
 		return this.lenght;
 	}
 
-	public void setLenght(String lenght) {
+	public void setLenght(Integer lenght) {
 		this.lenght = lenght;
+	}
+
+	public String getCotation() {
+		return cotation;
+	}
+
+	public void setCotation(String cotation) {
+		this.cotation = cotation;
 	}
 
 	public String getName() {
