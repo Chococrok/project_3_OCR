@@ -82,18 +82,18 @@ public class Secteur {
 		this.voies = voies;
 	}
 
-	public Voie addVoy(Voie voy) {
-		getVoies().add(voy);
-		voy.setSecteur(this);
+	public Voie addVoie(Voie voie) {
+		getVoies().add(voie);
+		voie.setSecteur(this);
 
-		return voy;
+		return voie;
 	}
 
-	public Voie removeVoy(Voie voy) {
-		getVoies().remove(voy);
-		voy.setSecteur(null);
+	public Voie removeVoie(Voie voie) {
+		getVoies().remove(voie);
+		voie.setSecteur(null);
 
-		return voy;
+		return voie;
 	}
 
 }

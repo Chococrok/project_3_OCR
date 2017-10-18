@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import io.ab.business.SiteService;
 
-@WebServlet("/Home")
+@WebServlet("/SiteServlet")
 public class SiteServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        

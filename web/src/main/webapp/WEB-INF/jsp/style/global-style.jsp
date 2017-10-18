@@ -97,33 +97,34 @@ td {
     padding: 2.5em 5em;
 }
 
-.comment {
+.description {
     font-style: italic;
     color: #888888;
     font-size: 0.9em;
 }
 
-.list-item {
-    padding: 1.5em;
+.list > * {
+    padding: 1em;
     text-align: center;
     display: flex;
     border-bottom: 1px solid black;
     justify-content: space-between;
+}.list > *:last-child {
+	border-bottom: none;
 }
 
+
 .comment-item {
-	padding: 1.5em;
-    text-align: start;
-    display: flex;
     flex-direction: column;
-    border-bottom: 1px solid black;
-    justify-content: space-between;
-} .date {
+    text-align: start;
+}.date {
    	text-align: end;
     font-size: 0.75em;
 	color: #888888;;
     margin: 0;
 }
+
+
 .input {
     display: flex;
     flex-direction: column;

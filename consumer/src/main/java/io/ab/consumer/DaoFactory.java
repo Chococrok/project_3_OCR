@@ -47,4 +47,8 @@ public class DaoFactory {
     public SecteurDao getSecteurDao() {
         return new SecteurDaoPsql(this);
     }
+    
+    public VoieDao getVoieDao() {
+        return new VoieDaoPsql(this);
+    }
 }

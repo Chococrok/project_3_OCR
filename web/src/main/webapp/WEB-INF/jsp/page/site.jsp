@@ -24,9 +24,9 @@
 			</table>	
 			
 			<h3>Secteurs de ce site:</h3>
-			<form action="secteur" method="get">
+			<form action="secteur" method="get" class="list">
 			 	<c:forEach items="${ site.secteurs }" var="secteur" >
-			 	 	<div class="list-item">
+			 	 	<div>
 			    			<p>${ secteur.name }</p>
 			    			<button type="submit" name="id" value="${ secteur.id }">
 							<i class="material-icons">&#xE88F;</i>
@@ -37,14 +37,15 @@
 			</form>
 			
 			<h3>Commentaires:</h3>
-		 	<c:forEach items="${ site.comments }" var="comment" >
-		 	 	<div class="comment-item">
-		    			<p>${ comment.content }</p>
-		    			<p class="date">${ comment.timestamp }</p>
-	   			</div>
-			</c:forEach>
-			
-			<form method="post" action="site">
+			<div class="list">
+			 	<c:forEach items="${ site.comments }" var="comment" >
+			 	 	<div class="comment-item">
+			    			<p>${ comment.content }</p>
+			    			<p class="date">${ comment.timestamp }</p>
+		   			</div>
+				</c:forEach>
+			</div>
+			<form method="post" action="site#comment">
 		        <div class ="input">
 		            <label for="comment">Commentaire: </label>
 		            <textarea type="text" name="content" id="comment" placeholder="entrer un nouveau commentaire"></textarea>

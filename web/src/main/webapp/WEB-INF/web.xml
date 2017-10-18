@@ -16,6 +16,10 @@
   	<servlet-name>SiteServlet</servlet-name>
   	<servlet-class>io.ab.controller.SiteServlet</servlet-class>
   </servlet>
+   <servlet>
+  	<servlet-name>SecteurServlet</servlet-name>
+  	<servlet-class>io.ab.controller.SecteurServlet</servlet-class>
+  </servlet>
   <servlet-mapping>
     <servlet-name>HomeServlet</servlet-name>
     <url-pattern>/home</url-pattern>
@@ -23,6 +27,10 @@
   <servlet-mapping>
   	<servlet-name>SiteServlet</servlet-name>
   	<url-pattern>/site</url-pattern>
+  </servlet-mapping>
+   <servlet-mapping>
+  	<servlet-name>SecteurServlet</servlet-name>
+  	<url-pattern>/secteur</url-pattern>
   </servlet-mapping>
   
   <jsp-config>

@@ -43,7 +43,7 @@ CREATE SEQUENCE public.voie_id_seq;
 CREATE TABLE public.voie (
                 id INTEGER NOT NULL DEFAULT nextval('public.voie_id_seq'),
                 secteur_id INTEGER NOT NULL,
-                lenght INTEGER,
+                length INTEGER,
                 name VARCHAR NOT NULL,
                 point_number INTEGER,
                 cotation VARCHAR,
@@ -60,7 +60,7 @@ CREATE TABLE public.longueur (
                 id INTEGER NOT NULL DEFAULT nextval('public.longueur_id_seq'),
                 voie_id INTEGER NOT NULL,
                 name VARCHAR NOT NULL,
-                lenght VARCHAR,
+                length VARCHAR,
                 CONSTRAINT longueur_pk PRIMARY KEY (id)
 );
 

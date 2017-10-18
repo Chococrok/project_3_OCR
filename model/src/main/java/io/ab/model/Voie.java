@@ -11,7 +11,7 @@ public class Voie {
 
 	private String description;
 
-	private Integer lenght;
+	private Integer length;
 
 	private String name;
 
@@ -50,12 +50,12 @@ public class Voie {
 		this.description = description;
 	}
 
-	public Integer getLenght() {
-		return this.lenght;
+	public Integer getLength() {
+		return this.length;
 	}
 
-	public void setLenght(Integer lenght) {
-		this.lenght = lenght;
+	public void setLength(Integer length) {
+		this.length = length;
 	}
 
 	public String getName() {
