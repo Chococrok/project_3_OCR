@@ -36,5 +36,15 @@ public class SiteService {
 	public void addComment(int siteId, String content) {
 		this.commentDao.addOneBy(Comment.SITE_ID, siteId, content, new Timestamp(System.currentTimeMillis()));
 	}
+	
+	public Site findOneByName(String name) {
+		Site site = this.siteDao.findOneByName(name);
+		if (site.getId() == null) {
+			return site;
+		}
+		site.setComments(this.commentDao.findAllBy(Comment.SITE_ID, site.getId()));
+		site.setSecteurs(this.secteurDao.findAllBySite(site.getId()));
+		return site;
+	}
 
 }

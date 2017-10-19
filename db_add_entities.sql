@@ -37,4 +37,6 @@ INSERT INTO voie (secteur_id, name, length, point_number, cotation, description)
 INSERT INTO voie (secteur_id, name, length, point_number, cotation, description) VALUES (1, 'Belle nuit', 120, 6, '8a', 'Proinde concepta rabie saeviore, quam desperatio incendebat et fames, amplificatis viribus ardore incohibili in excidium urbium matris Seleuciae efferebantur, quam comes tuebatur Castricius tresque legiones bellicis sudoribus induratae.');
 INSERT INTO voie (secteur_id, name, length, point_number, cotation, description) VALUES (1, 'Liane folle', 90, 6, '7b', 'Proinde concepta rabie saeviore, quam desperatio incendebat et fames, amplificatis viribus ardore incohibili in excidium urbium matris Seleuciae efferebantur, quam comes tuebatur Castricius tresque legiones bellicis sudoribus induratae.');
 
+INSERT INTO longueur (voie_id, name, length, cotation) VALUES (1, 'yoda', 20, '5a');
+INSERT INTO longueur (voie_id, name, length, cotation) VALUES (1, 'vador', 40, '6b+');
    

@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import io.ab.business.SiteService;
+import io.ab.model.Site;
 
 @WebServlet("/SiteServlet")
 public class SiteServlet extends HttpServlet {
@@ -21,10 +22,13 @@ public class SiteServlet extends HttpServlet {
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int id = Integer.parseInt(request.getParameter("id"));
-		request.setAttribute("site", this.siteService.findOneWithCommentsAndSecteurs(id));
-		
-		this.getServletContext().getRequestDispatcher("/WEB-INF/jsp/page/site.jsp").forward(request, response);
+		Site site = (Site) request.getAttribute("site");
+		if (site == null) {
+			int id = Integer.parseInt(request.getParameter("id"));
+			site = this.siteService.findOneWithCommentsAndSecteurs(id);
+			request.setAttribute("site", site);
+		}
+		this.getServletContext().getRequestDispatcher("/WEB-INF/jsp/page/site.jsp").forward(request, response);		
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {	

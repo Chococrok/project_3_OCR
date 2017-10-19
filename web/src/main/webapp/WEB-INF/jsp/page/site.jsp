@@ -48,7 +48,7 @@
 			<form method="post" action="site#comment">
 		        <div class ="input">
 		            <label for="comment">Commentaire: </label>
-		            <textarea type="text" name="content" id="comment" placeholder="entrer un nouveau commentaire"></textarea>
+		            <textarea name="content" id="comment" placeholder="entrer un nouveau commentaire"></textarea>
 		            <input type="hidden" name="id" value="${ site.id }"/>
         		        <input type="submit" />
 		        </div>

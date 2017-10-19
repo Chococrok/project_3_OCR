@@ -6,7 +6,7 @@ public class Longueur {
 
 	private Integer id;
 
-	private Integer lenght;
+	private Integer length;
 	
 	private String cotation;
 
@@ -27,12 +27,12 @@ public class Longueur {
 		this.id = id;
 	}
 
-	public Integer getLenght() {
-		return this.lenght;
+	public Integer getLength() {
+		return length;
 	}
 
-	public void setLenght(Integer lenght) {
-		this.lenght = lenght;
+	public void setLength(Integer length) {
+		this.length = length;
 	}
 
 	public String getCotation() {

@@ -21,14 +21,14 @@ public class LongueurDaoPsql implements LongueurDao {
 		try {
 			Connection connection = this.daoFactory.getConnection();
 			Statement statement = connection.createStatement();
-            ResultSet results = statement.executeQuery(String.format("SELECT id, name, length, cotation FROM voie WHERE secteur_id = %d;", id));
+            ResultSet results = statement.executeQuery(String.format("SELECT id, name, length, cotation FROM longueur WHERE voie_id = %d;", id));
 
             while (results.next()) {
 
             		Longueur longueur = new Longueur();
             		longueur.setId(results.getInt("id"));
             		longueur.setName(results.getString("name"));
-            		longueur.setLenght(results.getInt("length"));
+            		longueur.setLength(results.getInt("length"));
             		longueur.setCotation(results.getString("cotation"));
  
             		longueurs.add(longueur);

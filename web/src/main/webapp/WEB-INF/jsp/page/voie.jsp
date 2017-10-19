@@ -26,6 +26,17 @@
 						<td>${ voie.cotation }</td>
 					</tr>
 				</table>	
+				
+			<h3>Les longueurs de ${ voie.name }</h3>
+			<div class="list">
+			 	<c:forEach items="${ voie.longueurs }" var="longueur" >
+			 	 	<div class="comment-item">
+			    			<p>${ longueur.name }</p>
+			    			<p class="date">${ longueur.length }</p>
+			    			<p class="date">${ longueur.cotation }</p>
+		   			</div>
+				</c:forEach>
+			</div>
 			
 			<h3>Commentaires:</h3>
 			<div class="list">
@@ -40,7 +51,7 @@
 			<form method="post" action="secteur#comment">
 		        <div class ="input">
 		            <label for="comment">Commentaire: </label>
-		            <textarea type="text" name="content" id="comment" placeholder="entrer un nouveau commentaire"></textarea>
+		            <textarea name="content" id="comment" placeholder="entrer un nouveau commentaire"></textarea>
 		            <input type="hidden" name="id" value="${ voie.id }"/>
         		        <input type="submit" />
 		        </div>
