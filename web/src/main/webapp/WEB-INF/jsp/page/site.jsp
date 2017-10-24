@@ -1,3 +1,4 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,11 +14,11 @@
 		<div class="card-content">
 			<table>
 				<tr>
-					<td>Coordonées géographiques:</td>
+					<td>CoordonÃ©es gÃ©ographiques:</td>
 					<td>${ site.latitude }, ${ site.longitude }</td>
 				</tr>
 				<tr>
-					<td>indication supplémentaire:</td>
+					<td>indication supplÃ©mentaire:</td>
 					<td>${ site.howToFind }</td>
 				</tr>
 
@@ -40,7 +41,7 @@
 			<div class="list">
 			 	<c:forEach items="${ site.comments }" var="comment" >
 			 	 	<div class="comment-item">
-			    			<p>${ comment.content }</p>
+			    			<p><c:out value="${ comment.content }"></c:out></p>
 			    			<p class="date">${ comment.timestamp }</p>
 		   			</div>
 				</c:forEach>

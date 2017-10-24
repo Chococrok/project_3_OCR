@@ -3,18 +3,14 @@ package io.ab.model;
 import java.util.List;
 
 
-public class Voie {
-
-	private Integer id;
+public class Voie extends Entity {
 
 	private String cotation;
 
 	private String description;
 
 	private Integer length;
-
-	private String name;
-
+	
 	private Integer pointNumber;
 
 	private List<Comment> comments;
@@ -24,14 +20,6 @@ public class Voie {
 	private Secteur secteur;
 
 	public Voie() {
-	}
-
-	public Integer getId() {
-		return this.id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
 	}
 
 	public String getCotation() {
@@ -56,14 +44,6 @@ public class Voie {
 
 	public void setLength(Integer length) {
 		this.length = length;
-	}
-
-	public String getName() {
-		return this.name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
 	}
 
 	public Integer getPointNumber() {

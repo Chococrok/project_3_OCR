@@ -4,9 +4,7 @@ import java.math.BigDecimal;
 import java.util.List;
 
 
-public class Site {
-
-	private Integer id;
+public class Site extends Entity {
 
 	private String description;
 
@@ -16,21 +14,11 @@ public class Site {
 
 	private BigDecimal longitude;
 
-	private String name;
-
 	private List<Comment> comments;
 
 	private List<Secteur> secteurs;
 
 	public Site() {
-	}
-
-	public Integer getId() {
-		return this.id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
 	}
 
 	public String getDescription() {
@@ -63,14 +51,6 @@ public class Site {
 
 	public void setLongitude(BigDecimal longitude) {
 		this.longitude = longitude;
-	}
-
-	public String getName() {
-		return this.name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
 	}
 
 	public List<Comment> getComments() {

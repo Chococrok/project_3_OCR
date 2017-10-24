@@ -1,3 +1,4 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -29,7 +30,7 @@
 			<div class="list">
 			 	<c:forEach items="${ secteur.comments }" var="comment" >
 			 	 	<div class="comment-item">
-			    			<p>${ comment.content }</p>
+			    			<p><c:out value="${ comment.content }"></c:out></p>
 			    			<p class="date">${ comment.timestamp }</p>
 		   			</div>
 				</c:forEach>

@@ -1,3 +1,4 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -42,13 +43,13 @@
 			<div class="list">
 			 	<c:forEach items="${ voie.comments }" var="comment" >
 			 	 	<div class="comment-item">
-			    			<p>${ comment.content }</p>
+			    			<p><c:out value="${ comment.content }"></c:out></p>
 			    			<p class="date">${ comment.timestamp }</p>
 		   			</div>
 				</c:forEach>
 			</div>
 			
-			<form method="post" action="secteur#comment">
+			<form method="post" action="voie#comment">
 		        <div class ="input">
 		            <label for="comment">Commentaire: </label>
 		            <textarea name="content" id="comment" placeholder="entrer un nouveau commentaire"></textarea>

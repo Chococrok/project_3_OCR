@@ -7,6 +7,15 @@
 	version="3.0">
 	
   <display-name>Archetype Created Web Application</display-name>
+  
+  <filter>
+		<filter-name>EncodingFilter</filter-name>
+		<filter-class>org.apache.catalina.filters.SetCharacterEncodingFilter</filter-class>
+		<init-param>
+			<param-name>encoding</param-name>
+      <param-value>UTF-8</param-value>
+		</init-param>
+	</filter>
 
   <servlet>
     <servlet-name>HomeServlet</servlet-name>
@@ -28,6 +37,12 @@
   	<servlet-name>SearchServlet</servlet-name>
   	<servlet-class>io.ab.controller.SearchServlet</servlet-class>
   </servlet>
+  
+  <filter-mapping>
+		<filter-name>EncodingFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+
   <servlet-mapping>
     <servlet-name>HomeServlet</servlet-name>
     <url-pattern>/home</url-pattern>

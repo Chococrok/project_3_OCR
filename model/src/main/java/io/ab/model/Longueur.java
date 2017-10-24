@@ -2,29 +2,17 @@ package io.ab.model;
 
 import java.util.List;
 
-public class Longueur {
-
-	private Integer id;
+public class Longueur extends Entity {
 
 	private Integer length;
 	
 	private String cotation;
-
-	private String name;
 
 	private List<Comment> comments;
 
 	private Voie voie;
 
 	public Longueur() {
-	}
-
-	public Integer getId() {
-		return this.id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
 	}
 
 	public Integer getLength() {
@@ -41,14 +29,6 @@ public class Longueur {
 
 	public void setCotation(String cotation) {
 		this.cotation = cotation;
-	}
-
-	public String getName() {
-		return this.name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
 	}
 
 	public List<Comment> getComments() {

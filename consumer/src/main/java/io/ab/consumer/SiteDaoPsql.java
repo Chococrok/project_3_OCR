@@ -8,6 +8,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.ab.model.Entity;
 import io.ab.model.Site;
 
 public class SiteDaoPsql implements SiteDao {
@@ -68,28 +69,53 @@ public class SiteDaoPsql implements SiteDao {
 		return site;
 	}
 	
-	public Site findOneByName(String name) {
-		Site site = new Site();
+	public List<Entity> findEntitiesByName(String name) {
+		List<Entity> entities = new ArrayList<Entity>();
 		try {
 			Connection connection = this.daoFactory.getConnection();
-			PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM site WHERE name = ?;");
-			preparedStatement.setString(1, name);
-			ResultSet result = preparedStatement.executeQuery();
+			PreparedStatement preparedStatement = connection.prepareStatement("SELECT id, name FROM site WHERE UPPER(name) LIKE UPPER(?)");
+			preparedStatement.setString(1, "%" + name + "%");
+			ResultSet results = preparedStatement.executeQuery();
 			
-			result.next();
-                
-            site.setName(result.getString("name"));
-            site.setId(result.getInt("id"));
-            site.setHowToFind(result.getString("how_to_find"));
-            site.setLatitude(result.getBigDecimal("lat"));
-            site.setLongitude(result.getBigDecimal("long"));
-            site.setDescription(result.getString("description"));
+			while (results.next()) {
+
+        		Entity entity = new Entity();
+        		entity.setId(results.getInt("id"));
+        		entity.setName(results.getString("name"));;
+
+        		entities.add(entity);
+			}
                 
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return site;
+		return entities;
+	}
+	
+	public List<Entity> findEntitiesByCotation(String cotation) {
+		List<Entity> entities = new ArrayList<Entity>();
+		try {
+			Connection connection = this.daoFactory.getConnection();
+			PreparedStatement preparedStatement = connection.prepareStatement(
+					"SELECT DISTINCT site.id, site.name FROM site INNER JOIN secteur ON (site.id = secteur.site_id) INNER JOIN voie ON (secteur.id = voie.secteur_id) WHERE UPPER(voie.name) LIKE UPPER(?);");
+			preparedStatement.setString(1, "%" + cotation + "%");
+			ResultSet results = preparedStatement.executeQuery();
+			
+			while (results.next()) {
+
+        		Entity entity = new Entity();
+        		entity.setId(results.getInt("id"));
+        		entity.setName(results.getString("name"));;
+
+        		entities.add(entity);
+			}
+                
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return entities;
 	}
 
 }

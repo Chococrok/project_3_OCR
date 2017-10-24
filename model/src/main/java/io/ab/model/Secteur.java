@@ -3,13 +3,9 @@ package io.ab.model;
 import java.util.List;
 
 
-public class Secteur {
-
-	private Integer id;
+public class Secteur extends Entity {
 
 	private String description;
-
-	private String name;
 
 	private List<Comment> comments;
 
@@ -20,28 +16,12 @@ public class Secteur {
 	public Secteur() {
 	}
 
-	public Integer getId() {
-		return this.id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
-	}
-
 	public String getDescription() {
 		return this.description;
 	}
 
 	public void setDescription(String description) {
 		this.description = description;
-	}
-
-	public String getName() {
-		return this.name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
 	}
 
 	public List<Comment> getComments() {

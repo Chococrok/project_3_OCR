@@ -7,6 +7,7 @@ import io.ab.consumer.DaoFactory;
 import io.ab.consumer.SecteurDao;
 import io.ab.consumer.SiteDao;
 import io.ab.model.Comment;
+import io.ab.model.Entity;
 import io.ab.model.Site;
 import java.sql.Timestamp;
 
@@ -37,14 +38,11 @@ public class SiteService {
 		this.commentDao.addOneBy(Comment.SITE_ID, siteId, content, new Timestamp(System.currentTimeMillis()));
 	}
 	
-	public Site findOneByName(String name) {
-		Site site = this.siteDao.findOneByName(name);
-		if (site.getId() == null) {
-			return site;
-		}
-		site.setComments(this.commentDao.findAllBy(Comment.SITE_ID, site.getId()));
-		site.setSecteurs(this.secteurDao.findAllBySite(site.getId()));
-		return site;
+	public List<Entity> findEntitiesByName(String name){
+		return this.siteDao.findEntitiesByName(name);
+	}
+	public List<Entity> findEntitiesByCotation(String cotation){
+		return this.siteDao.findEntitiesByCotation(cotation);
 	}
 
 }

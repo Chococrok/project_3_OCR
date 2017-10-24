@@ -5,8 +5,10 @@ import io.ab.consumer.DaoFactory;
 import io.ab.consumer.SecteurDao;
 import io.ab.consumer.VoieDao;
 import io.ab.model.Comment;
+import io.ab.model.Entity;
 import io.ab.model.Secteur;
 import java.sql.Timestamp;
+import java.util.List;
 
 public class SecteurService {
 	
@@ -29,6 +31,13 @@ public class SecteurService {
 	
 	public void addComment(int id, String content) {
 		this.commentDao.addOneBy(Comment.SECTEUR_ID, id, content, new Timestamp(System.currentTimeMillis()));
+	}
+	
+	public List<Entity> findEntitiesByName(String name){
+		return this.secteurDao.findEntitiesByName(name);
+	}
+	public List<Entity> findEntitiesByCotation(String cotation){
+		return this.secteurDao.findEntitiesByCotation(cotation);
 	}
 
 }
