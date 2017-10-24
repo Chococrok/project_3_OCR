@@ -34,9 +34,17 @@ INSERT INTO secteur (site_id, name, description) VALUES (1, 'Desert', 'Peu de gr
 
 INSERT INTO voie (secteur_id, name, length, point_number, cotation, description) VALUES (1, 'Jabba the Hutt', 60, 6, '6b+', 'Proinde concepta rabie saeviore, quam desperatio incendebat et fames, amplificatis viribus ardore incohibili in excidium urbium matris Seleuciae efferebantur, quam comes tuebatur Castricius tresque legiones bellicis sudoribus induratae.');
 INSERT INTO voie (secteur_id, name, length, point_number, cotation, description) VALUES (1, 'Théorème', 80, 6, '5a', 'Proinde concepta rabie saeviore, quam desperatio incendebat et fames, amplificatis viribus ardore incohibili in excidium urbium matris Seleuciae efferebantur, quam comes tuebatur Castricius tresque legiones bellicis sudoribus induratae.');
-INSERT INTO voie (secteur_id, name, length, point_number, cotation, description) VALUES (1, 'Belle nuit', 120, 6, '8a', 'Proinde concepta rabie saeviore, quam desperatio incendebat et fames, amplificatis viribus ardore incohibili in excidium urbium matris Seleuciae efferebantur, quam comes tuebatur Castricius tresque legiones bellicis sudoribus induratae.');
+INSERT INTO voie (secteur_id, name, length, point_number, cotation, description) VALUES (1, 'Belle nuit', 120, 6, '8a', 'Proinde concepta rabie saeviore, quam desperatio incendebat et fames, amplificatis viribus ardore incohibili in excidium urbium ma\tris Seleuciae efferebantur, quam comes tuebatur Castricius tresque legiones bellicis sudoribus induratae.');
 INSERT INTO voie (secteur_id, name, length, point_number, cotation, description) VALUES (1, 'Liane folle', 90, 6, '7b', 'Proinde concepta rabie saeviore, quam desperatio incendebat et fames, amplificatis viribus ardore incohibili in excidium urbium matris Seleuciae efferebantur, quam comes tuebatur Castricius tresque legiones bellicis sudoribus induratae.');
 
 INSERT INTO longueur (voie_id, name, length, cotation) VALUES (1, 'yoda', 20, '5a');
 INSERT INTO longueur (voie_id, name, length, cotation) VALUES (1, 'vador', 40, '6b+');
+
+INSERT INTO owner (first_name, last_name, email, password, phone_number) VALUES ('Jean-Luc', 'Mélenchon', 'jm@lfi.com', 'insoumis', '0718783722');
+
+INSERT INTO topo (site_id, name) VALUES (1, 'Tout sur Les Gorges de la Save Lespugue' );
+INSERT INTO topo (site_id, name) VALUES (1, 'Les Gorges de la Save Lespugue de A à Z' );
+
+INSERT INTO topo_owner (topo_id, owner_id) VALUES (1, 1);
+INSERT INTO topo_owner (topo_id, owner_id, available) VALUES (2, 1, false);
    
