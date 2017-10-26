@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import io.ab.business.VoieService;
 
-@WebServlet("/VoieServlet")
+@WebServlet("/voie")
 public class VoieServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        

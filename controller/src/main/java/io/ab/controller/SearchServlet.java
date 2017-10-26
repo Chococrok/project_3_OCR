@@ -11,7 +11,7 @@ import io.ab.business.SearchService;
 import io.ab.business.SiteService;
 import io.ab.model.Site;
 
-@WebServlet("/SearchServlet")
+@WebServlet("/search")
 public class SearchServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        

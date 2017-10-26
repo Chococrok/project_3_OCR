@@ -21,7 +21,7 @@ public class DaoFactory {
     public static DaoFactory getInstance() {
     		if (DAOFACTORY_INSTANCE == null) {
 	        try {
-	            Class.forName("com.mysql.jdbc.Driver");
+	            Class.forName("org.postgresql.Driver");
 	        } catch (ClassNotFoundException e) {
 	
 	        }
