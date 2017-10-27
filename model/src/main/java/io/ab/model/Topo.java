@@ -3,9 +3,9 @@ package io.ab.model;
 import java.util.List;
 
 
-public class Topo {
-
-	private Integer id;
+public class Topo extends Entity {
+	
+	private Site site;
 
 	private List<Comment> comments;
 
@@ -14,12 +14,12 @@ public class Topo {
 	public Topo() {
 	}
 
-	public Integer getId() {
-		return this.id;
+	public Site getSite() {
+		return site;
 	}
 
-	public void setId(Integer id) {
-		this.id = id;
+	public void setSite(Site site) {
+		this.site = site;
 	}
 
 	public List<Comment> getComments() {

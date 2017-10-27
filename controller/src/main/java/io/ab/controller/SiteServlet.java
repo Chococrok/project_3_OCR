@@ -18,7 +18,7 @@ public class SiteServlet extends HttpServlet {
 
 	@Override
     public void init() throws ServletException {
-    		siteService = new SiteService();
+    		siteService = new SiteService(this.getServletContext());
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

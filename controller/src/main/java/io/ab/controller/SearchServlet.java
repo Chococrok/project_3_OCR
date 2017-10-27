@@ -19,7 +19,7 @@ public class SearchServlet extends HttpServlet {
 
 	@Override
     public void init() throws ServletException {
-    		searchService = new SearchService();
+    		searchService = new SearchService(this.getServletContext());
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {	

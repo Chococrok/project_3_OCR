@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import io.ab.business.SiteService;
+import io.ab.consumer.DaoFactory;
 
 @WebServlet("/home")
 public class HomeServlet extends HttpServlet {
@@ -17,7 +18,7 @@ public class HomeServlet extends HttpServlet {
 
 	@Override
     public void init() throws ServletException {
-    		siteService = new SiteService();
+    		siteService = new SiteService(this.getServletContext());
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

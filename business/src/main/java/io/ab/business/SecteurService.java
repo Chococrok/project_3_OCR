@@ -10,16 +10,18 @@ import io.ab.model.Secteur;
 import java.sql.Timestamp;
 import java.util.List;
 
+import javax.servlet.ServletContext;
+
 public class SecteurService {
 	
 	private CommentDao commentDao;
 	private SecteurDao secteurDao;
 	private VoieDao voieDao;
 	
-	public SecteurService() {
-		this.commentDao = DaoFactory.getInstance().getCommentDao();
-		this.secteurDao = DaoFactory.getInstance().getSecteurDao();
-		this.voieDao = DaoFactory.getInstance().getVoieDao();
+	public SecteurService(ServletContext context) {
+		this.commentDao = ((DaoFactory) context.getAttribute(DaoFactory.ATT_DAO_FACTORY)).getCommentDao();
+		this.secteurDao = ((DaoFactory) context.getAttribute(DaoFactory.ATT_DAO_FACTORY)).getSecteurDao();
+		this.voieDao = ((DaoFactory) context.getAttribute(DaoFactory.ATT_DAO_FACTORY)).getVoieDao();
 	}
 
 	public Secteur findOneWithCommentsAndVoies(int id) {

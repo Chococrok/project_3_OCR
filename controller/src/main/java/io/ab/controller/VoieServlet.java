@@ -17,7 +17,7 @@ public class VoieServlet extends HttpServlet {
 
 	@Override
     public void init() throws ServletException {
-		voieService = new VoieService();
+		voieService = new VoieService(this.getServletContext());
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

@@ -2,6 +2,8 @@ package io.ab.business;
 
 import java.util.List;
 
+import javax.servlet.ServletContext;
+
 import io.ab.consumer.CommentDao;
 import io.ab.consumer.DaoFactory;
 import io.ab.consumer.SecteurDao;
@@ -17,10 +19,10 @@ public class SiteService {
 	private CommentDao commentDao;
 	private SecteurDao secteurDao;
 	
-	public SiteService() {
-		this.siteDao = DaoFactory.getInstance().getSiteDao();
-		this.commentDao = DaoFactory.getInstance().getCommentDao();
-		this.secteurDao = DaoFactory.getInstance().getSecteurDao();
+	public SiteService(ServletContext context) {
+		this.siteDao = ((DaoFactory) context.getAttribute(DaoFactory.ATT_DAO_FACTORY)).getSiteDao();
+		this.commentDao = ((DaoFactory) context.getAttribute(DaoFactory.ATT_DAO_FACTORY)).getCommentDao();
+		this.secteurDao = ((DaoFactory) context.getAttribute(DaoFactory.ATT_DAO_FACTORY)).getSecteurDao();
 	}
 
 	public List<Site> findAll() {

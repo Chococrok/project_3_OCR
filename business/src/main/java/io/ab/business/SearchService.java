@@ -5,6 +5,7 @@ import java.util.Enumeration;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 
 import io.ab.model.Entity;
@@ -23,10 +24,10 @@ public class SearchService {
 	private List<Entity> entities;
 	private String error;
 	
-	public SearchService() {
-		this.siteService = new SiteService();
-		this.voieService = new VoieService();
-		this.secteurService = new SecteurService();
+	public SearchService(ServletContext context) {
+		this.siteService = new SiteService(context);
+		this.voieService = new VoieService(context);
+		this.secteurService = new SecteurService(context);
 		
 	}
 	

@@ -14,6 +14,8 @@ public class Owner {
 	private String lastName;
 
 	private Integer phoneNumber;
+	
+	private String password;
 
 	private List<Topo> topos;
 
@@ -58,6 +60,14 @@ public class Owner {
 
 	public void setPhoneNumber(Integer phoneNumber) {
 		this.phoneNumber = phoneNumber;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
 	public List<Topo> getTopos() {

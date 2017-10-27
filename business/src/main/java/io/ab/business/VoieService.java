@@ -3,6 +3,8 @@ package io.ab.business;
 import java.sql.Timestamp;
 import java.util.List;
 
+import javax.servlet.ServletContext;
+
 import io.ab.consumer.CommentDao;
 import io.ab.consumer.DaoFactory;
 import io.ab.consumer.LongueurDao;
@@ -17,10 +19,10 @@ public class VoieService {
 	private LongueurDao longueurDao;
 	private VoieDao voieDao;
 	
-	public VoieService() {
-		this.commentDao = DaoFactory.getInstance().getCommentDao();
-		this.longueurDao = DaoFactory.getInstance().getLongueurDao();
-		this.voieDao = DaoFactory.getInstance().getVoieDao();
+	public VoieService(ServletContext context) {
+		this.commentDao = ((DaoFactory) context.getAttribute(DaoFactory.ATT_DAO_FACTORY)).getCommentDao();
+		this.longueurDao = ((DaoFactory) context.getAttribute(DaoFactory.ATT_DAO_FACTORY)).getLongueurDao();
+		this.voieDao = ((DaoFactory) context.getAttribute(DaoFactory.ATT_DAO_FACTORY)).getVoieDao();
 	}
 
 	public Voie findOneWithCommentsAndLongueurs(int id) {
