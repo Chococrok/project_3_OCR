@@ -87,4 +87,8 @@ public class DaoFactory implements ServletContextListener {
     public LongueurDao getLongueurDao() {
         return new LongueurDaoPsql(this);
     }
+    
+    public TopoDao getTopoDao() {
+    	return new TopoDaoPsql(this);
+    }
 }
