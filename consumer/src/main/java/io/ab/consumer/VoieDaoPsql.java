@@ -16,7 +16,7 @@ public class VoieDaoPsql implements VoieDao {
 	
 	private DaoFactory daoFactory;
 	
-	public VoieDaoPsql(DaoFactory daoFactory) {
+	VoieDaoPsql(DaoFactory daoFactory) {
 		this.daoFactory = daoFactory;
 	}
 	

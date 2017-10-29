@@ -1,11 +1,11 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
-	<%@ include file="/WEB-INF/jsp/style/global-style.jsp" %>
+<%@ include file="/WEB-INF/jsp/style/global-style.jsp"%>
 </head>
 <body>
-	<%@ include file="/WEB-INF/jsp/layout/header.jsp" %>
 	<div class="card">
 		<div class="card-header">
 			<h2>${ secteur.name }</h2>
@@ -14,38 +14,38 @@
 		<div class="card-content">
 			<h3>Les voies de ce secteur:</h3>
 			<form action="voie" method="get" class="list">
-			 	<c:forEach items="${ secteur.voies }" var="voie" >
-			 	 	<div>
-			    			<p>${ voie.name } (${ voie.cotation }, ${ voie.length }m)</p>
-			    			<button type="submit" name="id" value="${ voie.id }">
-							<i class="material-icons">&#xE88F;</i>
-							<span>informations</span>
-						</button>
-		   			</div>
+				<c:forEach items="${ secteur.voies }" var="voie">
+					<div class="clickable"
+						onClick="navigate('voie?id=${ voie.id }')">
+						<p>${ voie.name }(${ voie.cotation }, ${ voie.length }m)</p>
+						<i class="material-icons">&#xE315;</i>
+					</div>
 				</c:forEach>
 			</form>
 
-			
+
 			<h3>Commentaires:</h3>
 			<div class="list">
-			 	<c:forEach items="${ secteur.comments }" var="comment" >
-			 	 	<div class="comment-item">
-			    			<p><c:out value="${ comment.content }"></c:out></p>
-			    			<p class="date">${ comment.timestamp }</p>
-		   			</div>
+				<c:forEach items="${ secteur.comments }" var="comment">
+					<div class="comment-item">
+						<p>
+							<c:out value="${ comment.content }"></c:out>
+						</p>
+						<p class="date">${ comment.timestamp }</p>
+					</div>
 				</c:forEach>
 			</div>
-			
+
 			<form method="post" action="secteur#comment">
-		        <div class ="input">
-		            <label for="comment">Commentaire: </label>
-		            <textarea type="text" name="content" id="comment" placeholder="entrer un nouveau commentaire"></textarea>
-		            <input type="hidden" name="id" value="${ secteur.id }"/>
-        		        <input type="submit" />
-		        </div>
-		    </form>
+				<div class="input">
+					<label for="comment">Commentaire: </label>
+					<textarea type="text" name="content" id="comment"
+						placeholder="entrer un nouveau commentaire"></textarea>
+					<input type="hidden" name="id" value="${ secteur.id }" /> <input
+						type="submit" />
+				</div>
+			</form>
 		</div>
 	</div>
-	<%@ include file="/WEB-INF/jsp/layout/footer.jsp" %>
 </body>
 </html>

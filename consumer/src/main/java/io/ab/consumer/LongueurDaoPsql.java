@@ -12,7 +12,7 @@ public class LongueurDaoPsql implements LongueurDao {
 	
 	private DaoFactory daoFactory;
 	
-	public LongueurDaoPsql(DaoFactory daoFactory) {
+	LongueurDaoPsql(DaoFactory daoFactory) {
 		this.daoFactory = daoFactory;
 	}
 	

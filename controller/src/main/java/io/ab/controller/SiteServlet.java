@@ -14,7 +14,7 @@ import io.ab.model.Site;
 public class SiteServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-	SiteService siteService;
+	private SiteService siteService;
 
 	@Override
     public void init() throws ServletException {

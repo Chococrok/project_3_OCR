@@ -21,7 +21,7 @@ INSERT INTO
 INSERT INTO 
     comment (site_id, content, time_stamp) 
     VALUES(1,
-    'j''ai adoré ce spot. Les voies sont longues mais les prises sont plutôt bonne. Parfait pour un débutant.',
+    'j''ai adoré ce spot. Les voies sont longues mais les prises sont plutôt bonnes. Parfait pour un débutant.',
     '1999-01-08 04:05:06');
 INSERT INTO 
     comment (site_id, content, time_stamp) 
@@ -41,10 +41,12 @@ INSERT INTO longueur (voie_id, name, length, cotation) VALUES (1, 'yoda', 20, '5
 INSERT INTO longueur (voie_id, name, length, cotation) VALUES (1, 'vador', 40, '6b+');
 
 INSERT INTO owner (first_name, last_name, email, password, phone_number) VALUES ('Jean-Luc', 'Mélenchon', 'jm@lfi.com', 'insoumis', '0718783722');
+INSERT INTO owner (first_name, last_name, email, password, phone_number) VALUES ('François', 'Hollande', 'fh@ps.com', 'social', '0758685724');
 
 INSERT INTO topo (site_id, name) VALUES (1, 'Tout sur Les Gorges de la Save Lespugue' );
 INSERT INTO topo (site_id, name) VALUES (1, 'Les Gorges de la Save Lespugue de A à Z' );
 
 INSERT INTO topo_owner (topo_id, owner_id) VALUES (1, 1);
+INSERT INTO topo_owner (topo_id, owner_id, available) VALUES (1, 2, false); 
 INSERT INTO topo_owner (topo_id, owner_id, available) VALUES (2, 1, false);
    

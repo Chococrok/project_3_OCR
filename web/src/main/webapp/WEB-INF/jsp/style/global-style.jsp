@@ -1,7 +1,6 @@
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
-      rel="stylesheet">
+	rel="stylesheet">
 <style>
-
 body {
 	font-family: Verdana, Geneva, sans-serif;
 	min-height: 100vh;
@@ -11,7 +10,7 @@ body {
 	flex-direction: column;
 	justify-content: space-between;
 	align-items: center;
-    background-color: #f1f1f1;
+	background-color: #f1f1f1;
 }
 
 header {
@@ -21,23 +20,23 @@ header {
 }
 
 h1 {
-    	font-weight: normal;
-    font-size: 4em;
-    -webkit-margin-after: 0;
-    -webkit-margin-before: 0;
+	font-weight: normal;
+	font-size: 4em;
+	-webkit-margin-after: 0;
+	-webkit-margin-before: 0;
 }
 
 h2 {
-    font-weight: normal;
-    text-decoration: underline;
+	font-weight: normal;
+	text-decoration: underline;
 }
 
 h3 {
-    margin-top: 2.5em;
+	margin-top: 2.5em;
 }
 
 a {
-    margin: 0.5em 1em 0 1em;
+	margin: 0.5em 1em 0 1em;
 	color: #966969;
 	text-decoration: none;
 }
@@ -47,94 +46,133 @@ a:hover {
 }
 
 nav {
-    display: flex;
-    align-items: baseline;
-    justify-content: flex-start;
+	display: flex;
+	align-items: baseline;
+	justify-content: space-between;
 }
 
-button {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    border: 0;
-    border-radius: 5px;
-    padding: 1em;
-    background-color: #966969;
+.sub-nav {
+	display: flex;
+	align-items: baseline;
 }
-button:hover {
-	background-color: #999999;
-}
-button:active {
-  	transform: translateY(4px);
-}
-button:focus {
-	background-color: #755252;
+
+i {
+	font-size: 3em !important;
+	align-self: center;
+	color: #966969;
 }
 
 td {
-    padding: 0 5em 1em 0;
+	text-align: left;
+	padding: 0 5em 1em 0;
 }
 
+.true {
+	color: green;
+}
+
+.false {
+	color: red;
+}
 
 .margin {
 	margin: 2.5em;
 }
 
-.card {
-    margin: 5em 10em;
-    min-width: 50%;
+.card-container {
 	display: flex;
-    flex-direction: column;
-    box-shadow: 5px 5px 20px 0px #888888;
+	flex-wrap: wrap;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+}
+
+.card {
+	margin: 5em 10em;
+	min-width: 50%;
+	display: flex;
+	flex-direction: column;
+	box-shadow: 5px 5px 20px 0px #888888;
 	background-color: white;
-   
 }
 
 .card-header {
-    padding: 3em;
-    padding-bottom: 0;
-}.card-content {
-    padding: 2.5em 5em;
-}.card-content > *:first-child {
-	margin-top:0;
+	padding: 2em 3em;
+	padding-bottom: 0;
+}
+
+.card-content {
+	padding: 2.5em 5em;
+}
+
+.card-content>*:first-child {
+	margin-top: 0;
+}
+
+.topo {
+	min-width: unset;
+	width: 25%;
+	margin: 2em;
 }
 
 .description {
-    font-style: italic;
-    color: #888888;
-    font-size: 0.9em;
+	font-style: italic;
+	color: #888888;
+	font-size: 0.9em;
 }
 
-.list > * {
-    padding: 1em;
-    text-align: center;
-    display: flex;
-    border-bottom: 1px solid black;
-    justify-content: space-between;
-}.list > *:last-child {
+.list>* {
+	padding: 1em;
+	text-align: center;
+	display: flex;
+	border-bottom: 1px solid black;
+	justify-content: space-between;
+}
+
+.list>*:last-child {
 	border-bottom: none;
 }
 
-
 .comment-item {
-    flex-direction: column;
-    text-align: start;
-}.date {
-   	text-align: end;
-    font-size: 0.75em;
-	color: #888888;;
-    margin: 0;
+	flex-direction: column;
+	text-align: start;
 }
 
+.date {
+	text-align: end;
+	font-size: 0.75em;
+	color: #888888;;
+	margin: 0;
+}
 
 .input {
-    display: flex;
-    flex-direction: column;
-    margin: 1.5em;
-} .input > textarea {
+	display: flex;
+	flex-direction: column;
+	margin: 1.5em;
+}
+
+.input>textarea {
 	height: 5em;
-} .input > input {
+}
+
+.input>input {
 	width: 5em;
 }
 
+.clickable {
+	display: flex;
+	justify-content: space-between;
+}
+
+.clickable:hover {
+	background-color: #f0f0f0;
+}
+
+.clickable:active {
+	transform: translateY(4px);
+}
+
+.clickable:hover>i {
+	color: #999999;
+}
 </style>

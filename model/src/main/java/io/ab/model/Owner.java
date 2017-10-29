@@ -13,11 +13,13 @@ public class Owner {
 
 	private String lastName;
 
-	private Integer phoneNumber;
+	private String phoneNumber;
 	
 	private String password;
 
 	private List<Topo> topos;
+	
+	private boolean topoAvailable;
 
 	public Owner() {
 	}
@@ -54,11 +56,11 @@ public class Owner {
 		this.lastName = lastName;
 	}
 
-	public Integer getPhoneNumber() {
+	public String getPhoneNumber() {
 		return this.phoneNumber;
 	}
 
-	public void setPhoneNumber(Integer phoneNumber) {
+	public void setPhoneNumber(String phoneNumber) {
 		this.phoneNumber = phoneNumber;
 	}
 
@@ -84,6 +86,14 @@ public class Owner {
 
 	public void removeTopo(Topo topo) {
 		getTopos().remove(topo);
+	}
+
+	public boolean isTopoAvailable() {
+		return topoAvailable;
+	}
+
+	public void setTopoAvailable(boolean isTopoAvailable) {
+		this.topoAvailable = isTopoAvailable;
 	}
 
 }

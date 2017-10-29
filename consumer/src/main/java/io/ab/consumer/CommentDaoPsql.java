@@ -15,7 +15,7 @@ public class CommentDaoPsql implements CommentDao {
 	
 	private DaoFactory daoFactory;
 	
-	public CommentDaoPsql(DaoFactory daoFactory) {
+	CommentDaoPsql(DaoFactory daoFactory) {
 		this.daoFactory = daoFactory;
 	}
 	

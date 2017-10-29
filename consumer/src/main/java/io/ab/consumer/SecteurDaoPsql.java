@@ -16,7 +16,7 @@ public class SecteurDaoPsql implements SecteurDao {
 	
 	private DaoFactory daoFactory;
 
-	public SecteurDaoPsql(DaoFactory daoFactory) {
+	SecteurDaoPsql(DaoFactory daoFactory) {
 		this.daoFactory = daoFactory;
 	}
 

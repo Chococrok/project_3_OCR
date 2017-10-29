@@ -15,7 +15,7 @@ public class SiteDaoPsql implements SiteDao {
 	
 	private DaoFactory daoFactory;
 	
-	public SiteDaoPsql(DaoFactory daoFactory) {
+	SiteDaoPsql(DaoFactory daoFactory) {
 		this.daoFactory = daoFactory;
 	}
 
@@ -50,8 +50,9 @@ public class SiteDaoPsql implements SiteDao {
 		Site site = new Site();
 		try {
 			Connection connection = this.daoFactory.getConnection();
-			Statement statement = connection.createStatement();
-			ResultSet result = statement.executeQuery(String.format("SELECT * FROM site WHERE id = %d;", id));
+			PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM site WHERE id = ?;");
+			preparedStatement.setInt(1, id);
+			ResultSet result = preparedStatement.executeQuery();
 			
 			result.next();
                 

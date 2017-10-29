@@ -1,11 +1,11 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
-	<%@ include file="/WEB-INF/jsp/style/global-style.jsp" %>
+<%@ include file="/WEB-INF/jsp/style/global-style.jsp"%>
 </head>
 <body>
-	<%@ include file="/WEB-INF/jsp/layout/header.jsp" %>
 	<div class="card">
 		<div class="card-header">
 			<h2>${ voie.name }</h2>
@@ -13,52 +13,54 @@
 		</div>
 		<div class="card-content">
 			<h3>Description:</h3>
-				<table>
-					<tr>
-						<td>Longueur de la voie:</td>
-						<td>${ voie.length }</td>
-					</tr>
-					<tr>
-						<td>Nombre de points:</td>
-						<td>${ voie.pointNumber }</td>
-					</tr>
-					<tr>
-						<td>Cotation:</td>
-						<td>${ voie.cotation }</td>
-					</tr>
-				</table>	
-				
+			<table>
+				<tr>
+					<td>Longueur de la voie:</td>
+					<td>${ voie.length }</td>
+				</tr>
+				<tr>
+					<td>Nombre de points:</td>
+					<td>${ voie.pointNumber }</td>
+				</tr>
+				<tr>
+					<td>Cotation:</td>
+					<td>${ voie.cotation }</td>
+				</tr>
+			</table>
+
 			<h3>Les longueurs de ${ voie.name }</h3>
 			<div class="list">
-			 	<c:forEach items="${ voie.longueurs }" var="longueur" >
-			 	 	<div class="comment-item">
-			    			<p>${ longueur.name }</p>
-			    			<p class="date">${ longueur.length }</p>
-			    			<p class="date">${ longueur.cotation }</p>
-		   			</div>
+				<c:forEach items="${ voie.longueurs }" var="longueur">
+					<div class="comment-item">
+						<p>${ longueur.name }</p>
+						<p class="date">${ longueur.length }</p>
+						<p class="date">${ longueur.cotation }</p>
+					</div>
 				</c:forEach>
 			</div>
-			
+
 			<h3>Commentaires:</h3>
 			<div class="list">
-			 	<c:forEach items="${ voie.comments }" var="comment" >
-			 	 	<div class="comment-item">
-			    			<p><c:out value="${ comment.content }"></c:out></p>
-			    			<p class="date">${ comment.timestamp }</p>
-		   			</div>
+				<c:forEach items="${ voie.comments }" var="comment">
+					<div class="comment-item">
+						<p>
+							<c:out value="${ comment.content }"></c:out>
+						</p>
+						<p class="date">${ comment.timestamp }</p>
+					</div>
 				</c:forEach>
 			</div>
-			
+
 			<form method="post" action="voie#comment">
-		        <div class ="input">
-		            <label for="comment">Commentaire: </label>
-		            <textarea name="content" id="comment" placeholder="entrer un nouveau commentaire"></textarea>
-		            <input type="hidden" name="id" value="${ voie.id }"/>
-        		        <input type="submit" />
-		        </div>
-		    </form>
+				<div class="input">
+					<label for="comment">Commentaire: </label>
+					<textarea name="content" id="comment"
+						placeholder="entrer un nouveau commentaire"></textarea>
+					<input type="hidden" name="id" value="${ voie.id }" /> <input
+						type="submit" />
+				</div>
+			</form>
 		</div>
 	</div>
-	<%@ include file="/WEB-INF/jsp/layout/footer.jsp" %>
 </body>
 </html>

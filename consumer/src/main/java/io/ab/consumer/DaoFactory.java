@@ -91,4 +91,8 @@ public class DaoFactory implements ServletContextListener {
     public TopoDao getTopoDao() {
     	return new TopoDaoPsql(this);
     }
+    
+    public OwnerDao getOwnerDao() {
+    	return new OwnerDaoPsql(this);
+    }
 }
