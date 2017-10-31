@@ -19,11 +19,14 @@ header {
 	color: #b7b7b7;
 }
 
+.header-content {
+	margin: 0 5em;
+}
+
 h1 {
 	font-weight: normal;
 	font-size: 4em;
-	-webkit-margin-after: 0;
-	-webkit-margin-before: 0;
+	margin-bottom: 0.25em;
 }
 
 h2 {
@@ -36,7 +39,7 @@ h3 {
 }
 
 a {
-	margin: 0.5em 1em 0 1em;
+	margin: 1em 1em 0 1em;
 	color: #966969;
 	text-decoration: none;
 }
@@ -65,6 +68,10 @@ i {
 td {
 	text-align: left;
 	padding: 0 5em 1em 0;
+}
+
+button {
+	margin: auto;
 }
 
 .true {
@@ -103,6 +110,8 @@ td {
 
 .card-content {
 	padding: 2.5em 5em;
+	display: flex;
+	flex-direction: column;
 }
 
 .card-content>*:first-child {
@@ -133,7 +142,7 @@ td {
 	border-bottom: none;
 }
 
-.comment-item {
+.list-item-column {
 	flex-direction: column;
 	text-align: start;
 }
@@ -174,5 +183,11 @@ td {
 
 .clickable:hover>i {
 	color: #999999;
+}
+
+.editable {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
 }
 </style>

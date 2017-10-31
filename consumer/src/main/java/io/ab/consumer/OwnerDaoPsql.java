@@ -38,7 +38,6 @@ public class OwnerDaoPsql implements OwnerDao {
 				owner.setFirstName(results.getString("first_name"));
 				owner.setLastName(results.getString("last_name"));
 				owner.setEmail(results.getString("email"));
-				owner.setPassword(results.getString("password"));
 				owner.setPhoneNumber(results.getString("phone_number"));
 				owner.setTopoAvailable(results.getBoolean("available"));
 
@@ -49,6 +48,95 @@ public class OwnerDaoPsql implements OwnerDao {
 			e.printStackTrace();
 		}
 		return owners;
+	}
+
+	@Override
+	public Owner findOneById(int id) {
+		Owner owner = new Owner();
+		try {
+			Connection connection = this.daoFactory.getConnection();
+			PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM owner WHERE id = ?;");
+			preparedStatement.setInt(1, id);
+			ResultSet result = preparedStatement.executeQuery();
+
+			result.next();
+
+			owner.setId(result.getInt("id"));
+			owner.setFirstName(result.getString("first_name"));
+			owner.setLastName(result.getString("last_name"));
+			owner.setEmail(result.getString("email"));
+			owner.setPhoneNumber(result.getString("phone_number"));
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return owner;
+	}
+	
+	@Override
+	public Owner findOneByEmail(String email) {
+		Owner owner = new Owner();
+		try {
+			Connection connection = this.daoFactory.getConnection();
+			PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM owner WHERE email = ?;");
+			preparedStatement.setString(1, email);
+			ResultSet result = preparedStatement.executeQuery();
+
+			result.next();
+
+			owner.setId(result.getInt("id"));
+			owner.setFirstName(result.getString("first_name"));
+			owner.setLastName(result.getString("last_name"));
+			owner.setEmail(result.getString("email"));
+			owner.setPhoneNumber(result.getString("phone_number"));
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return owner;
+	}
+
+	@Override
+	public boolean exists(String email) {
+		boolean exists = false;
+		try {
+			Connection connection = this.daoFactory.getConnection();
+			PreparedStatement preparedStatement = connection
+					.prepareStatement("SELECT EXISTS (SELECT email FROM owner WHERE email = ?);");
+			preparedStatement.setString(1, email);
+			ResultSet result = preparedStatement.executeQuery();
+			
+			result.next();
+			
+			exists = result.getBoolean(1);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return exists;
+	}
+	
+	@Override
+	public boolean checkPassword(String email, String password) {
+		boolean match = false;
+		try {
+			Connection connection = this.daoFactory.getConnection();
+			PreparedStatement preparedStatement = connection
+					.prepareStatement("SELECT (password = ?) AS match FROM owner where email = ?  ;");
+			preparedStatement.setString(1, password);
+			preparedStatement.setString(2, email);
+			ResultSet result = preparedStatement.executeQuery();
+			
+			result.next();
+			
+			match = result.getBoolean(1);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return match;
 	}
 
 }

@@ -99,7 +99,7 @@ public class SiteDaoPsql implements SiteDao {
 		try {
 			Connection connection = this.daoFactory.getConnection();
 			PreparedStatement preparedStatement = connection.prepareStatement(
-					"SELECT DISTINCT site.id, site.name FROM site INNER JOIN secteur ON (site.id = secteur.site_id) INNER JOIN voie ON (secteur.id = voie.secteur_id) WHERE UPPER(voie.name) LIKE UPPER(?);");
+					"SELECT DISTINCT site.id, site.name FROM site INNER JOIN secteur ON (site.id = secteur.site_id) INNER JOIN voie ON (secteur.id = voie.secteur_id) WHERE UPPER(voie.cotation) LIKE UPPER(?);");
 			preparedStatement.setString(1, "%" + cotation + "%");
 			ResultSet results = preparedStatement.executeQuery();
 			

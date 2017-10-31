@@ -16,7 +16,7 @@
 			<table>
 				<tr>
 					<td>Longueur de la voie:</td>
-					<td>${ voie.length }</td>
+					<td>${ voie.length } m</td>
 				</tr>
 				<tr>
 					<td>Nombre de points:</td>
@@ -31,9 +31,9 @@
 			<h3>Les longueurs de ${ voie.name }</h3>
 			<div class="list">
 				<c:forEach items="${ voie.longueurs }" var="longueur">
-					<div class="comment-item">
+					<div class="list-item-column">
 						<p>${ longueur.name }</p>
-						<p class="date">${ longueur.length }</p>
+						<p class="date">${ longueur.length } m</p>
 						<p class="date">${ longueur.cotation }</p>
 					</div>
 				</c:forEach>
@@ -42,7 +42,7 @@
 			<h3>Commentaires:</h3>
 			<div class="list">
 				<c:forEach items="${ voie.comments }" var="comment">
-					<div class="comment-item">
+					<div class="list-item-column">
 						<p>
 							<c:out value="${ comment.content }"></c:out>
 						</p>

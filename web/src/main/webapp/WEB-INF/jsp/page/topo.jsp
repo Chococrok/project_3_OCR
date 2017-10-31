@@ -45,7 +45,7 @@
 			<h3>Commentaires:</h3>
 			<div class="list">
 				<c:forEach items="${ requestScope.topo.comments }" var="comment">
-					<div class="comment-item">
+					<div class="list-item-column">
 						<p>
 							<c:out value="${ comment.content }"></c:out>
 						</p>

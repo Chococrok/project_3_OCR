@@ -16,6 +16,7 @@ public class TopoDaoPsql implements TopoDao {
 	public static final String NAME = "name";
 	public static final String ID = "id";
 	public static final String SITE_ID = "site_id";
+	public static final String AVAILABLE = "available";
 
 	private DaoFactory daoFactory;
 
@@ -73,11 +74,39 @@ public class TopoDaoPsql implements TopoDao {
 			site.setId(result.getInt(SITE_ID));
 			topo.setSite(site);
 
-
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return topo;
+	}
+
+	@Override
+	public List<Topo> findAllByOwner(int id) {
+		List<Topo> topos = new ArrayList<Topo>();
+		try {
+			Connection connection = this.daoFactory.getConnection();
+			PreparedStatement preparedStatement = connection.prepareStatement(
+					"SELECT topo.*, topo_owner.available FROM topo INNER JOIN topo_owner ON (topo_owner.owner_id = 1) WHERE topo.id =  topo_owner.topo_id;");
+			ResultSet results = preparedStatement.executeQuery();
+			
+			while (results.next()) {
+
+				Topo topo = new Topo();
+
+				topo.setName(results.getString(NAME));
+				topo.setId(results.getInt(ID));
+				Site site = new Site();
+				site.setId(results.getInt(SITE_ID));
+				topo.setSite(site);
+				topo.setAvailable(results.getBoolean(AVAILABLE));
+
+				topos.add(topo);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return topos;
 	}
 }

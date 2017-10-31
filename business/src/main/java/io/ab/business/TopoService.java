@@ -30,6 +30,14 @@ public class TopoService {
 		return topos;
 	}
 	
+	public List<Topo> findAllByOwner(int id) {
+		List<Topo> topos = this.topoDao.findAllByOwner(id);
+		for(Topo topo: topos) {
+			topo.setSite(this.siteDao.findOne(topo.getSite().getId()));
+		}
+		return topos;
+	}
+	
 	public Topo findOneWithOwners(int id) {
 		Topo topo = this.topoDao.findOne(id);
 		topo.setOwners(this.ownerDao.findByTopo(id));

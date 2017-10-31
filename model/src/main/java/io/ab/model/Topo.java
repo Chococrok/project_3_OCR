@@ -10,6 +10,8 @@ public class Topo extends Entity {
 	private List<Comment> comments;
 
 	private List<Owner> owners;
+	
+	private boolean available;
 
 	public Topo() {
 	}
@@ -58,6 +60,14 @@ public class Topo extends Entity {
 
 	public void removeOwner(Owner owner) {
 		getOwners().remove(owner);
+	}
+
+	public boolean isAvailable() {
+		return available;
+	}
+
+	public void setAvailable(boolean available) {
+		this.available = available;
 	}
 
 }

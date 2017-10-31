@@ -95,5 +95,9 @@ public class Owner {
 	public void setTopoAvailable(boolean isTopoAvailable) {
 		this.topoAvailable = isTopoAvailable;
 	}
+	
+	public String getFullName() {
+		return String.format("%1s %2s", this.firstName, this.lastName);
+	}
 
 }

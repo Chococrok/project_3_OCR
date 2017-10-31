@@ -1,4 +1,4 @@
-package io.ab.controller;
+package io.ab.controller.servlet;
 
 import java.io.IOException;
 

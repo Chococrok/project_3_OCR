@@ -8,4 +8,5 @@ public interface TopoDao {
 	public List<Topo> findAll();
 	public Topo findOne(int id);
 	public void addOne(int siteId, String name);
+	public List<Topo> findAllByOwner(int id);
 }

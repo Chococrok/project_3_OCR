@@ -1,10 +1,22 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <nav>
 	<div class="sub-nav">
 		<a href="home">Accueil</a>
 		<p>/</p>
-		<a href="topo">Topos</a>
-		<p>/</p>
 		<a href="search">Recherche</a>
+		<p>/</p>
+		<a href="topo">PrÃªt de topos</a>
 	</div>
-	<a href="owner">Espace Propriétaire</a>
+
+	<c:choose>
+		<c:when test="${ empty sessionScope.owner }">
+			<a href="owner">Connexion</a>
+		</c:when>
+
+		<c:otherwise>
+			<a href="owner"><c:out value=" Mon espace (${ sessionScope.owner.fullName })" /></a>
+		</c:otherwise>
+	</c:choose>
+
 </nav>
