@@ -1,5 +1,5 @@
 <script>
-	function edit(value) {
+	function editAvailability(value) {
 		var input = document.getElementById('input' + value);
 		var button = document.getElementById('button' + value);
 		var available = document.getElementById('available' + value);
@@ -12,6 +12,22 @@
 
 		input.disabled = true;
 		available.value = input.checked;
+		toggleText(button);
+	}
+	
+	function editPersonalData(value) {
+		var input = document.getElementById('input' + value);
+		var button = document.getElementById('button' + value);
+		var hidden = document.getElementById('hidden' + value);
+
+		if (input.disabled) {
+			input.disabled = false;
+			toggleText(button);
+			return false;
+		}
+
+		hidden.value = input.value;
+		input.disabled = true;
 		toggleText(button);
 	}
 

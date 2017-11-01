@@ -10,18 +10,40 @@
 <body>
 	<div class="card">
 		<div class="card-header">
-			<h2>sessionScope.owner.fullName</h2>
+			<h2>${ sessionScope.owner.fullName }</h2>
 		</div>
 		<div class="card-content">
 			<table>
-					<tr>
-						<td>Email:</td>
-						<td><c:out value="${ sessionScope.owner.email }"></c:out></td>
-					</tr>
-					<tr>
-						<td>Téléphone:</td>
-						<td><c:out value="${ sessionScope.owner.phoneNumber }"></c:out></td>
-					</tr>
+				<tr>
+					<td>Email:</td>
+					<td>
+						<form id="formEmail" action="owner" method="post">
+							<input type="email" id="inputEmail"
+								value="<c:out value="${ sessionScope.owner.email }"/>" disabled />
+							<input type="hidden" id="hiddenEmail" name="email" />
+						</form>
+					</td>
+					<td>
+						<button form="formEmail" type="submit" id="buttonEmail"
+							name="action" value="email"
+							onClick="return editPersonalData('Email')">editer</button>
+					</td>
+				</tr>
+				<tr>
+					<td>Téléphone:</td>
+					<td>
+						<form id="formPhone" action="owner" method="post">
+							<input type="text" id="inputPhone"
+								value="<c:out value="${ sessionScope.owner.phoneNumber }"/>" disabled />
+							<input type="hidden" id="hiddenPhone" name="phone" />
+						</form>
+					</td>
+					<td>
+						<button form="formPhone" type="submit" id="buttonPhone"
+							name="action" value="phone"
+							onClick="return editPersonalData('Phone')">editer</button>
+					</td>
+				</tr>
 			</table>
 		</div>
 	</div>
@@ -45,12 +67,13 @@
 								value="${ topo.id }" />
 						</div>
 						<button type="submit" id="button${ topo.id }" name="action"
-							value="updateAvailability" onClick="return edit(${ topo.id })">editer</button>
+							value="availability"
+							onClick="return editAvailability(${ topo.id })">editer</button>
 					</form>
 				</div>
 			</c:forEach>
 		</div>
 	</div>
-	<%@ include file="/WEB-INF/jsp/javascript/availability-edit.jsp"%>
+	<%@ include file="/WEB-INF/jsp/javascript/edit.jsp"%>
 </body>
 </html>

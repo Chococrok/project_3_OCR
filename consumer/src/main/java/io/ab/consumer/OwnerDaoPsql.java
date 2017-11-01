@@ -97,7 +97,7 @@ public class OwnerDaoPsql implements OwnerDao {
 		}
 		return owner;
 	}
-	
+
 	@Override
 	public Owner findOneByEmail(String email) {
 		Owner owner = new Owner();
@@ -142,13 +142,12 @@ public class OwnerDaoPsql implements OwnerDao {
 		ResultSet result = null;
 		try {
 			connection = this.daoFactory.getConnection();
-			preparedStatement = connection
-					.prepareStatement("SELECT EXISTS (SELECT email FROM owner WHERE email = ?);");
+			preparedStatement = connection.prepareStatement("SELECT EXISTS (SELECT email FROM owner WHERE email = ?);");
 			preparedStatement.setString(1, email);
 			result = preparedStatement.executeQuery();
-			
+
 			result.next();
-			
+
 			exists = result.getBoolean(1);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -165,7 +164,7 @@ public class OwnerDaoPsql implements OwnerDao {
 		}
 		return exists;
 	}
-	
+
 	@Override
 	public boolean checkPassword(String email, String password) {
 		boolean match = false;
@@ -175,13 +174,13 @@ public class OwnerDaoPsql implements OwnerDao {
 		try {
 			connection = this.daoFactory.getConnection();
 			preparedStatement = connection
-					.prepareStatement("SELECT (password = ?) AS match FROM owner where email = ?  ;");
+					.prepareStatement("SELECT (password = ?) AS match FROM owner WHERE email = ?;");
 			preparedStatement.setString(1, password);
 			preparedStatement.setString(2, email);
 			result = preparedStatement.executeQuery();
-			
+
 			result.next();
-			
+
 			match = result.getBoolean(1);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -197,6 +196,54 @@ public class OwnerDaoPsql implements OwnerDao {
 			}
 		}
 		return match;
+	}
+
+	@Override
+	public void updateEmail(String email, int id) {
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		try {
+			connection = this.daoFactory.getConnection();
+			preparedStatement = connection.prepareStatement("UPDATE owner SET email = ?  WHERE id = ?;");
+			preparedStatement.setString(1, email);
+			preparedStatement.setInt(2, id);
+			preparedStatement.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			try {
+				connection.close();
+				preparedStatement.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	}
+
+	@Override
+	public void updatePhone(String phone, int id) {
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		try {
+			connection = this.daoFactory.getConnection();
+			preparedStatement = connection.prepareStatement("UPDATE owner SET phone_number = ?  WHERE id = ?;");
+			preparedStatement.setString(1, phone);
+			preparedStatement.setInt(2, id);
+			preparedStatement.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			try {
+				connection.close();
+				preparedStatement.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 	}
 
 }

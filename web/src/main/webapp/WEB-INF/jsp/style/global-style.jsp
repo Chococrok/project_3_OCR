@@ -95,8 +95,9 @@ button {
 }
 
 .card {
-	margin: 5em 10em;
+	margin: 1em;
 	min-width: 50%;
+	max-width: 85%;
 	display: flex;
 	flex-direction: column;
 	box-shadow: 5px 5px 20px 0px #888888;

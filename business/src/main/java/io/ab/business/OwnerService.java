@@ -20,6 +20,17 @@ public class OwnerService {
 		return this.ownerDao.findOneByEmail(email);
 	}
 	
+	public Owner findOneById(int id) {
+		return this.ownerDao.findOneById(id);
+	}
+	
+	public void updateEmail(String email, int id) {
+		this.ownerDao.updateEmail(email, id);
+	}
+	public void updatePhone(String phone, int id) {
+		this.ownerDao.updatePhone(phone, id);
+	}
+	
 	public void signInOwner(HttpServletRequest request) {
 		this.error = null;
 		String email = request.getParameter("email");

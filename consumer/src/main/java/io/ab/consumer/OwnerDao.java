@@ -10,4 +10,6 @@ public interface OwnerDao {
 	public List<Owner> findByTopo(int id);
 	public boolean exists(String email);
 	public boolean checkPassword(String email, String password);
+	public void updateEmail(String email, int id);
+	public void updatePhone(String phone, int id);
 }
