@@ -27,10 +27,13 @@ public class TopoDaoPsql implements TopoDao {
 	@Override
 	public List<Topo> findAll() {
 		List<Topo> topos = new ArrayList<Topo>();
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet results = null;
 		try {
-			Connection connection = this.daoFactory.getConnection();
-			Statement statement = connection.createStatement();
-			ResultSet results = statement.executeQuery("SELECT * FROM topo;");
+			connection = this.daoFactory.getConnection();
+			preparedStatement = connection.prepareStatement("SELECT * FROM topo;");
+			results = preparedStatement.executeQuery();
 
 			while (results.next()) {
 
@@ -47,6 +50,14 @@ public class TopoDaoPsql implements TopoDao {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} finally {
+			try {
+				connection.close();
+				preparedStatement.close();
+				results.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		return topos;
 	}
@@ -60,11 +71,14 @@ public class TopoDaoPsql implements TopoDao {
 	@Override
 	public Topo findOne(int id) {
 		Topo topo = new Topo();
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet result = null;
 		try {
-			Connection connection = this.daoFactory.getConnection();
-			PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM topo WHERE id = ?;");
+			connection = this.daoFactory.getConnection();
+			preparedStatement = connection.prepareStatement("SELECT * FROM topo WHERE id = ?;");
 			preparedStatement.setInt(1, id);
-			ResultSet result = preparedStatement.executeQuery();
+			result = preparedStatement.executeQuery();
 
 			result.next();
 
@@ -77,6 +91,14 @@ public class TopoDaoPsql implements TopoDao {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} finally {
+			try {
+				connection.close();
+				preparedStatement.close();
+				result.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		return topo;
 	}
@@ -84,12 +106,15 @@ public class TopoDaoPsql implements TopoDao {
 	@Override
 	public List<Topo> findAllByOwner(int id) {
 		List<Topo> topos = new ArrayList<Topo>();
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet results = null;
 		try {
-			Connection connection = this.daoFactory.getConnection();
-			PreparedStatement preparedStatement = connection.prepareStatement(
+			connection = this.daoFactory.getConnection();
+			preparedStatement = connection.prepareStatement(
 					"SELECT topo.*, topo_owner.available FROM topo INNER JOIN topo_owner ON (topo_owner.owner_id = ?) WHERE topo.id =  topo_owner.topo_id;");
 			preparedStatement.setInt(1, id);
-			ResultSet results = preparedStatement.executeQuery();
+			results = preparedStatement.executeQuery();
 			
 			while (results.next()) {
 
@@ -107,24 +132,41 @@ public class TopoDaoPsql implements TopoDao {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} finally {
+			try {
+				connection.close();
+				preparedStatement.close();
+				results.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		return topos;
 	}
 	
 	@Override
 	public void updateAvailability(int ownerId, int topoId, boolean available) {
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
 		try {
-			Connection connection = this.daoFactory.getConnection();
-			PreparedStatement preparedStatement = connection.prepareStatement(
+			connection = this.daoFactory.getConnection();
+			preparedStatement = connection.prepareStatement(
 					"UPDATE topo_owner SET available = ? WHERE topo_id = ? AND owner_id = ?;");
 			preparedStatement.setBoolean(1, available);
 			preparedStatement.setInt(2, topoId);
 			preparedStatement.setInt(3, ownerId);
-			preparedStatement.executeQuery();
+			preparedStatement.executeUpdate();
 
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} finally {
+			try {
+				connection.close();
+				preparedStatement.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 }

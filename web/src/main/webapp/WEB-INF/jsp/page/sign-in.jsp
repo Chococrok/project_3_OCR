@@ -17,12 +17,12 @@
 		</div>
 
 		<div class="card-content">
-			<form id="sign-in" action="sign-in" method="post">
+			<form id="signIn" action="signIn" method="post">
 				<input type="email" id="email" name="email" placeholder="Email" />
 				<input type="password" id="password" name="password"
 					placeholder="Mot de passe" />
 			</form>
-			<button type="submit" form="sign-in">s'authentifier</button>
+			<button type="submit" form="signIn" name="action" value="signIn">s'authentifier</button>
 			<c:if test="${ !empty error }">
 				<p class="false">${ error }</p>
 			</c:if>

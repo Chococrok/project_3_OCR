@@ -20,12 +20,17 @@ public class VoieDaoPsql implements VoieDao {
 		this.daoFactory = daoFactory;
 	}
 	
+	@Override
 	public List<Voie> findAllBySecteur(int id) {
 		List<Voie> voies = new ArrayList<Voie>();
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet results = null;
 		try {
-			Connection connection = this.daoFactory.getConnection();
-			Statement statement = connection.createStatement();
-            ResultSet results = statement.executeQuery(String.format("SELECT id, name, length, point_number, cotation, description FROM voie WHERE secteur_id = %d;", id));
+			connection = this.daoFactory.getConnection();
+			preparedStatement = connection.prepareStatement("SELECT id, name, length, point_number, cotation, description FROM voie WHERE secteur_id = ?;");
+            preparedStatement.setInt(1, id);
+			results = preparedStatement.executeQuery();
 
             while (results.next()) {
 
@@ -42,16 +47,30 @@ public class VoieDaoPsql implements VoieDao {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} finally {
+			try {
+				connection.close();
+				preparedStatement.close();
+				results.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		return voies;
 	}
 	
+	@Override
 	public Voie findOne(int id) {
 		Voie voie = new Voie();
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet result = null;
 		try {
-			Connection connection = this.daoFactory.getConnection();
-			Statement statement = connection.createStatement();
-			ResultSet result = statement.executeQuery(String.format("SELECT * FROM voie WHERE id = %d;", id));
+			connection = this.daoFactory.getConnection();
+			preparedStatement = connection.prepareStatement("SELECT * FROM voie WHERE id = ?;");
+			preparedStatement.setInt(1, id);
+			result = preparedStatement.executeQuery();
 			
 			result.next();
                 
@@ -65,17 +84,30 @@ public class VoieDaoPsql implements VoieDao {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} finally {
+			try {
+				connection.close();
+				preparedStatement.close();
+				result.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		return voie;
 	}
 	
+	@Override
 	public List<Entity> findEntitiesByName(String name) {
 		List<Entity> entities = new ArrayList<Entity>();
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet results = null;
 		try {
-			Connection connection = this.daoFactory.getConnection();
-			PreparedStatement preparedStatement = connection.prepareStatement("SELECT id, name FROM voie WHERE UPPER(name) LIKE UPPER(?);");
+			connection = this.daoFactory.getConnection();
+			preparedStatement = connection.prepareStatement("SELECT id, name FROM voie WHERE UPPER(name) LIKE UPPER(?);");
 			preparedStatement.setString(1, "%" + name + "%");
-			ResultSet results = preparedStatement.executeQuery();
+			results = preparedStatement.executeQuery();
 			
 			while (results.next()) {
 
@@ -89,17 +121,30 @@ public class VoieDaoPsql implements VoieDao {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} finally {
+			try {
+				connection.close();
+				preparedStatement.close();
+				results.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		return entities;
 	}
 	
+	@Override
 	public List<Entity> findEntitiesByCotation(String cotation) {
 		List<Entity> entities = new ArrayList<Entity>();
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet results = null;
 		try {
-			Connection connection = this.daoFactory.getConnection();
-			PreparedStatement preparedStatement = connection.prepareStatement("SELECT id, name FROM voie WHERE UPPER(cotation) LIKE UPPER(?);");
+			connection = this.daoFactory.getConnection();
+			preparedStatement = connection.prepareStatement("SELECT id, name FROM voie WHERE UPPER(cotation) LIKE UPPER(?);");
 			preparedStatement.setString(1, "%" + cotation + "%");
-			ResultSet results = preparedStatement.executeQuery();
+			results = preparedStatement.executeQuery();
 			
 			while (results.next()) {
 
@@ -113,6 +158,15 @@ public class VoieDaoPsql implements VoieDao {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} finally {
+			try {
+				connection.close();
+				preparedStatement.close();
+				results.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		return entities;
 	}

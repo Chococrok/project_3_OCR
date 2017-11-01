@@ -15,7 +15,11 @@
 		</c:when>
 
 		<c:otherwise>
-			<a href="owner"><c:out value=" Mon espace (${ sessionScope.owner.fullName })" /></a>
+			<form action="signIn" method="post">
+				<a href="owner"><c:out
+						value=" Mon espace (${ sessionScope.owner.fullName })" /></a>
+				<button type="submit" name="action" value="signOut">Déconnexion</button>
+			</form>
 		</c:otherwise>
 	</c:choose>
 

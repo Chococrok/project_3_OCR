@@ -23,12 +23,15 @@ public class OwnerDaoPsql implements OwnerDao {
 	@Override
 	public List<Owner> findByTopo(int id) {
 		List<Owner> owners = new ArrayList<Owner>();
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet results = null;
 		try {
-			Connection connection = this.daoFactory.getConnection();
-			PreparedStatement preparedStatement = connection.prepareStatement(
+			connection = this.daoFactory.getConnection();
+			preparedStatement = connection.prepareStatement(
 					"SELECT owner.*, topo_owner.available FROM owner INNER JOIN topo_owner ON (topo_owner.topo_id = ?) WHERE topo_owner.owner_id = owner.id;");
 			preparedStatement.setInt(1, id);
-			ResultSet results = preparedStatement.executeQuery();
+			results = preparedStatement.executeQuery();
 
 			while (results.next()) {
 
@@ -46,6 +49,15 @@ public class OwnerDaoPsql implements OwnerDao {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} finally {
+			try {
+				connection.close();
+				preparedStatement.close();
+				results.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		return owners;
 	}
@@ -53,11 +65,14 @@ public class OwnerDaoPsql implements OwnerDao {
 	@Override
 	public Owner findOneById(int id) {
 		Owner owner = new Owner();
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet result = null;
 		try {
-			Connection connection = this.daoFactory.getConnection();
-			PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM owner WHERE id = ?;");
+			connection = this.daoFactory.getConnection();
+			preparedStatement = connection.prepareStatement("SELECT * FROM owner WHERE id = ?;");
 			preparedStatement.setInt(1, id);
-			ResultSet result = preparedStatement.executeQuery();
+			result = preparedStatement.executeQuery();
 
 			result.next();
 
@@ -70,6 +85,15 @@ public class OwnerDaoPsql implements OwnerDao {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} finally {
+			try {
+				connection.close();
+				preparedStatement.close();
+				result.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		return owner;
 	}
@@ -77,11 +101,14 @@ public class OwnerDaoPsql implements OwnerDao {
 	@Override
 	public Owner findOneByEmail(String email) {
 		Owner owner = new Owner();
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet result = null;
 		try {
-			Connection connection = this.daoFactory.getConnection();
-			PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM owner WHERE email = ?;");
+			connection = this.daoFactory.getConnection();
+			preparedStatement = connection.prepareStatement("SELECT * FROM owner WHERE email = ?;");
 			preparedStatement.setString(1, email);
-			ResultSet result = preparedStatement.executeQuery();
+			result = preparedStatement.executeQuery();
 
 			result.next();
 
@@ -94,6 +121,15 @@ public class OwnerDaoPsql implements OwnerDao {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} finally {
+			try {
+				connection.close();
+				preparedStatement.close();
+				result.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		return owner;
 	}
@@ -101,12 +137,15 @@ public class OwnerDaoPsql implements OwnerDao {
 	@Override
 	public boolean exists(String email) {
 		boolean exists = false;
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet result = null;
 		try {
-			Connection connection = this.daoFactory.getConnection();
-			PreparedStatement preparedStatement = connection
+			connection = this.daoFactory.getConnection();
+			preparedStatement = connection
 					.prepareStatement("SELECT EXISTS (SELECT email FROM owner WHERE email = ?);");
 			preparedStatement.setString(1, email);
-			ResultSet result = preparedStatement.executeQuery();
+			result = preparedStatement.executeQuery();
 			
 			result.next();
 			
@@ -114,6 +153,15 @@ public class OwnerDaoPsql implements OwnerDao {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} finally {
+			try {
+				connection.close();
+				preparedStatement.close();
+				result.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		return exists;
 	}
@@ -121,13 +169,16 @@ public class OwnerDaoPsql implements OwnerDao {
 	@Override
 	public boolean checkPassword(String email, String password) {
 		boolean match = false;
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet result = null;
 		try {
-			Connection connection = this.daoFactory.getConnection();
-			PreparedStatement preparedStatement = connection
+			connection = this.daoFactory.getConnection();
+			preparedStatement = connection
 					.prepareStatement("SELECT (password = ?) AS match FROM owner where email = ?  ;");
 			preparedStatement.setString(1, password);
 			preparedStatement.setString(2, email);
-			ResultSet result = preparedStatement.executeQuery();
+			result = preparedStatement.executeQuery();
 			
 			result.next();
 			
@@ -135,6 +186,15 @@ public class OwnerDaoPsql implements OwnerDao {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} finally {
+			try {
+				connection.close();
+				preparedStatement.close();
+				result.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		return match;
 	}

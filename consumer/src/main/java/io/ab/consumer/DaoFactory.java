@@ -1,7 +1,6 @@
 package io.ab.consumer;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.SQLException;
 
 import javax.servlet.ServletContext;
@@ -9,90 +8,103 @@ import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
 
+import com.jolbox.bonecp.BoneCP;
+import com.jolbox.bonecp.BoneCPConfig;
 
 @WebListener
 public class DaoFactory implements ServletContextListener {
+
+	private static final String URL = "jdbc:postgresql://localhost:5432/climbing";
+	private static final String USERNAME = "dbuser";
+	private static final String PASSWORD = "dbuser";
+	private static final int MIN_CONNECTION = 5;
+	private static final int MAX_CONNECTION = 10;
+	private static final int PARTITION_COUNT = 1;
+
+	public static final String ATT_DAO_FACTORY = "daoFactory";
 	
-    private String url;
-    private String username;
-    private String password;
-    
-    public static final String  ATT_DAO_FACTORY = "daoFactory";
-    
-    @Override
-    public void contextInitialized(ServletContextEvent sce) {
-    	ServletContext servletContext = sce.getServletContext();
-
-    	try {
-            Class.forName("org.postgresql.Driver");
-        } catch (ClassNotFoundException e) {
-
-        }
-
-    	DaoFactory daoFactory = new DaoFactory(
-                "jdbc:postgresql://localhost:5432/climbing", "dbuser", "dbuser");
-
-        /* Enregistrement dans un attribut ayant pour portée toute l'application */
-
-        servletContext.setAttribute( ATT_DAO_FACTORY, daoFactory );
-        servletContext.setAttribute("toto", "tata");
-	}
-    
-    @Override
-	public void contextDestroyed(ServletContextEvent sce) {
-		// TODO Auto-generated method stub
-	}
-    
-    //default constructor needed by WebListener.
-    public DaoFactory (){}
-
-	private DaoFactory(String url, String username, String password) {
-        this.url = url;
-        this.username = username;
-        this.password = password;
-    }
+	private BoneCP connectionPool;
 	
-	public static DaoFactory getInstance() {
+	//Test purpose
+	private static DaoFactory testDaoFactory;
+
+	public DaoFactory() {
 		try {
-            Class.forName("org.postgresql.Driver");
-        } catch (ClassNotFoundException e) {
+			Class.forName("org.postgresql.Driver");
+		} catch (ClassNotFoundException e) {
 
-        }
-
-    	DaoFactory daoFactory = new DaoFactory(
-                "jdbc:postgresql://localhost:5432/climbing", "dbuser", "dbuser");
-    	return daoFactory;
+		}
+		
+		BoneCPConfig config = new BoneCPConfig();
+		config.setJdbcUrl(URL);
+		config.setUsername(USERNAME); 
+		config.setPassword(PASSWORD);
+		config.setMinConnectionsPerPartition(MIN_CONNECTION);
+		config.setMaxConnectionsPerPartition(MAX_CONNECTION);
+		config.setPartitionCount(PARTITION_COUNT);
+		try {
+			connectionPool = new BoneCP(config);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
-    public Connection getConnection() throws SQLException {
-        return DriverManager.getConnection(url, username, password);
-    }
+	@Override
+	public void contextInitialized(ServletContextEvent sce) {
+		ServletContext servletContext = sce.getServletContext();
+		
+		/* Enregistrement dans un attribut ayant pour portée toute l'application */
 
-    public SiteDao getSiteDao() {
-        return new SiteDaoPsql(this);
-    }
-    
-    public CommentDao getCommentDao() {
-        return new CommentDaoPsql(this);
-    }
-    
-    public SecteurDao getSecteurDao() {
-        return new SecteurDaoPsql(this);
-    }
-    
-    public VoieDao getVoieDao() {
-        return new VoieDaoPsql(this);
-    }
-    
-    public LongueurDao getLongueurDao() {
-        return new LongueurDaoPsql(this);
-    }
-    
-    public TopoDao getTopoDao() {
-    	return new TopoDaoPsql(this);
-    }
-    
-    public OwnerDao getOwnerDao() {
-    	return new OwnerDaoPsql(this);
-    }
+		servletContext.setAttribute(ATT_DAO_FACTORY, new DaoFactory());
+	}
+
+	@Override
+	public void contextDestroyed(ServletContextEvent sce) {
+		this.connectionPool.shutdown();
+	}
+
+	//test purpose
+	public static DaoFactory getInstance() {
+		if (testDaoFactory == null) {
+			testDaoFactory = new DaoFactory();
+		}
+		return testDaoFactory;
+	}
+	
+	public static void shutdownCP() {
+		testDaoFactory.connectionPool.shutdown();
+	}
+
+	public Connection getConnection() throws SQLException {
+		return this.connectionPool.getConnection();
+	}
+
+	public SiteDao getSiteDao() {
+		return new SiteDaoPsql(this);
+	}
+
+	public CommentDao getCommentDao() {
+		return new CommentDaoPsql(this);
+	}
+
+	public SecteurDao getSecteurDao() {
+		return new SecteurDaoPsql(this);
+	}
+
+	public VoieDao getVoieDao() {
+		return new VoieDaoPsql(this);
+	}
+
+	public LongueurDao getLongueurDao() {
+		return new LongueurDaoPsql(this);
+	}
+
+	public TopoDao getTopoDao() {
+		return new TopoDaoPsql(this);
+	}
+
+	public OwnerDao getOwnerDao() {
+		return new OwnerDaoPsql(this);
+	}
 }

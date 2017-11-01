@@ -2,8 +2,8 @@
 	function edit(value) {
 		var input = document.getElementById('input' + value);
 		var button = document.getElementById('button' + value);
-		var hidden = document.getElementById('hidden' + value);
-		//alert(input.disabled);
+		var available = document.getElementById('available' + value);
+
 		if (input.disabled) {
 			input.disabled = false;
 			toggleText(button);
@@ -11,7 +11,7 @@
 		}
 
 		input.disabled = true;
-		hidden.value = input.checked;
+		available.value = input.checked;
 		toggleText(button);
 	}
 

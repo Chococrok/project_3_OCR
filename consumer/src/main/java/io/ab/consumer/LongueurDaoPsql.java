@@ -9,33 +9,47 @@ import java.util.List;
 import io.ab.model.Longueur;
 
 public class LongueurDaoPsql implements LongueurDao {
-	
+
 	private DaoFactory daoFactory;
-	
+
 	LongueurDaoPsql(DaoFactory daoFactory) {
 		this.daoFactory = daoFactory;
 	}
-	
+
 	public List<Longueur> findAllByVoie(int id) {
 		List<Longueur> longueurs = new ArrayList<Longueur>();
+		Connection connection = null;
+		Statement statement = null;
+		ResultSet results = null;
+
 		try {
-			Connection connection = this.daoFactory.getConnection();
-			Statement statement = connection.createStatement();
-            ResultSet results = statement.executeQuery(String.format("SELECT id, name, length, cotation FROM longueur WHERE voie_id = %d;", id));
+			connection = this.daoFactory.getConnection();
+			statement = connection.createStatement();
+			results = statement.executeQuery(
+					String.format("SELECT id, name, length, cotation FROM longueur WHERE voie_id = %d;", id));
 
-            while (results.next()) {
+			while (results.next()) {
 
-            		Longueur longueur = new Longueur();
-            		longueur.setId(results.getInt("id"));
-            		longueur.setName(results.getString("name"));
-            		longueur.setLength(results.getInt("length"));
-            		longueur.setCotation(results.getString("cotation"));
- 
-            		longueurs.add(longueur);
-            }
+				Longueur longueur = new Longueur();
+				longueur.setId(results.getInt("id"));
+				longueur.setName(results.getString("name"));
+				longueur.setLength(results.getInt("length"));
+				longueur.setCotation(results.getString("cotation"));
+
+				longueurs.add(longueur);
+			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} finally {
+			try {
+				connection.close();
+				statement.close();
+				results.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		return longueurs;
 	}

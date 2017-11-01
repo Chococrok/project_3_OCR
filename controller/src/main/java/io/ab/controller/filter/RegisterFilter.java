@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 
 @WebFilter( urlPatterns="/owner/*")
 public class RegisterFilter implements Filter {
-	public static final String SIGN_IN = "/sign-in";
+	public static final String SIGN_IN = "/signIn";
 	
 	//default constructor needed by WebFilter.
     public RegisterFilter(){}

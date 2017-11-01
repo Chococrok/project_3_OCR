@@ -21,10 +21,13 @@ public class CommentDaoPsql implements CommentDao {
 	
 	public List<Comment> findAllBy(String column, int id) {
 		List<Comment> comments = new ArrayList<Comment>();
+		Connection connection = null;
+		Statement statement = null;
+		ResultSet results = null;
 		try {
-			Connection connection = this.daoFactory.getConnection();
-			Statement statement = connection.createStatement();
-            ResultSet results = statement.executeQuery(String.format("SELECT id, content, time_stamp FROM comment where %1s = %2d;", column, id));
+			connection = this.daoFactory.getConnection();
+			statement = connection.createStatement();
+            results = statement.executeQuery(String.format("SELECT id, content, time_stamp FROM comment where %1s = %2d;", column, id));
 
             while (results.next()) {
 
@@ -38,14 +41,25 @@ public class CommentDaoPsql implements CommentDao {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} finally {
+			try {
+				connection.close();
+				statement.close();
+				results.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		return comments;
 	}
 	
 	public void addOneBy(String column, int idForColumn, String content, Timestamp timestamp) {
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
 		try {
-			Connection connection = this.daoFactory.getConnection();
-			PreparedStatement preparedStatement = connection.prepareStatement(String.format("INSERT INTO comment (%s, content, time_stamp) VALUES (?, ?, ?);", column));
+			connection = this.daoFactory.getConnection();
+			preparedStatement = connection.prepareStatement(String.format("INSERT INTO comment (%s, content, time_stamp) VALUES (?, ?, ?);", column));
 			preparedStatement.setInt(1, idForColumn);
 			preparedStatement.setString(2, content);
 			preparedStatement.setTimestamp(3, timestamp);
@@ -55,6 +69,14 @@ public class CommentDaoPsql implements CommentDao {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} finally {
+			try {
+				connection.close();
+				preparedStatement.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 	}
 }

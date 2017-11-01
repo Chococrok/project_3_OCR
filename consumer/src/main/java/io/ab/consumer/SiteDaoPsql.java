@@ -19,12 +19,16 @@ public class SiteDaoPsql implements SiteDao {
 		this.daoFactory = daoFactory;
 	}
 
+	@Override
 	public List<Site> findAll() {
 		List<Site> sites = new ArrayList<Site>();
+		Connection connection = null;
+		Statement statement = null;
+		ResultSet results = null;
 		try {
-			Connection connection = this.daoFactory.getConnection();
-			Statement statement = connection.createStatement();
-            ResultSet results = statement.executeQuery("SELECT * FROM site;");
+			connection = this.daoFactory.getConnection();
+			statement = connection.createStatement();
+            results = statement.executeQuery("SELECT * FROM site;");
 
             while (results.next()) {
 
@@ -42,17 +46,30 @@ public class SiteDaoPsql implements SiteDao {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} finally {
+			try {
+				connection.close();
+				statement.close();
+				results.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		return sites;
 	}
 
+	@Override
 	public Site findOne(int id) {
 		Site site = new Site();
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet result = null;
 		try {
-			Connection connection = this.daoFactory.getConnection();
-			PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM site WHERE id = ?;");
+			connection = this.daoFactory.getConnection();
+			preparedStatement = connection.prepareStatement("SELECT * FROM site WHERE id = ?;");
 			preparedStatement.setInt(1, id);
-			ResultSet result = preparedStatement.executeQuery();
+			result = preparedStatement.executeQuery();
 			
 			result.next();
                 
@@ -66,17 +83,30 @@ public class SiteDaoPsql implements SiteDao {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} finally {
+			try {
+				connection.close();
+				preparedStatement.close();
+				result.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		return site;
 	}
 	
+	@Override
 	public List<Entity> findEntitiesByName(String name) {
 		List<Entity> entities = new ArrayList<Entity>();
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet results = null;
 		try {
-			Connection connection = this.daoFactory.getConnection();
-			PreparedStatement preparedStatement = connection.prepareStatement("SELECT id, name FROM site WHERE UPPER(name) LIKE UPPER(?)");
+			connection = this.daoFactory.getConnection();
+			preparedStatement = connection.prepareStatement("SELECT id, name FROM site WHERE UPPER(name) LIKE UPPER(?)");
 			preparedStatement.setString(1, "%" + name + "%");
-			ResultSet results = preparedStatement.executeQuery();
+			results = preparedStatement.executeQuery();
 			
 			while (results.next()) {
 
@@ -90,18 +120,31 @@ public class SiteDaoPsql implements SiteDao {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} finally {
+			try {
+				connection.close();
+				preparedStatement.close();
+				results.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		return entities;
 	}
 	
+	@Override
 	public List<Entity> findEntitiesByCotation(String cotation) {
 		List<Entity> entities = new ArrayList<Entity>();
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet results = null;
 		try {
-			Connection connection = this.daoFactory.getConnection();
-			PreparedStatement preparedStatement = connection.prepareStatement(
+			connection = this.daoFactory.getConnection();
+			preparedStatement = connection.prepareStatement(
 					"SELECT DISTINCT site.id, site.name FROM site INNER JOIN secteur ON (site.id = secteur.site_id) INNER JOIN voie ON (secteur.id = voie.secteur_id) WHERE UPPER(voie.cotation) LIKE UPPER(?);");
 			preparedStatement.setString(1, "%" + cotation + "%");
-			ResultSet results = preparedStatement.executeQuery();
+			results = preparedStatement.executeQuery();
 			
 			while (results.next()) {
 
@@ -115,6 +158,15 @@ public class SiteDaoPsql implements SiteDao {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} finally {
+			try {
+				connection.close();
+				preparedStatement.close();
+				results.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		return entities;
 	}

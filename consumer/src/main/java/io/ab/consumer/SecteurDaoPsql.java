@@ -20,12 +20,16 @@ public class SecteurDaoPsql implements SecteurDao {
 		this.daoFactory = daoFactory;
 	}
 
+	@Override
 	public List<Secteur> findAllBySite(int id) {
 		List<Secteur> secteurs = new ArrayList<Secteur>();
+		Connection connection = null;
+		Statement statement = null;
+		ResultSet results = null;
 		try {
-			Connection connection = this.daoFactory.getConnection();
-			Statement statement = connection.createStatement();
-            ResultSet results = statement.executeQuery(String.format("SELECT id, name, description FROM secteur where site_id = %d;", id));
+			connection = this.daoFactory.getConnection();
+			statement = connection.createStatement();
+            results = statement.executeQuery(String.format("SELECT id, name, description FROM secteur where site_id = %d;", id));
 
             while (results.next()) {
 
@@ -39,16 +43,29 @@ public class SecteurDaoPsql implements SecteurDao {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} finally {
+			try {
+				connection.close();
+				statement.close();
+				results.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		return secteurs;
 	}
 	
+	@Override
 	public Secteur findOne(int id) {
 		Secteur secteur = new Secteur();
+		Connection connection = null;
+		Statement statement = null;
+		ResultSet result = null;
 		try {
-			Connection connection = this.daoFactory.getConnection();
-			Statement statement = connection.createStatement();
-			ResultSet result = statement.executeQuery(String.format("SELECT * FROM secteur WHERE id = %d;", id));
+			connection = this.daoFactory.getConnection();
+			statement = connection.createStatement();
+			result = statement.executeQuery(String.format("SELECT * FROM secteur WHERE id = %d;", id));
 			
 			result.next();
                 
@@ -59,17 +76,30 @@ public class SecteurDaoPsql implements SecteurDao {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} finally {
+			try {
+				connection.close();
+				statement.close();
+				result.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		return secteur;
 	}
 	
+	@Override
 	public List<Entity> findEntitiesByName(String name) {
 		List<Entity> entities = new ArrayList<Entity>();
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet results = null;
 		try {
-			Connection connection = this.daoFactory.getConnection();
-			PreparedStatement preparedStatement = connection.prepareStatement("SELECT id, name FROM secteur WHERE UPPER(name) LIKE UPPER(?);");
+			connection = this.daoFactory.getConnection();
+			preparedStatement = connection.prepareStatement("SELECT id, name FROM secteur WHERE UPPER(name) LIKE UPPER(?);");
 			preparedStatement.setString(1, "%" + name + "%");
-			ResultSet results = preparedStatement.executeQuery();
+			results = preparedStatement.executeQuery();
 			
 			while (results.next()) {
 
@@ -83,18 +113,31 @@ public class SecteurDaoPsql implements SecteurDao {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} finally {
+			try {
+				connection.close();
+				preparedStatement.close();
+				results.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		return entities;
 	}
 	
+	@Override
 	public List<Entity> findEntitiesByCotation(String cotation) {
 		List<Entity> entities = new ArrayList<Entity>();
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet results = null;
 		try {
-			Connection connection = this.daoFactory.getConnection();
-			PreparedStatement preparedStatement = connection.prepareStatement(
+			connection = this.daoFactory.getConnection();
+			preparedStatement = connection.prepareStatement(
 					"SELECT DISTINCT secteur.id, secteur.name FROM secteur INNER JOIN voie ON (secteur.id = voie.secteur_id) WHERE UPPER(voie.cotation) LIKE UPPER(?);");
 			preparedStatement.setString(1, "%" + cotation + "%");
-			ResultSet results = preparedStatement.executeQuery();
+			results = preparedStatement.executeQuery();
 			
 			while (results.next()) {
 
@@ -108,6 +151,15 @@ public class SecteurDaoPsql implements SecteurDao {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} finally {
+			try {
+				connection.close();
+				preparedStatement.close();
+				results.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		return entities;
 	}
