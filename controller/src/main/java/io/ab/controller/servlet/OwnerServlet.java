@@ -32,4 +32,15 @@ public class OwnerServlet extends HttpServlet {
 		request.setAttribute("topos", this.topoService.findAllByOwner(owner.getId()));
 		this.getServletContext().getRequestDispatcher("/WEB-INF/jsp/page/owner.jsp").forward(request, response);
 	}
+	
+	@Override
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		Owner owner = (Owner) request.getSession().getAttribute("owner");
+		int topoId = Integer.parseInt(request.getParameter("id"));
+		boolean available = Boolean.parseBoolean(request.getParameter("available"));
+		
+		this.topoService.updateAvailability(owner.getId(), topoId, available);
+		request.setAttribute("topos", this.topoService.findAllByOwner(owner.getId()));
+		this.getServletContext().getRequestDispatcher("/WEB-INF/jsp/page/owner.jsp").forward(request, response);
+	}
 }

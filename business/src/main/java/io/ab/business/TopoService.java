@@ -44,4 +44,8 @@ public class TopoService {
 		topo.setSite(this.siteDao.findOne(topo.getSite().getId()));
 		return topo;
 	}
+	
+	public void updateAvailability(int ownerId, int topoId, boolean available) {
+		this.topoDao.updateAvailability(ownerId, topoId, available);
+	}
 }

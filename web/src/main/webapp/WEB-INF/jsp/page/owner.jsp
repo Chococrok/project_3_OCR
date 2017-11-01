@@ -17,7 +17,7 @@
 				<div class="list-item-column">
 					<h4>${ topo.name }</h4>
 					<form class="editable" action="owner#input${ topo.id }"
-						method="get">
+						method="post">
 						<div>
 							<label for="${ topo.id }">Ce topo est disponible:</label>
 							<input type="checkbox" id="input${ topo.id }"

@@ -87,7 +87,8 @@ public class TopoDaoPsql implements TopoDao {
 		try {
 			Connection connection = this.daoFactory.getConnection();
 			PreparedStatement preparedStatement = connection.prepareStatement(
-					"SELECT topo.*, topo_owner.available FROM topo INNER JOIN topo_owner ON (topo_owner.owner_id = 1) WHERE topo.id =  topo_owner.topo_id;");
+					"SELECT topo.*, topo_owner.available FROM topo INNER JOIN topo_owner ON (topo_owner.owner_id = ?) WHERE topo.id =  topo_owner.topo_id;");
+			preparedStatement.setInt(1, id);
 			ResultSet results = preparedStatement.executeQuery();
 			
 			while (results.next()) {
@@ -108,5 +109,22 @@ public class TopoDaoPsql implements TopoDao {
 			e.printStackTrace();
 		}
 		return topos;
+	}
+	
+	@Override
+	public void updateAvailability(int ownerId, int topoId, boolean available) {
+		try {
+			Connection connection = this.daoFactory.getConnection();
+			PreparedStatement preparedStatement = connection.prepareStatement(
+					"UPDATE topo_owner SET available = ? WHERE topo_id = ? AND owner_id = ?;");
+			preparedStatement.setBoolean(1, available);
+			preparedStatement.setInt(2, topoId);
+			preparedStatement.setInt(3, ownerId);
+			preparedStatement.executeQuery();
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 }

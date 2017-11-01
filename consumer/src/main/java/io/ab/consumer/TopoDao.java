@@ -9,4 +9,5 @@ public interface TopoDao {
 	public Topo findOne(int id);
 	public void addOne(int siteId, String name);
 	public List<Topo> findAllByOwner(int id);
+	public void updateAvailability(int ownerId, int topoId, boolean available);
 }
