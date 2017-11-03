@@ -15,7 +15,7 @@
 		</c:when>
 
 		<c:otherwise>
-			<form action="signIn" method="post">
+			<form class="simpleForm" action="signIn" method="post">
 				<a href="owner"><c:out
 						value=" Mon espace (${ sessionScope.owner.fullName })" /></a>
 				<button type="submit" name="action" value="signOut">Déconnexion</button>

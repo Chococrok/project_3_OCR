@@ -9,26 +9,49 @@
 	<div class="card">
 		<div class="card-header">
 			<h2>${ site.name }</h2>
-			<p class="description">"${ site.description }"</p>
+			<c:if test="${ empty site.description }">
+				<p class="false">Ce site n'est pas encore référencé sur
+					Escalade.com</p>
+			</c:if>
+
+			<c:if test="${ !empty site.description }">
+				<p class="description">"${ site.description }"</p>
+			</c:if>
 		</div>
+		
 		<div class="card-content">
-			<table>
-				<tr>
-					<td>Coordonées géographiques:</td>
-					<td>${ site.latitude }, ${ site.longitude }</td>
-				</tr>
-				<tr>
-					<td>indication supplémentaire:</td>
-					<td>${ site.howToFind }</td>
-				</tr>
 
-			</table>
+			<c:if test="${ !empty site.description }">
 
-			<h3>Secteurs de ce site:</h3>
+				<table>
+					<tr>
+						<td>Coordonées géographiques:</td>
+						<td>${ site.latitude },${ site.longitude }</td>
+					</tr>
+					<tr>
+						<td>indication supplémentaire:</td>
+						<td>${ site.howToFind }</td>
+					</tr>
+				</table>
+
+				<h3>Secteurs de ce site:</h3>
+				<form action="secteur" method="get" class="list">
+					<c:forEach items="${ site.secteurs }" var="secteur">
+						<div class="clickable"
+							onClick="navigate('secteur?id=${ secteur.id }')">
+							<p>${ secteur.name }</p>
+							<i class="material-icons">&#xE315;</i>
+						</div>
+					</c:forEach>
+				</form>
+
+			</c:if>
+
+			<h3>Topos associés à ce site:</h3>
 			<form action="secteur" method="get" class="list">
-				<c:forEach items="${ site.secteurs }" var="secteur">
-					<div class="clickable" onClick="navigate('secteur?id=${ secteur.id }')">
-						<p>${ secteur.name }</p>
+				<c:forEach items="${ requestScope.topos }" var="topo">
+					<div class="clickable" onClick="navigate('topo?id=${ topo.id }')">
+						<p>${ topo.name }</p>
 						<i class="material-icons">&#xE315;</i>
 					</div>
 				</c:forEach>

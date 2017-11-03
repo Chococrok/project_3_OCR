@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import io.ab.business.SiteService;
+import io.ab.business.TopoService;
 import io.ab.model.Site;
 
 @WebServlet("/site")
@@ -15,10 +16,12 @@ public class SiteServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
 	private SiteService siteService;
+	private TopoService topoService;
 
 	@Override
     public void init() throws ServletException {
-    		siteService = new SiteService(this.getServletContext());
+    		this.siteService = new SiteService(this.getServletContext());
+    		this.topoService = new TopoService(this.getServletContext());
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -26,6 +29,7 @@ public class SiteServlet extends HttpServlet {
 		if (site == null) {
 			int id = Integer.parseInt(request.getParameter("id"));
 			site = this.siteService.findOneWithCommentsAndSecteurs(id);
+			request.setAttribute("topos", this.topoService.findAllBySite(site.getId()));
 			request.setAttribute("site", site);
 		}
 		this.getServletContext().getRequestDispatcher("/WEB-INF/jsp/page/site.jsp").forward(request, response);		

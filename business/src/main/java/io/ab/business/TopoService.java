@@ -38,6 +38,22 @@ public class TopoService {
 		return topos;
 	}
 	
+	public List<Topo> findAllByNotOwner(int id) {
+		List<Topo> allTopos = this.topoDao.findAll();
+		List<Topo> toposOwned = this.topoDao.findAllByOwner(id);
+		
+		for (Topo topoOwned : toposOwned) {
+			allTopos.remove(topoOwned);
+		}
+
+		return allTopos;
+	}
+	
+	public List<Topo> findAllBySite(int id) {
+		List<Topo> topos = this.topoDao.findAllBySite(id);
+		return topos;
+	}
+	
 	public Topo findOneWithOwners(int id) {
 		Topo topo = this.topoDao.findOne(id);
 		topo.setOwners(this.ownerDao.findByTopo(id));
@@ -47,5 +63,9 @@ public class TopoService {
 	
 	public void updateAvailability(int ownerId, int topoId, boolean available) {
 		this.topoDao.updateAvailability(ownerId, topoId, available);
+	}
+	
+	public int createOne(String topoName, int siteId) {
+		return this.topoDao.createOne(topoName, siteId);
 	}
 }

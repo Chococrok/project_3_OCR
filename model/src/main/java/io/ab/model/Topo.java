@@ -70,4 +70,11 @@ public class Topo extends Entity {
 		this.available = available;
 	}
 
+	@Override
+	public boolean equals(Object obj) {
+		return this.getId() == ((Topo) obj).getId();
+	}
+	
+	
+
 }

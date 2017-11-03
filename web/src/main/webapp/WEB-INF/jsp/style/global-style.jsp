@@ -38,6 +38,13 @@ h3 {
 	margin-top: 2.5em;
 }
 
+h5 {
+	font-weight: normal;
+	font-size: 1em;
+	text-decoration: underline;
+	margin-bottom: 0;
+}
+
 a {
 	margin: 1em 1em 0 1em;
 	color: #966969;
@@ -63,6 +70,32 @@ i {
 	font-size: 3em !important;
 	align-self: center;
 	color: #966969;
+}
+
+form {
+	margin-top: 1em;
+	display: flex;
+	flex-direction: column;
+}
+
+.simpleForm {
+	margin: 0;
+	display: initial;
+}
+form:first-child {
+	margin-top: 0;
+}
+
+form>button {
+	margin-top: 1em;
+}
+
+form>input {
+	margin-top: 1em;
+}
+
+form>span {
+	align-self: center;
 }
 
 td {

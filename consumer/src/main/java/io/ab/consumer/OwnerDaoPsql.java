@@ -246,4 +246,28 @@ public class OwnerDaoPsql implements OwnerDao {
 		}
 	}
 
+	@Override
+	public void addTopo(int topoId, int ownerId) {
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		try {
+			connection = this.daoFactory.getConnection();
+			preparedStatement = connection.prepareStatement("INSERT INTO topo_owner (topo_id, owner_id) VALUES (?, ?);");
+			preparedStatement.setInt(1, topoId);
+			preparedStatement.setInt(2, ownerId);
+			preparedStatement.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			try {
+				connection.close();
+				preparedStatement.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	}
+
 }

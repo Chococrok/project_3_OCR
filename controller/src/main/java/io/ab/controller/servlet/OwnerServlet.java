@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import io.ab.business.OwnerService;
 import io.ab.business.SearchService;
+import io.ab.business.SiteService;
 import io.ab.business.TopoService;
 import io.ab.model.Owner;
 
@@ -21,21 +22,26 @@ public class OwnerServlet extends HttpServlet {
 	public static final String EMAIL = "email";
 	public static final String PHONE = "phone";
 	public static final String AVAILABILITY = "availability";
+	public static final String TOPO = "topo";
 
 	private TopoService topoService;
 	private OwnerService ownerService;
+	private SiteService siteService;
 
 	@Override
 	public void init() throws ServletException {
 		this.topoService = new TopoService(this.getServletContext());
 		this.ownerService = new OwnerService(this.getServletContext());
+		this.siteService = new SiteService(this.getServletContext());
 	}
 
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		Owner owner = (Owner) request.getSession().getAttribute("owner");
-		request.setAttribute("topos", this.topoService.findAllByOwner(owner.getId()));
+		request.setAttribute("toposOwned", this.topoService.findAllByOwner(owner.getId()));
+		request.setAttribute("toposNotOwned", this.topoService.findAllByNotOwner(owner.getId()));
+		request.setAttribute("sites", this.siteService.findAll());
 		this.getServletContext().getRequestDispatcher("/WEB-INF/jsp/page/owner.jsp").forward(request, response);
 	}
 
@@ -61,9 +67,16 @@ public class OwnerServlet extends HttpServlet {
 			boolean available = Boolean.parseBoolean(request.getParameter("available"));
 			this.topoService.updateAvailability(owner.getId(), topoId, available);
 			break;
+		case TOPO:
+			this.ownerService.addTopo(request, owner);
+			if (this.ownerService.hasError()) {
+				request.setAttribute("error", this.ownerService.getError());
+			}
 		}
 		
-		request.setAttribute("topos", this.topoService.findAllByOwner(owner.getId()));
+		request.setAttribute("toposOwned", this.topoService.findAllByOwner(owner.getId()));
+		request.setAttribute("toposNotOwned", this.topoService.findAllByNotOwner(owner.getId()));
+		request.setAttribute("sites", this.siteService.findAll());
 		this.getServletContext().getRequestDispatcher("/WEB-INF/jsp/page/owner.jsp").forward(request, response);
 	}
 }

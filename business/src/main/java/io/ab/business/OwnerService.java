@@ -10,10 +10,14 @@ import io.ab.model.Owner;
 public class OwnerService {
 	
 	private OwnerDao ownerDao;
+	private TopoService topoService;
+	private SiteService siteService;
 	private String error;
 
 	public OwnerService(ServletContext context) {
 		this.ownerDao = ((DaoFactory) context.getAttribute(DaoFactory.ATT_DAO_FACTORY)).getOwnerDao();
+		this.topoService = new TopoService(context);
+		this.siteService = new SiteService(context);
 	}
 	
 	public Owner findOneByEmail(String email) {
@@ -48,6 +52,30 @@ public class OwnerService {
 		
 		request.getSession().setAttribute("owner", this.ownerDao.findOneByEmail(email));
 		
+	}
+	
+	public void addTopo(HttpServletRequest request, Owner owner) {
+		if (request.getParameter("topoId") != null) {
+			int topoId = Integer.parseInt(request.getParameter("topoId"));
+			this.ownerDao.addTopo(topoId, owner.getId());
+			return;
+		}
+		
+		if (request.getParameter("siteId") != null && request.getParameter("topoName") != null) {
+			int siteId = Integer.parseInt(request.getParameter("siteId"));
+			String topoName = request.getParameter("topoName");
+			int topoId = this.topoService.createOne(topoName, siteId);
+			this.ownerDao.addTopo(topoId, owner.getId());
+			return;
+		}
+		
+		if (request.getParameter("siteName") != null && request.getParameter("topoName") != null) {
+			String siteName = request.getParameter("siteName");
+			String topoName = request.getParameter("topoName");
+			int topoId = this.topoService.createOne(topoName, this.siteService.createOne(siteName));
+			this.ownerDao.addTopo(topoId, owner.getId());
+			return;
+		}
 	}
 	
 	public boolean hasError() {

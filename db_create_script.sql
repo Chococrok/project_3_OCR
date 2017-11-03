@@ -5,8 +5,8 @@ CREATE SEQUENCE public.site_id_seq;
 CREATE TABLE public.site (
                 id INTEGER NOT NULL DEFAULT nextval('public.site_id_seq'),
                 name VARCHAR NOT NULL,
-                lat NUMERIC NOT NULL,
-                long NUMERIC NOT NULL,
+                lat NUMERIC,
+                long NUMERIC,
                 how_to_find VARCHAR,
                 description VARCHAR,
                 CONSTRAINT site_pk PRIMARY KEY (id)

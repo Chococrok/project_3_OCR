@@ -145,6 +145,88 @@ public class TopoDaoPsql implements TopoDao {
 	}
 	
 	@Override
+	public List<Topo> findAllBySite(int id) {
+		List<Topo> topos = new ArrayList<Topo>();
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet results = null;
+		try {
+			connection = this.daoFactory.getConnection();
+			preparedStatement = connection.prepareStatement(
+					"SELECT * FROM topo WHERE site_id =  ?;");
+			preparedStatement.setInt(1, id);
+			results = preparedStatement.executeQuery();
+			
+			while (results.next()) {
+
+				Topo topo = new Topo();
+
+				topo.setName(results.getString(NAME));
+				topo.setId(results.getInt(ID));
+				Site site = new Site();
+				site.setId(results.getInt(SITE_ID));
+				topo.setSite(site);
+
+				topos.add(topo);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			try {
+				connection.close();
+				preparedStatement.close();
+				results.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return topos;
+	}
+	
+	//TODO correct sql statement !
+	/*@Override
+	public List<Topo> findAllByNotOwner(int id) {
+		List<Topo> topos = new ArrayList<Topo>();
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet results = null;
+		try {
+			connection = this.daoFactory.getConnection();
+			preparedStatement = connection.prepareStatement(
+					"???????");
+			preparedStatement.setInt(1, id);
+			results = preparedStatement.executeQuery();
+			
+			while (results.next()) {
+
+				Topo topo = new Topo();
+
+				topo.setName(results.getString(NAME));
+				topo.setId(results.getInt(ID));
+				Site site = new Site();
+				site.setId(results.getInt(SITE_ID));
+				topo.setSite(site);
+				topo.setAvailable(results.getBoolean(AVAILABLE));
+
+				topos.add(topo);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			try {
+				connection.close();
+				preparedStatement.close();
+				results.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return topos;
+	}*/
+	
+	@Override
 	public void updateAvailability(int ownerId, int topoId, boolean available) {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
@@ -168,5 +250,38 @@ public class TopoDaoPsql implements TopoDao {
 				e.printStackTrace();
 			}
 		}
+	}
+	
+	@Override
+	public int createOne(String topoName, int siteId) {
+		int id = -1;
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet results = null;
+		try {
+			connection = this.daoFactory.getConnection();
+			preparedStatement = connection.prepareStatement("INSERT INTO topo (name, site_id) VALUES (?, ?) RETURNING id");
+			preparedStatement.setString(1, topoName);
+			preparedStatement.setInt(2, siteId);
+			results = preparedStatement.executeQuery();
+
+			results.next();
+
+			id = results.getInt(1);
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			try {
+				connection.close();
+				preparedStatement.close();
+				results.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		return id;
 	}
 }

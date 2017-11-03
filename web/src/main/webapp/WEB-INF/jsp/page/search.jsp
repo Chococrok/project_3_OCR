@@ -16,27 +16,26 @@
 					<p>Je souhaite effectuer une recherche par:</p>
 					<input type="radio" name="method" id="name" value="name"
 						${ empty param.method || param.method == 'name' ? 'checked':'' } />
-					<label for="name">nom</label>
-					<input type="radio" name="method" id="cotation" value="cotation"
-						${ param.method == 'cotation' ? 'checked':'' } />
-					<label for="cotation">cotation</label>
+					<label for="name">nom</label> <input type="radio" name="method"
+						id="cotation" value="cotation"
+						${ param.method == 'cotation' ? 'checked':'' } /> <label
+						for="cotation">cotation</label>
 				</div>
 
 				<div>
 					<p>Je recherche:</p>
 					<input type="radio" name="type" id="site" value="site"
-						${ empty param.type || param.type == 'site' ? 'checked':'' } />
-					<label for="site">site</label>
-					<input type="radio" name="type" id="secteur" value="secteur"
-						${ param.type == 'secteur' ? 'checked':'' } />
-					<label for="secteur">secteur</label>
-					<input type="radio" name="type" id="voie" value="voie"
-						${ param.type == 'voie' ? 'checked':'' } />
+						${ empty param.type || param.type == 'site' ? 'checked':'' } /> <label
+						for="site">site</label> <input type="radio" name="type"
+						id="secteur" value="secteur"
+						${ param.type == 'secteur' ? 'checked':'' } /> <label
+						for="secteur">secteur</label> <input type="radio" name="type"
+						id="voie" value="voie" ${ param.type == 'voie' ? 'checked':'' } />
 					<label for="voie">voie</label>
 				</div>
 
-				<input type="search" name="content" /> <input type="submit"
-					id="submit" />
+				<input type="search" name="content" />
+				<button type="submit" id="submit">Rechercher</button>
 			</form>
 			<c:if test="${ !empty error }">
 				<p class="false">${ error }</p>

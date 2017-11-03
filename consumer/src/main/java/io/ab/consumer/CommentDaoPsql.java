@@ -1,5 +1,8 @@
 package io.ab.consumer;
 
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.reflect.Method;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -18,9 +21,10 @@ public class CommentDaoPsql implements CommentDao {
 	CommentDaoPsql(DaoFactory daoFactory) {
 		this.daoFactory = daoFactory;
 	}
-	
+
 	public List<Comment> findAllBy(String column, int id) {
 		List<Comment> comments = new ArrayList<Comment>();
+
 		Connection connection = null;
 		Statement statement = null;
 		ResultSet results = null;

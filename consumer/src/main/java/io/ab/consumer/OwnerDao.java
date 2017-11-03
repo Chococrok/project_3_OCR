@@ -12,4 +12,5 @@ public interface OwnerDao {
 	public boolean checkPassword(String email, String password);
 	public void updateEmail(String email, int id);
 	public void updatePhone(String phone, int id);
+	public void addTopo(int topoId, int ownerId);
 }

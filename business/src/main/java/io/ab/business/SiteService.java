@@ -40,6 +40,10 @@ public class SiteService {
 		this.commentDao.addOneBy(Comment.SITE_ID, siteId, content, new Timestamp(System.currentTimeMillis()));
 	}
 	
+	public int createOne(String name) {
+		return this.siteDao.createOne(name);
+	}
+	
 	public List<Entity> findEntitiesByName(String name){
 		return this.siteDao.findEntitiesByName(name);
 	}

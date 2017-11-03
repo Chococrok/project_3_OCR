@@ -8,6 +8,7 @@ import io.ab.model.Site;
 public interface SiteDao {
 	public List<Site> findAll();
 	public Site findOne(int id);
+	public int createOne(String name);
 	public List<Entity> findEntitiesByName(String name);
 	public List<Entity> findEntitiesByCotation(String cotation);
 }
