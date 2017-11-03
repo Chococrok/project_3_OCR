@@ -1,4 +1,5 @@
 # Third project for the OpenClassRooms/Capgemini training.
+
 <br/>
 
 ## requirement
@@ -8,21 +9,31 @@ To run this project you need a Apache Tomcat 9 server, PostgreSQL 9.x with a dbu
 ### maven/tomcat
 
 * In $CATALINA_HOME\conf\tomcat-users:
-	<role rolename="manager-gui"/>
-	<role rolename="manager-script"/>
-	<user username="admin" password="password" roles="manager-gui"/>
+
+```
+<role rolename="manager-script"/>
+<user username="admin" password="password" roles="manager-script"/>
+```
 
 * In  ${maven.home}/conf/settings.xml (or ${user.home}/.m2/settings.xml):
-	<server>
-	    <id>tomcat</id>
-	    <username>admin</username>
-	    <password>password</password>
-	</server>
+
+```
+<server>
+    <id>tomcat</id>
+    <username>admin</username>
+    <password>password</password>
+</server>
+```
 
 You then need to run the script to create the tables and the script to add demo-datas: 
-	`~$ psql -f /home/utilisateur/dev/OCR/project_3/db_create_script.sql -U dbuser climbing`
 
-	`~$ psql -f /home/utilisateur/dev/OCR/project_3/db_add_entities.sql -U dbuser climbing`
+```
+~$ psql -f /home/utilisateur/dev/OCR/project_3/db_create_script.sql -U dbuser climbing
+```
+
+```
+~$ psql -f /home/utilisateur/dev/OCR/project_3/db_add_entities.sql -U dbuser climbing
+```
 
 ### running the project:
 
