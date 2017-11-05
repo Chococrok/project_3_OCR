@@ -18,17 +18,16 @@
 
 		<div class="card-content">
 			<form id="signIn" action="signIn" method="post">
-				<span>
-					<input type="email" id="email" name="email" placeholder="Email" />
-					<input type="password" id="password" name="password"
-						placeholder="Mot de passe" />
+				<span> <input type="email" id="email" name="email"
+					placeholder="Email" /> <input type="password" id="password"
+					name="password" placeholder="Mot de passe" />
 				</span>
 			</form>
 			<button type="submit" form="signIn" name="action" value="signIn">s'authentifier</button>
 			<c:if test="${ !empty error }">
 				<p class="false">${ error }</p>
 			</c:if>
-			<br /> <a href="sign-up">Pas encore de compte ? C'est par ici
+			<br /> <a href="signUp">Pas encore de compte ? C'est par ici
 				que ça se passe !</a>
 		</div>
 

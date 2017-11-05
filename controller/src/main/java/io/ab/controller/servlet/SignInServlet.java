@@ -37,7 +37,7 @@ public class SignInServlet extends HttpServlet {
 		String action = request.getParameter(ACTION);
 		switch (action) {
 			case SIGN_IN:
-				this.ownerService.signInOwner(request);
+				this.ownerService.signIn(request);
 				if (this.ownerService.hasError()) {
 					request.setAttribute("error", this.ownerService.getError());
 					this.getServletContext().getRequestDispatcher("/WEB-INF/jsp/page/sign-in.jsp").forward(request,

@@ -54,7 +54,7 @@
 				</c:forEach>
 			</div>
 
-			<form method="post" action="topo#comment">
+			<form method="post" action="topo#comment" onSubmit="return validateComment(this)">
 				<div class="input">
 					<label for="comment">Commentaire: </label>
 					<textarea name="content" id="comment"
@@ -65,5 +65,6 @@
 			</form>
 		</div>
 	</div>
+	<%@ include file="/WEB-INF/jsp/javascript/comment-js.jsp" %>
 </body>
 </html>

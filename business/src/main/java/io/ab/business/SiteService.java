@@ -37,6 +37,10 @@ public class SiteService {
 	}
 	
 	public void addComment(int siteId, String content) {
+		if (content.trim().isEmpty()) {
+			return;
+		}
+		
 		this.commentDao.addOneBy(Comment.SITE_ID, siteId, content, new Timestamp(System.currentTimeMillis()));
 	}
 	

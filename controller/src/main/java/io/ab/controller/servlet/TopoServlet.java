@@ -36,9 +36,15 @@ public class TopoServlet extends HttpServlet {
 	}
 
 	@Override
-	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		super.doPost(req, resp);
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		this.topoService.addComment(request);
+		if (this.topoService.hasError()) {
+			request.setAttribute("error", this.topoService.getError());
+		}
+		
+		int id = Integer.parseInt(request.getParameter("id"));
+		request.setAttribute("topo", this.topoService.findOneWithOwners(id));
+		this.getServletContext().getRequestDispatcher("/WEB-INF/jsp/page/topo.jsp").forward(request, response);
 	}
 
 }

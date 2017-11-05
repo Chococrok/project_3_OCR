@@ -252,7 +252,8 @@ public class OwnerDaoPsql implements OwnerDao {
 		PreparedStatement preparedStatement = null;
 		try {
 			connection = this.daoFactory.getConnection();
-			preparedStatement = connection.prepareStatement("INSERT INTO topo_owner (topo_id, owner_id) VALUES (?, ?);");
+			preparedStatement = connection
+					.prepareStatement("INSERT INTO topo_owner (topo_id, owner_id) VALUES (?, ?);");
 			preparedStatement.setInt(1, topoId);
 			preparedStatement.setInt(2, ownerId);
 			preparedStatement.executeUpdate();
@@ -268,6 +269,42 @@ public class OwnerDaoPsql implements OwnerDao {
 				e.printStackTrace();
 			}
 		}
+	}
+
+	@Override
+	public int createOne(String firstName, String lastName, String email, String password) {
+		int id = -1;
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet results = null;
+		try {
+			connection = this.daoFactory.getConnection();
+			preparedStatement = connection.prepareStatement(
+					"INSERT INTO owner (first_name, last_name, email, password) VALUES (?, ?, ?, ?) RETURNING id");
+			preparedStatement.setString(1, firstName);
+			preparedStatement.setString(2, lastName);
+			preparedStatement.setString(3, email);
+			preparedStatement.setString(4, password);
+			results = preparedStatement.executeQuery();
+
+			results.next();
+
+			id = results.getInt(1);
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			try {
+				connection.close();
+				preparedStatement.close();
+				results.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		return id;
 	}
 
 }

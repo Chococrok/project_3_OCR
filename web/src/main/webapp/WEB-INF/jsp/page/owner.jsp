@@ -69,9 +69,9 @@
 								<input type="hidden" id="id${ topoOwned.id }" name="id"
 									value="${ topoOwned.id }" />
 							</div>
-							<button type="submit" id="button${ topo.id }" name="action"
+							<button type="submit" id="button${ topoOwned.id }" name="action"
 								value="availability"
-								onClick="return editAvailability(${ topo.id })">editer</button>
+								onClick="return editAvailability(${ topoOwned.id })">editer</button>
 						</form>
 					</div>
 				</c:forEach>
@@ -83,7 +83,7 @@
 					onchange='setDisplay(formExistingTopo, formNewTopo);' /> <label
 					for="new">un nouveau topo</label> <input id="new" type="radio"
 					name="addChoice" value="new"
-					onchange='setDisplay(formNewTopo, formExistingTopo);' />
+					onchange="setDisplay(formNewTopo, formExistingTopo);" />
 			</div>
 
 			<p id="error" class="false" style="display: none;"></p>
@@ -129,6 +129,6 @@
 
 		</div>
 	</div>
-	<%@ include file="/WEB-INF/jsp/javascript/edit.jsp"%>
+	<%@ include file="/WEB-INF/jsp/javascript/owner-js.jsp"%>
 </body>
 </html>

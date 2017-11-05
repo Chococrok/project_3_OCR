@@ -64,7 +64,7 @@ CREATE TABLE public.owner (
                 last_name VARCHAR NOT NULL,
                 email VARCHAR NOT NULL,
                 password VARCHAR NOT NULL,
-                phone_number VARCHAR NOT NULL,
+                phone_number VARCHAR DEFAULT 'non renseigné',
                 CONSTRAINT owner_pk PRIMARY KEY (id)
 );
 

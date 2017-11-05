@@ -1,13 +1,17 @@
 package io.ab.business;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
 
+import io.ab.consumer.CommentDao;
 import io.ab.consumer.DaoFactory;
 import io.ab.consumer.OwnerDao;
 import io.ab.consumer.SiteDao;
 import io.ab.consumer.TopoDao;
+import io.ab.model.Comment;
 import io.ab.model.Topo;
 
 public class TopoService {
@@ -15,11 +19,16 @@ public class TopoService {
 	private TopoDao topoDao;
 	private SiteDao siteDao;
 	private OwnerDao ownerDao;
+	private CommentDao commentDao;
+	
+	private String error;
 
 	public TopoService(ServletContext context) {
 		this.topoDao = ((DaoFactory) context.getAttribute(DaoFactory.ATT_DAO_FACTORY)).getTopoDao();
 		this.siteDao = ((DaoFactory) context.getAttribute(DaoFactory.ATT_DAO_FACTORY)).getSiteDao();
 		this.ownerDao = ((DaoFactory) context.getAttribute(DaoFactory.ATT_DAO_FACTORY)).getOwnerDao();
+		this.commentDao = ((DaoFactory) context.getAttribute(DaoFactory.ATT_DAO_FACTORY)).getCommentDao();
+
 	}
 	
 	public List<Topo> findAll() {
@@ -58,6 +67,7 @@ public class TopoService {
 		Topo topo = this.topoDao.findOne(id);
 		topo.setOwners(this.ownerDao.findByTopo(id));
 		topo.setSite(this.siteDao.findOne(topo.getSite().getId()));
+		topo.setComments(this.commentDao.findAllBy(Comment.TOPO_ID, id));
 		return topo;
 	}
 	
@@ -67,5 +77,24 @@ public class TopoService {
 	
 	public int createOne(String topoName, int siteId) {
 		return this.topoDao.createOne(topoName, siteId);
+	}
+	
+	public void addComment(HttpServletRequest request) {
+		error = null;
+		String content = request.getParameter("content");
+		if (content.trim().isEmpty()) {
+			error = "Le commentaire est vide";
+			return;
+		}
+		int topoId = Integer.parseInt(request.getParameter("id"));
+		this.commentDao.addOneBy(Comment.TOPO_ID, topoId, content, new Timestamp(System.currentTimeMillis()));
+	}
+	
+	public boolean hasError() {
+		return this.error != null;
+	}
+	
+	public String getError() {
+		return error;
 	}
 }

@@ -32,6 +32,9 @@ public class SecteurService {
 	}
 	
 	public void addComment(int id, String content) {
+		if (content.trim().isEmpty()) {
+			return;
+		}
 		this.commentDao.addOneBy(Comment.SECTEUR_ID, id, content, new Timestamp(System.currentTimeMillis()));
 	}
 	

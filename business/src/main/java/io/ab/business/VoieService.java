@@ -33,6 +33,9 @@ public class VoieService {
 	}
 	
 	public void addComment(int id, String content) {
+		if (content.trim().isEmpty()) {
+			return;
+		}
 		this.commentDao.addOneBy(Comment.VOIE_ID, id, content, new Timestamp(System.currentTimeMillis()));
 	}
 	

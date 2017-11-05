@@ -13,4 +13,5 @@ public interface OwnerDao {
 	public void updateEmail(String email, int id);
 	public void updatePhone(String phone, int id);
 	public void addTopo(int topoId, int ownerId);
+	public int createOne(String firstName, String lastName, String email, String password);
 }
