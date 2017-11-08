@@ -6,17 +6,13 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.ServletContext;
-import javax.servlet.http.HttpServletRequest;
 
+import io.ab.business.dto.SearchForm;
 import io.ab.model.Entity;
 
 public class SearchService {	
-	public static final String METHOD = "method";
-	public static final String TYPE = "type";
-	public static final String NAME = "name";
-	public static final String COTATION = "cotation";
+
 	public static final String ERROR = "error";
-	public static final String CONTENT = "content";
 
 	private SiteService siteService;
 	private VoieService voieService;
@@ -31,50 +27,50 @@ public class SearchService {
 		
 	}
 	
-	public void search(HttpServletRequest request) {
+	public void search(SearchForm searchForm) {
 		this.error = null;
 		this.entities = new ArrayList<Entity>();
 		
-		if(request.getParameter(CONTENT) == null) {
+		if(searchForm.hasNullOrEmpty()) {
+			this.error = "Tout les champs doivent être renseignés";
 			return;
 		}
 		
-		String method = request.getParameter(METHOD);
-		if(method.equals(NAME)) {
-			this.findByName(request);
-		} else if(method.equals(COTATION)) {
-			this.findByCotation(request);
+		if(searchForm.getMethod().equals(SearchForm.NAME)) {
+			this.findByName(searchForm);
+		} else if(searchForm.getMethod().equals(SearchForm.COTATION)) {
+			this.findByCotation(searchForm);
 		}
 		if(this.entities.isEmpty()) {
 			this.error = "Nous n'avons pas trouvé l'objet de votre demande";
 		}
 	}
 	
-	public void findByName(HttpServletRequest request) {
-		switch(request.getParameter(TYPE)) {
-			case "site":
-				this.entities = this.siteService.findEntitiesByName(request.getParameter(CONTENT));
+	private void findByName(SearchForm searchForm) {
+		switch(searchForm.getType()) {
+			case SearchForm.SITE:
+				this.entities = this.siteService.findEntitiesByName(searchForm.getContent());
 				break;
-			case "secteur":
-				this.entities = this.secteurService.findEntitiesByName(request.getParameter(CONTENT));
+			case SearchForm.SECTEUR:
+				this.entities = this.secteurService.findEntitiesByName(searchForm.getContent());
 				break;
-			case "voie":
-				this.entities = this.voieService.findEntitiesByName(request.getParameter(CONTENT));
+			case SearchForm.VOIE:
+				this.entities = this.voieService.findEntitiesByName(searchForm.getContent());
 				break;
 				
 		}
 	}
 	
-	public void findByCotation(HttpServletRequest request) {
-		switch(request.getParameter(TYPE)) {
-			case "site":
-				this.entities = this.siteService.findEntitiesByCotation(request.getParameter(CONTENT));
+	private void findByCotation(SearchForm searchForm) {
+		switch(searchForm.getType()) {
+			case SearchForm.SITE:
+				this.entities = this.siteService.findEntitiesByCotation(searchForm.getContent());
 				break;
-			case "secteur":
-				this.entities = this.secteurService.findEntitiesByCotation(request.getParameter(CONTENT));
+			case SearchForm.SECTEUR:
+				this.entities = this.secteurService.findEntitiesByCotation(searchForm.getContent());
 				break;
-			case "voie":
-				this.entities = this.voieService.findEntitiesByCotation(request.getParameter(CONTENT));
+			case SearchForm.VOIE:
+				this.entities = this.voieService.findEntitiesByCotation(searchForm.getContent());
 				break;
 				
 		}

@@ -13,4 +13,7 @@ public interface TopoDao {
 	//public List<Topo> findAllByNotOwner(int id);
 	public void updateAvailability(int ownerId, int topoId, boolean available);
 	public int createOne(String topoName, int siteId);
+	boolean areLinked(int topoId, int siteId);
+	void deleteOne(int id);
+	void deleteSiteId(int id);
 }

@@ -16,7 +16,7 @@
 			<form action="voie" method="get" class="list">
 				<c:forEach items="${ secteur.voies }" var="voie">
 					<div class="clickable"
-						onClick="navigate('voie?id=${ voie.id }')">
+						onClick="navigate('/voie?id=${ voie.id }')">
 						<p>${ voie.name }(${ voie.cotation }, ${ voie.length }m)</p>
 						<i class="material-icons">&#xE315;</i>
 					</div>
@@ -36,7 +36,7 @@
 				</c:forEach>
 			</div>
 
-			<form method="post" action="secteur#comment" onSubmit="return validateComment(this)">
+			<form method="post" action="secteur?id=${ requestScope.secteur.id }#comment" onSubmit="return validateComment(this)">
 				<div class="input">
 					<label for="comment">Commentaire: </label>
 					<textarea type="text" name="content" id="comment"

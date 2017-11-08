@@ -1,5 +1,6 @@
 package io.ab.business;
 
+import io.ab.business.dto.CommentDTO;
 import io.ab.consumer.CommentDao;
 import io.ab.consumer.DaoFactory;
 import io.ab.consumer.SecteurDao;
@@ -16,26 +17,32 @@ public class SecteurService {
 	
 	private CommentDao commentDao;
 	private SecteurDao secteurDao;
-	private VoieDao voieDao;
+	private VoieService voieService;
 	
 	public SecteurService(ServletContext context) {
 		this.commentDao = ((DaoFactory) context.getAttribute(DaoFactory.ATT_DAO_FACTORY)).getCommentDao();
 		this.secteurDao = ((DaoFactory) context.getAttribute(DaoFactory.ATT_DAO_FACTORY)).getSecteurDao();
-		this.voieDao = ((DaoFactory) context.getAttribute(DaoFactory.ATT_DAO_FACTORY)).getVoieDao();
+		this.voieService = new VoieService(context);
 	}
 
 	public Secteur findOneWithCommentsAndVoies(int id) {
 		Secteur secteur = this.secteurDao.findOne(id);
 		secteur.setComments(this.commentDao.findAllBy(Comment.SECTEUR_ID, id));
-		secteur.setVoies(this.voieDao.findAllBySecteur(id));
+		secteur.setVoies(this.voieService.findAllBySecteur(id));
 		return secteur;
 	}
 	
-	public void addComment(int id, String content) {
-		if (content.trim().isEmpty()) {
+	public List<Secteur> findAllBySite(int id) {
+		return this.secteurDao.findAllBySite(id);
+	}
+	
+	public void addComment(CommentDTO commentDTO) {
+		if (commentDTO.hasNullOrEmpty()) {
 			return;
 		}
-		this.commentDao.addOneBy(Comment.SECTEUR_ID, id, content, new Timestamp(System.currentTimeMillis()));
+
+		this.commentDao.addOneBy(Comment.SECTEUR_ID, commentDTO.getEntityId(), commentDTO.getContent(),
+				new Timestamp(System.currentTimeMillis()));
 	}
 	
 	public List<Entity> findEntitiesByName(String name){
@@ -43,6 +50,15 @@ public class SecteurService {
 	}
 	public List<Entity> findEntitiesByCotation(String cotation){
 		return this.secteurDao.findEntitiesByCotation(cotation);
+	}
+	
+	public void deleteOne(int id) {
+		this.commentDao.deleteBy(Comment.SECTEUR_ID, id);
+
+		this.voieService.findAllBySecteur(id).forEach( voie -> {
+			this.voieService.deleteOne(voie.getId());
+		});
+		this.secteurDao.deleteOne(id);
 	}
 
 }

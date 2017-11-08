@@ -19,7 +19,7 @@ CREATE SEQUENCE public.topo_id_seq;
 
 CREATE TABLE public.topo (
                 id INTEGER NOT NULL DEFAULT nextval('public.topo_id_seq'),
-                site_id INTEGER NOT NULL,
+                site_id INTEGER,
                 name VARCHAR NOT NULL,
                 CONSTRAINT topo_pk PRIMARY KEY (id)
 );

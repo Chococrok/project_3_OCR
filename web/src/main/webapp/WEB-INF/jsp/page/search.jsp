@@ -48,7 +48,7 @@
 				<div class="list">
 					<c:forEach items="${ entities }" var="entity">
 						<div class="clickable"
-							onClick="navigate('${ param.type }?id=${ entity.id }')">
+							onClick="navigate('/${ param.type }?id=${ entity.id }')">
 							<p>${ entity.name }</p>
 							<i class="material-icons">&#xE315;</i>
 						</div>

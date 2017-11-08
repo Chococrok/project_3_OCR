@@ -206,4 +206,60 @@ public class SiteDaoPsql implements SiteDao {
 		return id;
 	}
 
+	@Override
+	public void deleteOne(int id) {
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet results = null;
+		try {
+			connection = this.daoFactory.getConnection();
+			preparedStatement = connection.prepareStatement("DELETE FROM site WHERE id = ?");
+			preparedStatement.setInt(1, id);
+			preparedStatement.executeUpdate();
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			try {
+				connection.close();
+				preparedStatement.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	@Override
+	public boolean exists(int id) {
+		boolean exists = false;
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet result = null;
+		try {
+			connection = this.daoFactory.getConnection();
+			preparedStatement = connection.prepareStatement("SELECT EXISTS (SELECT id FROM site WHERE id = ?);");
+			preparedStatement.setInt(1, id);
+			result = preparedStatement.executeQuery();
+
+			result.next();
+
+			exists = result.getBoolean(1);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			try {
+				connection.close();
+				preparedStatement.close();
+				result.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		return exists;
+	}
+
 }

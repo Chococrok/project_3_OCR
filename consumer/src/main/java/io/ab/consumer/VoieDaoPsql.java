@@ -170,4 +170,54 @@ public class VoieDaoPsql implements VoieDao {
 		}
 		return entities;
 	}
+	
+	@Override
+	public void deleteOne(int id) {
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet results = null;
+		try {
+			connection = this.daoFactory.getConnection();
+			preparedStatement = connection.prepareStatement("DELETE FROM voie WHERE id = ?");
+			preparedStatement.setInt(1, id);
+			preparedStatement.executeUpdate();
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			try {
+				connection.close();
+				preparedStatement.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	@Override
+	public void deleteBySecteur(int id) {
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet results = null;
+		try {
+			connection = this.daoFactory.getConnection();
+			preparedStatement = connection.prepareStatement("DELETE FROM voie WHERE secteur_id = ?");
+			preparedStatement.setInt(1, id);
+			preparedStatement.executeUpdate();
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			try {
+				connection.close();
+				preparedStatement.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	}
 }

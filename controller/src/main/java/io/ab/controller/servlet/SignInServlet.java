@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import io.ab.business.OwnerService;
+import io.ab.business.dto.SignInForm;
 
 @WebServlet("/signIn")
 public class SignInServlet extends HttpServlet {
@@ -36,20 +37,24 @@ public class SignInServlet extends HttpServlet {
 			throws ServletException, IOException {
 		String action = request.getParameter(ACTION);
 		switch (action) {
-			case SIGN_IN:
-				this.ownerService.signIn(request);
-				if (this.ownerService.hasError()) {
-					request.setAttribute("error", this.ownerService.getError());
-					this.getServletContext().getRequestDispatcher("/WEB-INF/jsp/page/sign-in.jsp").forward(request,
-							response);
-					return;
-				}
-				response.sendRedirect(this.getServletContext().getContextPath() + "/owner");
-				break;
-			case SIGN_OUT:
-				request.getSession().invalidate();
-				response.sendRedirect(this.getServletContext().getContextPath() + "/home");
-				break;
+		
+		case SIGN_IN:
+			SignInForm signInForm = new SignInForm(request);
+			this.ownerService.signIn(signInForm);
+			if (this.ownerService.hasError()) {
+				request.setAttribute("error", this.ownerService.getError());
+				this.getServletContext().getRequestDispatcher("/WEB-INF/jsp/page/sign-in.jsp").forward(request,
+						response);
+				return;
+			}
+			request.getSession().setAttribute("owner", this.ownerService.findOneByEmail(signInForm.getEmail()));
+			response.sendRedirect(this.getServletContext().getContextPath() + "/owner");
+			break;
+			
+		case SIGN_OUT:
+			request.getSession().invalidate();
+			response.sendRedirect(this.getServletContext().getContextPath() + "/home");
+			break;
 		}
 
 	}

@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.servlet.ServletContext;
 
+import io.ab.business.dto.CommentDTO;
 import io.ab.consumer.CommentDao;
 import io.ab.consumer.DaoFactory;
 import io.ab.consumer.LongueurDao;
@@ -32,11 +33,17 @@ public class VoieService {
 		return voie;
 	}
 	
-	public void addComment(int id, String content) {
-		if (content.trim().isEmpty()) {
+	public List<Voie> findAllBySecteur(int id) {
+		return this.voieDao.findAllBySecteur(id);
+	}
+	
+	public void addComment(CommentDTO commentDTO) {
+		if (commentDTO.hasNullOrEmpty()) {
 			return;
 		}
-		this.commentDao.addOneBy(Comment.VOIE_ID, id, content, new Timestamp(System.currentTimeMillis()));
+
+		this.commentDao.addOneBy(Comment.VOIE_ID, commentDTO.getEntityId(), commentDTO.getContent(),
+				new Timestamp(System.currentTimeMillis()));
 	}
 	
 	public List<Entity> findEntitiesByName(String name){
@@ -45,5 +52,12 @@ public class VoieService {
 	
 	public List<Entity> findEntitiesByCotation(String cotation){
 		return this.voieDao.findEntitiesByCotation(cotation);
+	}
+	
+	public void deleteOne(int id) {
+		this.commentDao.deleteBy(Comment.VOIE_ID, id);
+
+		this.longueurDao.deleteByVoie(id);
+		this.voieDao.deleteOne(id);
 	}
 }

@@ -11,6 +11,8 @@ public interface SiteDao {
 	public int createOne(String name);
 	public List<Entity> findEntitiesByName(String name);
 	public List<Entity> findEntitiesByCotation(String cotation);
+	public void deleteOne(int id);
+	boolean exists(int id);
 }
 
 

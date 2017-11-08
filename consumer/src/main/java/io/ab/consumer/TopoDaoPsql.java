@@ -284,4 +284,85 @@ public class TopoDaoPsql implements TopoDao {
 		}
 		return id;
 	}
+	
+	@Override
+	public boolean areLinked(int topoId, int siteId) {
+		boolean linked = false;
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet results = null;
+		try {
+			connection = this.daoFactory.getConnection();
+			preparedStatement = connection.prepareStatement("SELECT EXISTS(SELECT id FROM topo WHERE id = ? AND site_id = ?);");
+			preparedStatement.setInt(1, topoId);
+			preparedStatement.setInt(2, siteId);
+			results = preparedStatement.executeQuery();
+
+			results.next();
+
+			linked = results.getBoolean(1);
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			try {
+				connection.close();
+				preparedStatement.close();
+				results.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		return linked;
+	}
+	
+	@Override
+	public void deleteOne(int id) {
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		try {
+			connection = this.daoFactory.getConnection();
+			preparedStatement = connection.prepareStatement("DELETE FROM topo WHERE id = ?");
+			preparedStatement.setInt(1, id);
+			preparedStatement.executeUpdate();
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			try {
+				connection.close();
+				preparedStatement.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	@Override
+	public void deleteSiteId(int id) {
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		try {
+			connection = this.daoFactory.getConnection();
+			preparedStatement = connection.prepareStatement("UPDATE topo SET site_id = null WHERE site_id = ?");
+			preparedStatement.setInt(1, id);
+			preparedStatement.executeUpdate();
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			try {
+				connection.close();
+				preparedStatement.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	}
 }

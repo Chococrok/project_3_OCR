@@ -12,6 +12,7 @@ import io.ab.business.OwnerService;
 import io.ab.business.SearchService;
 import io.ab.business.SiteService;
 import io.ab.business.TopoService;
+import io.ab.business.dto.AddTopoForm;
 import io.ab.model.Owner;
 
 @WebServlet("/owner")
@@ -63,12 +64,18 @@ public class OwnerServlet extends HttpServlet {
 			request.getSession().setAttribute("owner", this.ownerService.findOneById(owner.getId()));
 			break;
 		case AVAILABILITY:
-			int topoId = Integer.parseInt(request.getParameter("id"));
-			boolean available = Boolean.parseBoolean(request.getParameter("available"));
-			this.topoService.updateAvailability(owner.getId(), topoId, available);
+			String paramId = request.getParameter("id");
+			Integer id = paramId == null || paramId.isEmpty() ? null : Integer.parseInt(paramId);
+			String paramAvailable = request.getParameter("available");
+			Boolean available = paramAvailable == null ? null : Boolean.parseBoolean(paramAvailable);
+			if (id == null || available == null) {
+				break;
+			}
+			this.topoService.updateAvailability(owner.getId(), id, available);
 			break;
 		case TOPO:
-			this.ownerService.addTopo(request, owner);
+			AddTopoForm topoForm = new AddTopoForm(request);
+			this.ownerService.addTopo(topoForm, owner);
 			if (this.ownerService.hasError()) {
 				request.setAttribute("error", this.ownerService.getError());
 			}

@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import io.ab.business.SearchService;
 import io.ab.business.SiteService;
+import io.ab.business.dto.SearchForm;
 import io.ab.model.Site;
 
 @WebServlet("/search")
@@ -26,7 +27,8 @@ public class SearchServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		this.searchService.search(request);
+		SearchForm searchForm = new SearchForm(request);
+		this.searchService.search(searchForm);
 
 		request.setAttribute(SearchService.ERROR, this.searchService.getError());
 		request.setAttribute("entities", this.searchService.getEntities());

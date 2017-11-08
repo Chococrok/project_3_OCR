@@ -8,7 +8,11 @@
 <body>
 	<div class="card">
 		<div class="card-header">
-			<h2>${ site.name }</h2>
+			<div class="editable">
+				<h2>${ requestScope.site.name }</h2>
+				<input value="editer" class="editButton"
+					type="button" onclick="return navigate('/site/edit?id=${requestScope.site.id}')">
+			</div>
 			<c:if test="${ empty site.description }">
 				<p class="false">Ce site n'est pas encore référencé sur
 					Escalade.com</p>
@@ -18,7 +22,7 @@
 				<p class="description">"${ site.description }"</p>
 			</c:if>
 		</div>
-		
+
 		<div class="card-content">
 
 			<c:if test="${ !empty site.description }">
@@ -38,7 +42,7 @@
 				<form action="secteur" method="get" class="list">
 					<c:forEach items="${ site.secteurs }" var="secteur">
 						<div class="clickable"
-							onClick="navigate('secteur?id=${ secteur.id }')">
+							onClick="navigate('/secteur?id=${ secteur.id }')">
 							<p>${ secteur.name }</p>
 							<i class="material-icons">&#xE315;</i>
 						</div>
@@ -50,7 +54,7 @@
 			<h3>Topos associés à ce site:</h3>
 			<form action="secteur" method="get" class="list">
 				<c:forEach items="${ requestScope.topos }" var="topo">
-					<div class="clickable" onClick="navigate('topo?id=${ topo.id }')">
+					<div class="clickable" onClick="navigate('/topo?id=${ topo.id }')">
 						<p>${ topo.name }</p>
 						<i class="material-icons">&#xE315;</i>
 					</div>
@@ -68,17 +72,18 @@
 					</div>
 				</c:forEach>
 			</div>
-			<form method="post" action="site#comment" onSubmit="return validateComment(this)">
+			<form method="post"
+				action="site?id=${ requestScope.site.id }#comment"
+				onSubmit="return validateComment(this)">
 				<div class="input">
 					<label for="comment">Commentaire: </label>
 					<textarea name="content" id="comment"
 						placeholder="entrer un nouveau commentaire"></textarea>
-					<input type="hidden" name="id" value="${ site.id }" /> <input
-						type="submit" />
+					<input type="submit" />
 				</div>
 			</form>
 		</div>
 	</div>
-	<%@ include file="/WEB-INF/jsp/javascript/comment-js.jsp" %>
+	<%@ include file="/WEB-INF/jsp/javascript/comment-js.jsp"%>
 </body>
 </html>

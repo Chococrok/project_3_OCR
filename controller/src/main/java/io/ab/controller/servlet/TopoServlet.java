@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import io.ab.business.TopoService;
+import io.ab.business.dto.CommentDTO;
 
 @WebServlet("/topo")
 public class TopoServlet extends HttpServlet {
@@ -37,7 +38,8 @@ public class TopoServlet extends HttpServlet {
 
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		this.topoService.addComment(request);
+		CommentDTO commentDTO = new CommentDTO(request);
+		this.topoService.addComment(commentDTO);
 		if (this.topoService.hasError()) {
 			request.setAttribute("error", this.topoService.getError());
 		}

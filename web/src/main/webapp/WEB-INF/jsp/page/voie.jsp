@@ -51,7 +51,7 @@
 				</c:forEach>
 			</div>
 
-			<form method="post" action="voie#comment" onSubmit="return validateComment(this)">
+			<form method="post" action="voie?id=${ requestScope.voie.id }#comment" onSubmit="return validateComment(this)">
 				<div class="input">
 					<label for="comment">Commentaire: </label>
 					<textarea name="content" id="comment"

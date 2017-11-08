@@ -27,7 +27,7 @@
 			<c:if test="${ !empty error }">
 				<p class="false">${ error }</p>
 			</c:if>
-			<br /> <a href="signUp">Pas encore de compte ? C'est par ici
+			<br /> <a onclick="navigate('/signUp')">Pas encore de compte ? C'est par ici
 				que ça se passe !</a>
 		</div>
 

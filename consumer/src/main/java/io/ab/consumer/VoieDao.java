@@ -11,4 +11,6 @@ public interface VoieDao {
 	public Voie findOne(int id);
 	public List<Entity> findEntitiesByName(String name);
 	public List<Entity> findEntitiesByCotation(String cotation);
+	void deleteOne(int id);
+	void deleteBySecteur(int id);
 }

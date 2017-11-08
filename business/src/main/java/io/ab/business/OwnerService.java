@@ -1,8 +1,10 @@
 package io.ab.business;
 
 import javax.servlet.ServletContext;
-import javax.servlet.http.HttpServletRequest;
 
+import io.ab.business.dto.AddTopoForm;
+import io.ab.business.dto.SignInForm;
+import io.ab.business.dto.SignUpForm;
 import io.ab.consumer.DaoFactory;
 import io.ab.consumer.OwnerDao;
 import io.ab.model.Owner;
@@ -36,77 +38,64 @@ public class OwnerService {
 		this.ownerDao.updatePhone(phone, id);
 	}
 
-	public void signIn(HttpServletRequest request) {
+	public void signIn(SignInForm signInForm) {
 		this.error = null;
-		String email = request.getParameter("email");
-		String password = request.getParameter("password");
 
-		if (email.isEmpty() || password.isEmpty()) {
+		if (signInForm.hasNullOrEmpty()) {
 			error = "Renseignez l'email et le mot de passe.";
 			return;
 		}
 
-		if (!this.ownerDao.exists(email)) {
+		if (!this.ownerDao.exists(signInForm.getEmail())) {
 			error = "Il n'existe aucun propriétaire de topos avec cette email.";
 			return;
 		}
 
-		if (!this.ownerDao.checkPassword(email, password)) {
+		if (!this.ownerDao.checkPassword(signInForm.getEmail(), signInForm.getPassword())) {
 			error = "Mot de passe invalide";
 			return;
 		}
 
-		request.getSession().setAttribute("owner", this.ownerDao.findOneByEmail(email));
-
 	}
 
-	public void signUp(HttpServletRequest request) {
+	public int signUp(SignUpForm signUpForm) {
 		this.error = null;
-		String firstName = request.getParameter("firstName");
-		String lastName = request.getParameter("lastName");
-		String email = request.getParameter("email");
-		String password = request.getParameter("password");
-		String confirmPassword = request.getParameter("confirmPassword");
 
-		if (firstName.isEmpty() || lastName.isEmpty() || email.isEmpty() || password.isEmpty()
-				|| confirmPassword.isEmpty()) {
+		if (signUpForm.hasNullOrEmpty()) {
 			this.error = "Erreur: champ manquant";
-			return;
+			return -1;
 		}
-		
-		if (!password.equals(confirmPassword)) {
+
+		if (!signUpForm.passwordIsMatching()) {
 			error = "Les deux mots de passe ne correspondent pas";
-			return;
+			return -1;
 		}
 
-		if (this.ownerDao.exists(email)) {
+		if (this.ownerDao.exists(signUpForm.getEmail())) {
 			error = "Un compte avec cette email existe déjà.";
-			return;
+			return -1;
 		}
 
-		int ownerId = this.ownerDao.createOne(firstName, lastName, email, password);
-		request.getSession().setAttribute("owner", this.ownerDao.findOneById(ownerId));
+		return this.ownerDao.createOne(signUpForm.getFirstName(), signUpForm.getLastName(),
+				signUpForm.getEmail(), signUpForm.getPassword());
 
 	}
 
-	public void addTopo(HttpServletRequest request, Owner owner) {
-		if (request.getParameter("topoId") != null) {
-			int topoId = Integer.parseInt(request.getParameter("topoId"));
+	public void addTopo(AddTopoForm addTopoForm, Owner owner) {
+		if (addTopoForm.getTopoId() != null) {
+			this.ownerDao.addTopo(addTopoForm.getTopoId(), owner.getId());
+			return;
+		}
+
+		if (addTopoForm.getSiteId() != null && addTopoForm.getTopoName() != null) {
+			int topoId = this.topoService.createOne(addTopoForm.getTopoName(), addTopoForm.getSiteId());
 			this.ownerDao.addTopo(topoId, owner.getId());
 			return;
 		}
 
-		if (request.getParameter("siteId") != null && request.getParameter("topoName") != null) {
-			int siteId = Integer.parseInt(request.getParameter("siteId"));
-			String topoName = request.getParameter("topoName");
-			int topoId = this.topoService.createOne(topoName, siteId);
-			this.ownerDao.addTopo(topoId, owner.getId());
-			return;
-		}
-
-		if (request.getParameter("siteName") != null && request.getParameter("topoName") != null) {
-			String siteName = request.getParameter("siteName");
-			String topoName = request.getParameter("topoName");
+		if (addTopoForm.getSiteName() != null && addTopoForm.getTopoName() != null) {
+			String siteName = addTopoForm.getSiteName();
+			String topoName = addTopoForm.getTopoName();
 			int topoId = this.topoService.createOne(topoName, this.siteService.createOne(siteName));
 			this.ownerDao.addTopo(topoId, owner.getId());
 			return;

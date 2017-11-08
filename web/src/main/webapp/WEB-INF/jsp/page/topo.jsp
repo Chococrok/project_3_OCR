@@ -14,7 +14,7 @@
 		</div>
 		<div class="card-content">
 			<h3>site correspondant:</h3>
-			<div class="clickable" onClick="navigate('site?id=${ requestScope.topo.site.id }')">
+			<div class="clickable" onClick="navigate('/site?id=${ requestScope.topo.site.id }')">
 				<p>${ requestScope.topo.site.name }</p>
 				<i class="material-icons">&#xE315;</i>
 			</div>
@@ -54,7 +54,7 @@
 				</c:forEach>
 			</div>
 
-			<form method="post" action="topo#comment" onSubmit="return validateComment(this)">
+			<form method="post" action="topo?id=${ requestScope.topo.id }#comment" onSubmit="return validateComment(this)">
 				<div class="input">
 					<label for="comment">Commentaire: </label>
 					<textarea name="content" id="comment"

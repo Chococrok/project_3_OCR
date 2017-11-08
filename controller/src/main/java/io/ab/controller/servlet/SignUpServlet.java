@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import io.ab.business.OwnerService;
+import io.ab.business.dto.SignUpForm;
 
 @WebServlet("/signUp")
 public class SignUpServlet extends HttpServlet {
@@ -31,13 +32,16 @@ public class SignUpServlet extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		this.ownerService.signUp(request);
+		SignUpForm signUpForm = new SignUpForm(request);
+		int newOwnerId = this.ownerService.signUp(signUpForm);
 		if (this.ownerService.hasError()) {
 			request.setAttribute("error", this.ownerService.getError());
 			this.getServletContext().getRequestDispatcher("/WEB-INF/jsp/page/sign-up.jsp").forward(request,
 					response);
 			return;
 		}
+		
+		request.getSession().setAttribute("owner", this.ownerService.findOneById(newOwnerId));
 		response.sendRedirect(this.getServletContext().getContextPath() + "/owner");
 	}
 

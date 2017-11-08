@@ -224,4 +224,9 @@ button {
 	flex-direction: row;
 	justify-content: space-between;
 }
+
+.editButton {
+	margin-top: auto; 
+	margin-bottom: auto;
+}
 </style>

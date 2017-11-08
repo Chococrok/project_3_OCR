@@ -13,7 +13,7 @@
 		<div class="card-content">
 			<div class="list">
 				<c:forEach items="${ sites }" var="site">
-					<div class="clickable" onClick="navigate('site?id=${ site.id }')">
+					<div class="clickable" onClick="navigate('/site?id=${ site.id }')">
 						<p>${ site.name }</p>
 						<i class="material-icons">&#xE315;</i>
 					</div>
