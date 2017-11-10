@@ -96,7 +96,7 @@ public class OwnerService {
 		if (addTopoForm.getSiteName() != null && addTopoForm.getTopoName() != null) {
 			String siteName = addTopoForm.getSiteName();
 			String topoName = addTopoForm.getTopoName();
-			int topoId = this.topoService.createOne(topoName, this.siteService.createOne(siteName));
+			int topoId = this.topoService.createOne(topoName, this.siteService.addEmptyOne(siteName));
 			this.ownerDao.addTopo(topoId, owner.getId());
 			return;
 		}

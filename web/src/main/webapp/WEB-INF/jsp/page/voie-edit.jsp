@@ -10,58 +10,77 @@
 <body>
 	<div class="card">
 		<div class="card-header">
-			<h3>
+			<h2>
 				Edition de
 				<c:out value="${ requestScope.voie.name }" />
-			</h3>
+			</h2>
+			<p class="description">"${ requestScope.voie.description }"</p>
 		</div>
 		<div class="card-content">
-			<form action="edit?id=${ requestScope.voie.id }" method ="post">
-				<input name="name"
+			<form action="edit?id=${ requestScope.voie.id }" method="post">
+				<input name="name" required
 					value="<c:out value="${ requestScope.voie.name }"/>"
 					placeholder="nom de la voie" />
-				<input name="description"
+				<input name="description" required
 					value="<c:out value="${ requestScope.voie.description }"/>"
 					placeholder="description de la voie" />
-				<input name="cotation"
+				<input name="cotation" required
 					value="<c:out value="${ requestScope.voie.cotation }"/>"
 					placeholder="cotation de la voie" />
-				<input name="length"
+				<input name="length" required type="number"
 					value="<c:out value="${ requestScope.voie.length }"/>"
 					placeholder="longueur de la voie" />
-				<input name="pointNumber"
+				<input name="pointNumber" required type="number"
 					value="<c:out value="${ requestScope.voie.pointNumber }"/>"
 					placeholder="nombre de point de la voie" />
-				<input type="hidden" name="id" value="${ requestScope.voie.id }" />
-				<button type="submit" name="action" value="updateVoie">Confirmer</button>
+				<input type="hidden" name="voieId" value="${ requestScope.voie.id }" />
+				<button type="submit" name="action" value="updateVoie">
+					Editer
+					<c:out value="${ requestScope.voie.name }" />
+				</button>
 			</form>
 
-			<h3>Les longueurs de ${ voie.name }</h3>
-			<div class="list">
-				<c:forEach items="${ voie.longueurs }" var="longueur">
+			<h3>Les longueurs de ${ requestScope.voie.name }</h3>
+			<div>
+				<c:forEach items="${ requestScope.voie.longueurs }" var="longueur">
 					<form class="editable" action="edit?id=${ requestScope.voie.id }"
 						method="post">
-						<p>${ longueur.name }</p>
 						<input type="hidden" name="longueurId" value="${ longueur.id }" />
-						<button class="editButton" type="submit" name="action"
-							value="deleteLongueur" onClick="return removeLongueur();">
-							<i class="material-icons">delete</i>
-						</button>
+						<p>${ longueur.name }(${ longueur.cotation },${ longueur.length }m)</p>
+						<div class="editable">
+							<button class="editButton" type="button"
+								onclick="navigate('/longueur/edit?id=${ longueur.id }');">éditer</button>
+							<button class="editButton" type="submit" name="action"
+								value="deleteLongueur" onclick="return confirm('Supprimer cette longueur?');">
+								supprimer</button>
+						</div>
 					</form>
 				</c:forEach>
+				<form style="display: none;" id="addLongueurForm"
+					action="edit?id=${ requestScope.voie.id }" method="post">
+					<input name="name" placeholder="nom de la voie" required />
+					<input name="cotation" placeholder="cotation de la voie" required />
+					<input name="length" placeholder="longueur de la voie"
+						type="number" required />
+					<input type="hidden" name="voieId"
+						value="${ requestScope.voie.id }" />
+				</form>
+				<button form="addLongueurForm" type="submit" name="action"
+					value="addLongueur"
+					onclick="return activateForm(addLongueurForm, this)">Nouvelle
+					longueur</button>
 			</div>
 
 			<h3>Supprimer cette voie ?</h3>
 			<form class="simpleForm" action="edit?id=${ requestScope.voie.id }"
 				method="post">
 				<button type="submit" name="action" value="delete"
-					onClick="return remove();">
+					onClick="return confirm('Supprimer cette voie? Les longueures associeés seront également supprimées');">
 					<i class="material-icons">delete</i>
 				</button>
 			</form>
 
 		</div>
 	</div>
-	<%@ include file="/WEB-INF/jsp/javascript/voie-edit.js.jsp"%>
 </body>
 </html>

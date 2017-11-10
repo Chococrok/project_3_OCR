@@ -1,4 +1,4 @@
-package io.ab.consumer;
+package io.ab.consumer.impl.psql;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -8,6 +8,8 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.ab.consumer.DaoFactory;
+import io.ab.consumer.VoieDao;
 import io.ab.model.Entity;
 import io.ab.model.Secteur;
 import io.ab.model.Voie;
@@ -16,7 +18,7 @@ public class VoieDaoPsql implements VoieDao {
 
 	private DaoFactory daoFactory;
 
-	VoieDaoPsql(DaoFactory daoFactory) {
+	public VoieDaoPsql(DaoFactory daoFactory) {
 		this.daoFactory = daoFactory;
 	}
 
@@ -240,6 +242,36 @@ public class VoieDaoPsql implements VoieDao {
 			preparedStatement.setInt(4, voie.getLength());
 			preparedStatement.setInt(5, voie.getPointNumber());
 			preparedStatement.setInt(6, voie.getId());
+			preparedStatement.executeUpdate();
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			try {
+				connection.close();
+				preparedStatement.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	@Override
+	public void insertOne(Voie voie) {
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		try {
+			connection = this.daoFactory.getConnection();
+			preparedStatement = connection.prepareStatement(
+					"INSERT INTO voie (name, description, cotation, length, point_number, secteur_id) VALUES (?, ?, ?, ?, ?, ?)");
+			preparedStatement.setString(1, voie.getName());
+			preparedStatement.setString(2, voie.getDescription());
+			preparedStatement.setString(3, voie.getCotation());
+			preparedStatement.setInt(4, voie.getLength());
+			preparedStatement.setInt(5, voie.getPointNumber());
+			preparedStatement.setInt(6, voie.getSecteur().getId());
 			preparedStatement.executeUpdate();
 
 		} catch (SQLException e) {

@@ -59,8 +59,12 @@ public class SiteService {
 				new Timestamp(System.currentTimeMillis()));
 	}
 
-	public int createOne(String name) {
-		return this.siteDao.createOne(name);
+	public int addEmptyOne(String name) {
+		return this.siteDao.insertEmptyOne(name);
+	}
+	
+	public void addOne(Site site) {
+		this.siteDao.insertOne(site);
 	}
 
 	public List<Entity> findEntitiesByName(String name) {
@@ -79,6 +83,11 @@ public class SiteService {
 			this.secteurService.deleteOne(secteur.getId());
 		});
 		this.siteDao.deleteOne(id);
+	}
+
+	public void updateOne(Site site) {
+		this.siteDao.updateOne(site);
+		
 	}
 
 }

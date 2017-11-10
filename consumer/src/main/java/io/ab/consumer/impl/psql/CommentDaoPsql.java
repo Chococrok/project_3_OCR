@@ -1,8 +1,5 @@
-package io.ab.consumer;
+package io.ab.consumer.impl.psql;
 
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.reflect.Method;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -12,13 +9,15 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.ab.consumer.CommentDao;
+import io.ab.consumer.DaoFactory;
 import io.ab.model.Comment;
 
 public class CommentDaoPsql implements CommentDao {
 	
 	private DaoFactory daoFactory;
 	
-	CommentDaoPsql(DaoFactory daoFactory) {
+	public CommentDaoPsql(DaoFactory daoFactory) {
 		this.daoFactory = daoFactory;
 	}
 

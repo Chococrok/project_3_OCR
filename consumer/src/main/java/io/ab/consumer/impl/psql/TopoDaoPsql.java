@@ -1,4 +1,4 @@
-package io.ab.consumer;
+package io.ab.consumer.impl.psql;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -8,6 +8,8 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.ab.consumer.DaoFactory;
+import io.ab.consumer.TopoDao;
 import io.ab.model.Site;
 import io.ab.model.Topo;
 
@@ -20,7 +22,7 @@ public class TopoDaoPsql implements TopoDao {
 
 	private DaoFactory daoFactory;
 
-	TopoDaoPsql(DaoFactory daoFactory) {
+	public TopoDaoPsql(DaoFactory daoFactory) {
 		this.daoFactory = daoFactory;
 	}
 

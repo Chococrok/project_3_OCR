@@ -11,6 +11,14 @@ import javax.servlet.annotation.WebListener;
 import com.jolbox.bonecp.BoneCP;
 import com.jolbox.bonecp.BoneCPConfig;
 
+import io.ab.consumer.impl.psql.CommentDaoPsql;
+import io.ab.consumer.impl.psql.LongueurDaoPsql;
+import io.ab.consumer.impl.psql.OwnerDaoPsql;
+import io.ab.consumer.impl.psql.SecteurDaoPsql;
+import io.ab.consumer.impl.psql.SiteDaoPsql;
+import io.ab.consumer.impl.psql.TopoDaoPsql;
+import io.ab.consumer.impl.psql.VoieDaoPsql;
+
 @WebListener
 public class DaoFactory implements ServletContextListener {
 

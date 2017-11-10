@@ -82,6 +82,7 @@ form {
 	margin: 0;
 	display: initial;
 }
+
 form:first-child {
 	margin-top: 0;
 }
@@ -129,8 +130,7 @@ button {
 
 .card {
 	margin: 1em;
-	min-width: 50%;
-	max-width: 85%;
+	width: 66%;
 	display: flex;
 	flex-direction: column;
 	box-shadow: 5px 5px 20px 0px #888888;
@@ -226,7 +226,8 @@ button {
 }
 
 .editButton {
-	margin-top: auto; 
+	margin-right: initial;
+	margin-top: auto;
 	margin-bottom: auto;
 }
 </style>

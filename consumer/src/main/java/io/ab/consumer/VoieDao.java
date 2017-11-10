@@ -14,4 +14,5 @@ public interface VoieDao {
 	void deleteOne(int id);
 	void deleteBySecteur(int id);
 	void updateOne(Voie voie);
+	public void insertOne(Voie voie);
 }

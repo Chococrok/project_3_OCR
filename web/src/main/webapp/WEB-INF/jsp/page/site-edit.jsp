@@ -3,68 +3,85 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>edition d'un site</title>
 <%@ include file="/WEB-INF/jsp/style/global-style.jsp"%>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Edition de ${ requestScope.site.name }</title>
 </head>
 <body>
 	<div class="card">
 		<div class="card-header">
-			<h2>${ site.name }</h2>
-			<c:if test="${ empty site.description }">
-				<p class="false">Ce site n'est pas encore référencé sur
-					Escalade.com</p>
-			</c:if>
-
-			<c:if test="${ !empty site.description }">
-				<p class="description">"${ site.description }"</p>
-			</c:if>
+			<h2>
+				Edition de
+				<c:out value="${ requestScope.site.name }" />
+			</h2>
+			<p class="description">"${ requestScope.site.description }"</p>
 		</div>
-
 		<div class="card-content">
+			<form action="edit?id=${ requestScope.site.id }" method="post">
+				<input name="name" required
+					value="<c:out value="${ requestScope.site.name }"/>"
+					placeholder="nom du site" />
+				<input name="description" required
+					value="<c:out value="${ requestScope.site.description }"/>"
+					placeholder="description du site" />
+				<input name="howToFind" required
+					value="<c:out value="${ requestScope.site.howToFind }"/>"
+					placeholder="comment trouver ce site" />
+				<input name="latitude" required 
+					value="<c:out value="${ requestScope.site.latitude }"/>"
+					placeholder="latitude" />
+				<input name="longitude" required 
+					value="<c:out value="${ requestScope.site.longitude }"/>"
+					placeholder="longitude" />
+				<button type="submit" name="action" value="updateSite">
+					Editer
+					<c:out value="${ requestScope.site.name }" />
+				</button>
+			</form>
 
-			<c:if test="${ !empty site.description }">
-
-				<table>
-					<tr>
-						<td>Coordonées géographiques:</td>
-						<td>${ site.latitude },${ site.longitude }</td>
-					</tr>
-					<tr>
-						<td>indication supplémentaire:</td>
-						<td>${ site.howToFind }</td>
-					</tr>
-				</table>
-
-				<h3>Supprimer ce site ?</h3>
-				<form class="simpleForm" action="edit?id=${ requestScope.site.id }" method="post">
-					<button type="submit" name="action" value="delete"
-						onClick="return remove();">
-						<i class="material-icons">delete</i>
-					</button>
+			<h3>Les secteurs de ce site:</h3>
+			<div>
+				<c:forEach items="${ site.secteurs }" var="secteur">
+					<form class="editable" action="edit?id=${ requestScope.site.id }"
+						method="post">
+						<input type="hidden" name="secteurId" value="${ secteur.id }" />
+						<p>
+							<c:out value="${ secteur.name }"></c:out>
+						</p>
+						<div class="editable">
+							<button class="editButton" type="button"
+								onclick="navigate('/secteur/edit?id=${ secteur.id }');">éditer</button>
+							<button class="editButton" type="submit" name="action"
+								value="deleteSecteur"
+								onclick="return confirm('Supprimer ce secteur ? Les voies et longueurs associées seront également supprimées.');">
+								supprimer</button>
+						</div>
+					</form>
+				</c:forEach>
+				<form style="display: none;" id="addSecteurForm"
+					action="edit?id=${ requestScope.site.id }" method="post">
+					<input name="name" placeholder="nom du secteur" required />
+					<input name="description" placeholder="description du secteur"
+						required />
+					<input type="hidden" name="siteId"
+						value="${ requestScope.site.id }" />
 				</form>
+				<button form="addSecteurForm" type="submit" name="action"
+					value="addSecteur"
+					onclick="return activateForm(addSecteurForm, this)">Nouveau
+					secteur</button>
+			</div>
 
-			</c:if>
-			<%-- the link between topos and sites should be updated in topo details
-			
-			<h3>Topos associés à ce site:</h3>
-			<c:forEach items="${ requestScope.topos }" var="topo">
-				<form action="edit?id=${ requestScope.site.id }" method="post">
-					<span> <label for="topo${ topo.id }">${ topo.name }</label>
-						<input type="checkbox" id="topo${ topo.id }" disabled="disabled"
-							${ requestScope.toposSite.contains(topo) ? 'checked' : '' } /> <input
-							id="hidden${ topo.id }" type="hidden" name="added" />
-							 <input
-							 type="hidden" name="topoId" value="${ topo.id }"/>
-						<button type="submit" id="buttonTopo" name="action" value="topo"
-							onclick="return editTopo(this, hidden${ topo.id }, topo${ topo.id })">editer</button>
-					</span>
-				</form>
-			</c:forEach>**/
---%>
+			<h3>Supprimer ce site ?</h3>
+			<form class="simpleForm" action="edit?id=${ requestScope.site.id }"
+				method="post">
+				<button type="submit" name="action" value="delete"
+					onClick="return confirm('Supprimer ce site ? Les secteurs, les voies et les longueures associés seront également supprimés.');">
+					<i class="material-icons">delete</i>
+				</button>
+			</form>
+
 		</div>
 	</div>
-	<%@ include file="/WEB-INF/jsp/javascript/site-edit.js.jsp"%>
-
 </body>
 </html>

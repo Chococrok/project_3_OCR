@@ -65,5 +65,14 @@ public class SecteurService {
 		});
 		this.secteurDao.deleteOne(id);
 	}
+	
+	public void updateOne(Secteur secteur) {
+		this.secteurDao.updateOne(secteur);
+	}
+
+	public void addOne(Secteur secteur) {
+		this.secteurDao.insertOne(secteur);
+		
+	}
 
 }

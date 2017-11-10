@@ -1,9 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <%@ include file="/WEB-INF/jsp/style/global-style.jsp"%>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Escalade.com</title>
 </head>
 <body>
 	<div class="card">
@@ -19,6 +21,22 @@
 					</div>
 				</c:forEach>
 			</div>
+
+			<form style="display: none;" id="addSiteForm" action="home"
+				method="post">
+				<input name="name" placeholder="nom du site" required />
+				<input name="description" placeholder="description du site" required />
+				<input name="howToFind" required
+					placeholder="comment trouver ce site" />
+				<input name="latitude" required
+					placeholder="latitude" />
+				<input name="longitude" required
+					placeholder="longitude" />
+			</form>
+			<button form="addSiteForm" type="submit" name="action"
+				value="addSite"
+				onclick="return activateForm(addSiteForm, this)">Nouveau
+				site</button>
 		</div>
 	</div>
 </body>

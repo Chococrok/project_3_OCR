@@ -12,4 +12,6 @@ public interface SecteurDao {
 	public List<Entity> findEntitiesByCotation(String cotation);
 	void deleteOne(int id);
 	void deleteBySite(int id);
+	public void updateOne(Secteur secteur);
+	public void insertOne(Secteur secteur);
 }

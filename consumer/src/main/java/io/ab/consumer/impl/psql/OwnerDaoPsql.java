@@ -1,4 +1,4 @@
-package io.ab.consumer;
+package io.ab.consumer.impl.psql;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -8,6 +8,8 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.ab.consumer.DaoFactory;
+import io.ab.consumer.OwnerDao;
 import io.ab.model.Owner;
 import io.ab.model.Site;
 import io.ab.model.Topo;
@@ -16,7 +18,7 @@ public class OwnerDaoPsql implements OwnerDao {
 
 	private DaoFactory daoFactory;
 
-	OwnerDaoPsql(DaoFactory daoFactory) {
+	public OwnerDaoPsql(DaoFactory daoFactory) {
 		this.daoFactory = daoFactory;
 	}
 

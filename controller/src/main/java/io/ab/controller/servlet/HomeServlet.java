@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import io.ab.business.SiteService;
 import io.ab.consumer.DaoFactory;
+import io.ab.controller.mapper.SiteMapper;
 
 @WebServlet("/home")
 public class HomeServlet extends HttpServlet {
@@ -27,8 +28,9 @@ public class HomeServlet extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+		this.siteService.addOne(SiteMapper.map(request));
+		request.setAttribute("sites", this.siteService.findAll());
+		this.getServletContext().getRequestDispatcher("/WEB-INF/jsp/page/home.jsp").forward(request, response);
 	}
 
 }

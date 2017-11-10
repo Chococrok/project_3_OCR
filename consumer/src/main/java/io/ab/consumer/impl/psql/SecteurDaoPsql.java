@@ -1,4 +1,4 @@
-package io.ab.consumer;
+package io.ab.consumer.impl.psql;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -8,15 +8,18 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.ab.consumer.DaoFactory;
+import io.ab.consumer.SecteurDao;
 import io.ab.model.Entity;
 import io.ab.model.Secteur;
 import io.ab.model.Site;
+import io.ab.model.Voie;
 
 public class SecteurDaoPsql implements SecteurDao {
 	
 	private DaoFactory daoFactory;
 
-	SecteurDaoPsql(DaoFactory daoFactory) {
+	public SecteurDaoPsql(DaoFactory daoFactory) {
 		this.daoFactory = daoFactory;
 	}
 
@@ -193,11 +196,64 @@ public class SecteurDaoPsql implements SecteurDao {
 	public void deleteBySite(int id) {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
-		ResultSet results = null;
 		try {
 			connection = this.daoFactory.getConnection();
 			preparedStatement = connection.prepareStatement("DELETE FROM secteur WHERE site_id = ?");
 			preparedStatement.setInt(1, id);
+			preparedStatement.executeUpdate();
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			try {
+				connection.close();
+				preparedStatement.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	}
+
+	@Override
+	public void updateOne(Secteur secteur) {
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		try {
+			connection = this.daoFactory.getConnection();
+			preparedStatement = connection.prepareStatement(
+					"UPDATE secteur SET name = ?, description = ?  WHERE id = ?");
+			preparedStatement.setString(1, secteur.getName());
+			preparedStatement.setString(2, secteur.getDescription());
+			preparedStatement.setInt(3, secteur.getId());
+			preparedStatement.executeUpdate();
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			try {
+				connection.close();
+				preparedStatement.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}		
+	}
+	
+	@Override
+	public void insertOne(Secteur secteur) {
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		try {
+			connection = this.daoFactory.getConnection();
+			preparedStatement = connection.prepareStatement(
+					"INSERT INTO secteur (name, description, site_id) VALUES (?, ?, ?)");
+			preparedStatement.setString(1, secteur.getName());
+			preparedStatement.setString(2, secteur.getDescription());
+			preparedStatement.setInt(3, secteur.getSite().getId());
 			preparedStatement.executeUpdate();
 
 		} catch (SQLException e) {

@@ -11,6 +11,7 @@ import io.ab.business.SecteurService;
 import io.ab.business.SiteService;
 import io.ab.business.TopoService;
 import io.ab.business.VoieService;
+import io.ab.controller.mapper.LongueurMapper;
 import io.ab.controller.mapper.VoieMapper;
 import io.ab.model.Secteur;
 import io.ab.model.Site;
@@ -69,15 +70,18 @@ public class VoieEditServlet extends HttpServlet {
 			Integer longueurId = paramLongueurId == null || paramLongueurId.isEmpty() ? null
 					: Integer.parseInt(paramLongueurId);
 			if (longueurId == null) {
-				this.getServletContext().getRequestDispatcher("/WEB-INF/jsp/page/voie-edit.jsp").forward(request, response);
-				return;
+				break;
 			}
 			this.voieService.deleteLongueur(longueurId);
 			voie = this.voieService.findOneWithCommentsAndLongueurs(id);
 			break;
 		case "updateVoie":
 			this.voieService.updateOne(VoieMapper.map(request));
-			response.sendRedirect(this.getServletContext().getContextPath() + "/voie?id=" + voie.getId());
+			response.sendRedirect(this.getServletContext().getContextPath() + "/voie?id=" + id);
+			return;
+		case "addLongueur":
+			this.voieService.addLongueur(LongueurMapper.map(request));
+			response.sendRedirect(this.getServletContext().getContextPath() + "/voie?id=" + id);
 			return;
 		}
 

@@ -1,4 +1,4 @@
-package io.ab.consumer;
+package io.ab.consumer.impl.psql;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -8,14 +8,17 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.ab.consumer.DaoFactory;
+import io.ab.consumer.SiteDao;
 import io.ab.model.Entity;
+import io.ab.model.Secteur;
 import io.ab.model.Site;
 
 public class SiteDaoPsql implements SiteDao {
 
 	private DaoFactory daoFactory;
 
-	SiteDaoPsql(DaoFactory daoFactory) {
+	public SiteDaoPsql(DaoFactory daoFactory) {
 		this.daoFactory = daoFactory;
 	}
 
@@ -175,7 +178,7 @@ public class SiteDaoPsql implements SiteDao {
 	}
 
 	@Override
-	public int createOne(String name) {
+	public int insertEmptyOne(String name) {
 		int id = -1;
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
@@ -210,7 +213,6 @@ public class SiteDaoPsql implements SiteDao {
 	public void deleteOne(int id) {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
-		ResultSet results = null;
 		try {
 			connection = this.daoFactory.getConnection();
 			preparedStatement = connection.prepareStatement("DELETE FROM site WHERE id = ?");
@@ -260,6 +262,65 @@ public class SiteDaoPsql implements SiteDao {
 			}
 		}
 		return exists;
+	}
+	
+	@Override
+	public void updateOne(Site site) {
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		try {
+			connection = this.daoFactory.getConnection();
+			preparedStatement = connection.prepareStatement(
+					"UPDATE site SET name = ?, description = ?, how_to_find = ?, lat = ?, long = ?  WHERE id = ?");
+			preparedStatement.setString(1, site.getName());
+			preparedStatement.setString(2, site.getDescription());
+			preparedStatement.setString(3, site.getHowToFind());
+			preparedStatement.setBigDecimal(4, site.getLatitude());
+			preparedStatement.setBigDecimal(5, site.getLongitude());
+			preparedStatement.setInt(6, site.getId());
+			preparedStatement.executeUpdate();
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			try {
+				connection.close();
+				preparedStatement.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}		
+	}
+	
+	@Override
+	public void insertOne(Site site) {
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		try {
+			connection = this.daoFactory.getConnection();
+			preparedStatement = connection.prepareStatement(
+					"INSERT INTO site (name, description, how_to_find, lat, long) VALUES (?, ?, ?, ?, ?)");
+			preparedStatement.setString(1, site.getName());
+			preparedStatement.setString(2, site.getDescription());
+			preparedStatement.setString(3, site.getHowToFind());
+			preparedStatement.setBigDecimal(4, site.getLatitude());
+			preparedStatement.setBigDecimal(5, site.getLongitude());
+			preparedStatement.executeUpdate();
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			try {
+				connection.close();
+				preparedStatement.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 	}
 
 }

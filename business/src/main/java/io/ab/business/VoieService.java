@@ -12,6 +12,7 @@ import io.ab.consumer.LongueurDao;
 import io.ab.consumer.VoieDao;
 import io.ab.model.Comment;
 import io.ab.model.Entity;
+import io.ab.model.Longueur;
 import io.ab.model.Voie;
 
 public class VoieService {
@@ -86,5 +87,13 @@ public class VoieService {
 
 	public String getError() {
 		return this.error;
+	}
+	
+	public void addOne(Voie voie) {
+		this.voieDao.insertOne(voie);
+	}
+	
+	public void addLongueur(Longueur longueur) {
+		this.longueurDao.insertOne(longueur);
 	}
 }
