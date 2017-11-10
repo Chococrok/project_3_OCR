@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <script>
 	<%--function editTopo(button, hidden, checkbox) {
 
@@ -17,8 +19,8 @@
 		text.data = text.data == 'editer' ? 'confirmer' : 'editer';
 	}--%>
 	
-	function deleteSecteur(input, secteurId) {
-		var ok = confirm("Supprimer ce site ?");
+	function remove() {
+		var ok = confirm('Supprimer ce site ? Les secteurs et voies associés seront également supprimés.');
 		if (!ok) {
 			return false;
 		}

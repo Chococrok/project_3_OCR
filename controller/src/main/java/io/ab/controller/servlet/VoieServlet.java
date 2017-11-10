@@ -35,6 +35,7 @@ public class VoieServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {	
 		CommentDTO commentDTO = new CommentDTO(request);
+
 		this.voieService.addComment(commentDTO);
 
 		request.setAttribute("voie", this.voieService.findOneWithCommentsAndLongueurs(commentDTO.getEntityId()));

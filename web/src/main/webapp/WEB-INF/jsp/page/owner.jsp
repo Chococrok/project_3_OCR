@@ -129,6 +129,6 @@
 
 		</div>
 	</div>
-	<%@ include file="/WEB-INF/jsp/javascript/owner-js.jsp"%>
+	<%@ include file="/WEB-INF/jsp/javascript/owner.js.jsp"%>
 </body>
 </html>

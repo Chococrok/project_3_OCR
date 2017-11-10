@@ -24,6 +24,11 @@ public class SecteurService {
 		this.secteurDao = ((DaoFactory) context.getAttribute(DaoFactory.ATT_DAO_FACTORY)).getSecteurDao();
 		this.voieService = new VoieService(context);
 	}
+	
+	public Secteur findOne(int id) {
+		Secteur secteur = this.secteurDao.findOne(id);
+		return secteur;
+	}
 
 	public Secteur findOneWithCommentsAndVoies(int id) {
 		Secteur secteur = this.secteurDao.findOne(id);

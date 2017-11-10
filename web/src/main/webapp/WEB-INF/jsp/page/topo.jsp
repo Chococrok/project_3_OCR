@@ -65,6 +65,6 @@
 			</form>
 		</div>
 	</div>
-	<%@ include file="/WEB-INF/jsp/javascript/comment-js.jsp" %>
+	<%@ include file="/WEB-INF/jsp/javascript/comment.js.jsp" %>
 </body>
 </html>

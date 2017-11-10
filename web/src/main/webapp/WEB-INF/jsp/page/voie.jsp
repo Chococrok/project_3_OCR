@@ -8,7 +8,11 @@
 <body>
 	<div class="card">
 		<div class="card-header">
-			<h2>${ voie.name }</h2>
+			<div class="editable">
+				<h2>${ requestScope.voie.name }</h2>
+				<input value="editer" class="editButton"
+					type="button" onclick="return navigate('/voie/edit?id=${requestScope.voie.id}')">
+			</div>
 			<p class="description">"${ voie.description }"</p>
 		</div>
 		<div class="card-content">

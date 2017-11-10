@@ -39,7 +39,7 @@
 				</table>
 
 				<h3>Secteurs de ce site:</h3>
-				<form action="secteur" method="get" class="list">
+				<div class="list">
 					<c:forEach items="${ site.secteurs }" var="secteur">
 						<div class="clickable"
 							onClick="navigate('/secteur?id=${ secteur.id }')">
@@ -47,7 +47,10 @@
 							<i class="material-icons">&#xE315;</i>
 						</div>
 					</c:forEach>
-				</form>
+				</div>
+				<c:if test="${ empty requestScope.site.secteurs }">
+					<p class="false">Aucun secteur n'est connu pour ce site. En connaissez vous un ?</p>
+				</c:if>
 
 			</c:if>
 
@@ -84,6 +87,6 @@
 			</form>
 		</div>
 	</div>
-	<%@ include file="/WEB-INF/jsp/javascript/comment-js.jsp"%>
+	<%@ include file="/WEB-INF/jsp/javascript/comment.js.jsp"%>
 </body>
 </html>

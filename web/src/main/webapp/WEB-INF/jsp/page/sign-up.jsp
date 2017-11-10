@@ -41,7 +41,7 @@
 
 	</div>
 
-	<%@ include file="/WEB-INF/jsp/javascript/sign-up-js.jsp"%>
+	<%@ include file="/WEB-INF/jsp/javascript/sign-up.js.jsp"%>
 
 </body>
 </html>

@@ -31,6 +31,14 @@ public class SiteService {
 	public List<Site> findAll() {
 		return this.siteDao.findAll();
 	}
+	
+	public Site findOne(int id) {
+		if (!this.siteDao.exists(id)) {
+			return null;
+		}
+		Site site = this.siteDao.findOne(id);
+		return site;
+	}
 
 	public Site findOneWithCommentsAndSecteurs(int id) {
 		if (!this.siteDao.exists(id)) {

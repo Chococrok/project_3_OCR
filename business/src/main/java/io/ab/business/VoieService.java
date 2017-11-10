@@ -19,11 +19,17 @@ public class VoieService {
 	private CommentDao commentDao;
 	private LongueurDao longueurDao;
 	private VoieDao voieDao;
+	private String error;
 	
 	public VoieService(ServletContext context) {
 		this.commentDao = ((DaoFactory) context.getAttribute(DaoFactory.ATT_DAO_FACTORY)).getCommentDao();
 		this.longueurDao = ((DaoFactory) context.getAttribute(DaoFactory.ATT_DAO_FACTORY)).getLongueurDao();
 		this.voieDao = ((DaoFactory) context.getAttribute(DaoFactory.ATT_DAO_FACTORY)).getVoieDao();
+	}
+	
+	public Voie findOne(int id) {
+		Voie voie = this.voieDao.findOne(id);
+		return voie;
 	}
 
 	public Voie findOneWithCommentsAndLongueurs(int id) {
@@ -59,5 +65,26 @@ public class VoieService {
 
 		this.longueurDao.deleteByVoie(id);
 		this.voieDao.deleteOne(id);
+	}
+	
+	public void updateOne(Voie voie) {
+		if(voie == null) {
+			this.error = "voie non trouvée";
+			return;
+		}
+		this.voieDao.updateOne(voie);
+	}
+
+	public void deleteLongueur(Integer id) {
+		this.longueurDao.deleteOne(id);
+		
+	}
+	
+	public boolean hasError() {
+		return this.error != null;
+	}
+
+	public String getError() {
+		return this.error;
 	}
 }
