@@ -99,6 +99,14 @@ form>span {
 	align-self: center;
 }
 
+form>.false {
+	align-self: center;
+}
+
+form>a {
+	align-self: center;
+}
+
 td {
 	text-align: left;
 	padding: 0 5em 1em 0;
@@ -229,5 +237,20 @@ button {
 	margin-right: initial;
 	margin-top: auto;
 	margin-bottom: auto;
+}
+
+.title {
+	font-size: 2em;
+	font-weight: bold;
+}
+
+.columnCenter {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+}
+
+.columnCenter>* {
+	margin: 0;
 }
 </style>

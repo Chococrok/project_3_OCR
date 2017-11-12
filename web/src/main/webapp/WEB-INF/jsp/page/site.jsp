@@ -58,7 +58,7 @@
 
 			<h3>Topos associés à ce site:</h3>
 			<form action="secteur" method="get" class="list">
-				<c:forEach items="${ requestScope.topos }" var="topo">
+				<c:forEach items="${ requestScope.site.topos }" var="topo">
 					<div class="clickable" onClick="navigate('/topo?id=${ topo.id }')">
 						<p>${ topo.name }</p>
 						<i class="material-icons">&#xE315;</i>

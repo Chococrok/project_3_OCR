@@ -15,5 +15,8 @@ public interface TopoDao {
 	public int createOne(String topoName, int siteId);
 	boolean areLinked(int topoId, int siteId);
 	void deleteOne(int id);
-	void deleteSiteId(int id);
+	void deleteSiteId(int siteId);
+	public void updateSite(Integer topoId, Integer siteId);
+	public void deleteSiteIdByTopo(int siteId, int topoId);
+	public void updateOne(Topo topo);
 }

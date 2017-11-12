@@ -12,6 +12,8 @@ import io.ab.consumer.SiteDao;
 import io.ab.model.Comment;
 import io.ab.model.Entity;
 import io.ab.model.Site;
+import io.ab.model.Topo;
+
 import java.sql.Timestamp;
 
 public class SiteService {

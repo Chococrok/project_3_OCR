@@ -18,6 +18,7 @@
 		</div>
 		<div class="card-content">
 			<form action="edit?id=${ requestScope.site.id }" method="post">
+				<input type="hidden" name="siteId" value="${ requestScope.site.id }" />
 				<input name="name" required
 					value="<c:out value="${ requestScope.site.name }"/>"
 					placeholder="nom du site" />
@@ -27,10 +28,10 @@
 				<input name="howToFind" required
 					value="<c:out value="${ requestScope.site.howToFind }"/>"
 					placeholder="comment trouver ce site" />
-				<input name="latitude" required 
+				<input name="latitude" required
 					value="<c:out value="${ requestScope.site.latitude }"/>"
 					placeholder="latitude" />
-				<input name="longitude" required 
+				<input name="longitude" required
 					value="<c:out value="${ requestScope.site.longitude }"/>"
 					placeholder="longitude" />
 				<button type="submit" name="action" value="updateSite">
@@ -68,8 +69,52 @@
 				</form>
 				<button form="addSecteurForm" type="submit" name="action"
 					value="addSecteur"
-					onclick="return activateForm(addSecteurForm, this)">Nouveau
+					onclick="return displayForm(addSecteurForm, this)">Nouveau
 					secteur</button>
+			</div>
+
+			<h3>Les topos de ce site:</h3>
+			<div>
+				<c:forEach items="${ requestScope.site.topos }" var="topo">
+					<form class="editable" action="edit?id=${ requestScope.site.id }"
+						method="post">
+						<input type="hidden" name="topoId" value="${ topo.id }" />
+						<p>
+							<c:out value="${ topo.name }"></c:out>
+						</p>
+						<div class="editable">
+							<button class="editButton" type="button"
+								onclick="navigate('/topo/edit?id=${ topo.id }');">éditer</button>
+							<button class="editButton" type="submit" name="action"
+								value="deleteTopo">supprimer</button>
+						</div>
+					</form>
+				</c:forEach>
+				<form style="display: none;" id="addNewTopoForm"
+					action="edit?id=${ requestScope.site.id }" method="post">
+					<input name="name" placeholder="nom du secteur" required />
+					<input type="hidden" name="siteId"
+						value="${ requestScope.site.id }" />
+				</form>
+				<form style="display: none;" id="addExistingTopoForm"
+					action="edit?id=${ requestScope.site.id }" method="post">
+					<input type="hidden" name="siteId"
+						value="${ requestScope.site.id }" />
+					<select name="topoId">
+						<c:forEach items="${ requestScope.topos }" var="topo">
+							<option value="${ topo.id }"><c:out
+									value="${ topo.name }"></c:out></option>
+						</c:forEach>
+					</select>
+				</form>
+				<button id="newTopoButton" form="addNewTopoForm" type="submit"
+					name="action" value="addNewTopoForm"
+					onclick="return displayForm(addNewTopoForm, this, [existingTopoButton])">Nouveau
+					topo</button>
+				<button id="existingTopoButton" form="addExistingTopoForm"
+					type="submit" name="action" value="addExistingTopoForm"
+					onclick="return displayForm(addExistingTopoForm, this, [newTopoButton])">Ajouter
+					un topo existant</button>
 			</div>
 
 			<h3>Supprimer ce site ?</h3>

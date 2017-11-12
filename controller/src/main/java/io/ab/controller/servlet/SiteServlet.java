@@ -37,7 +37,7 @@ public class SiteServlet extends HttpServlet {
 			return;
 		}
 		
-		request.setAttribute("topos", this.topoService.findAllBySite(id));
+		site.setTopos(this.topoService.findAllBySite(id));
 		request.setAttribute("site", site);
 		this.getServletContext().getRequestDispatcher("/WEB-INF/jsp/page/site.jsp").forward(request, response);
 	}
@@ -57,6 +57,7 @@ public class SiteServlet extends HttpServlet {
 		CommentDTO commentDTO = new CommentDTO(request);
 		this.siteService.addComment(commentDTO);
 
+		site.setTopos(this.topoService.findAllBySite(id));
 		request.setAttribute("site", this.siteService.findOneWithCommentsAndSecteurs(id));
 		this.getServletContext().getRequestDispatcher("/WEB-INF/jsp/page/site.jsp").forward(request, response);
 	}

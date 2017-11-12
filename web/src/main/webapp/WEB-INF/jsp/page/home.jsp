@@ -35,7 +35,7 @@
 			</form>
 			<button form="addSiteForm" type="submit" name="action"
 				value="addSite"
-				onclick="return activateForm(addSiteForm, this)">Nouveau
+				onclick="return displayForm(addSiteForm, this)">Nouveau
 				site</button>
 		</div>
 	</div>

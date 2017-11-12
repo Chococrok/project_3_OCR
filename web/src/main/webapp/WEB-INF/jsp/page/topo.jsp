@@ -10,11 +10,18 @@
 <body>
 	<div class="card">
 		<div class="card-header">
-			<h2>${ requestScope.topo.name }</h2>
+			<div class="editable">
+				<h2>
+					<c:out value="${ requestScope.topo.name }"></c:out>
+				</h2>
+				<input value="editer" class="editButton" type="button"
+					onclick="return navigate('/topo/edit?id=${requestScope.topo.id}')">
+			</div>
 		</div>
 		<div class="card-content">
 			<h3>site correspondant:</h3>
-			<div class="clickable" onClick="navigate('/site?id=${ requestScope.topo.site.id }')">
+			<div class="clickable"
+				onClick="navigate('/site?id=${ requestScope.topo.site.id }')">
 				<p>${ requestScope.topo.site.name }</p>
 				<i class="material-icons">&#xE315;</i>
 			</div>
@@ -26,7 +33,8 @@
 						<tr>
 							<td>Prénom:</td>
 							<td><c:out value="${ owner.firstName }"></c:out></td>
-							<td class="${ owner.topoAvailable }"><c:out value="${ owner.topoAvailable? 'Disponible':'Déjà emprunté' }"></c:out></td>
+							<td class="${ owner.topoAvailable }"><c:out
+									value="${ owner.topoAvailable? 'Disponible':'Déjà emprunté' }"></c:out></td>
 						</tr>
 						<c:if test="${ owner.topoAvailable }">
 							<tr>
@@ -54,17 +62,19 @@
 				</c:forEach>
 			</div>
 
-			<form method="post" action="topo?id=${ requestScope.topo.id }#comment" onSubmit="return validateComment(this)">
+			<form method="post"
+				action="topo?id=${ requestScope.topo.id }#comment"
+				onSubmit="return validateComment(this)">
 				<div class="input">
 					<label for="comment">Commentaire: </label>
 					<textarea name="content" id="comment"
 						placeholder="entrer un nouveau commentaire"></textarea>
-					<input type="hidden" name="id" value="${ topo.id }" /> <input
-						type="submit" />
+					<input type="hidden" name="id" value="${ topo.id }" />
+					<input type="submit" />
 				</div>
 			</form>
 		</div>
 	</div>
-	<%@ include file="/WEB-INF/jsp/javascript/comment.js.jsp" %>
+	<%@ include file="/WEB-INF/jsp/javascript/comment.js.jsp"%>
 </body>
 </html>

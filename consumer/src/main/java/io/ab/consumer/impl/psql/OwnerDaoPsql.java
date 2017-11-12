@@ -309,17 +309,66 @@ public class OwnerDaoPsql implements OwnerDao {
 		return id;
 	}
 	
+	public void deleteTopos(Integer id) {
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		try {
+			connection = this.daoFactory.getConnection();
+			preparedStatement = connection.prepareStatement("DELETE FROM topo_owner WHERE owner_id = ?");
+			preparedStatement.setInt(1, id);
+			preparedStatement.executeUpdate();
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			try {
+				connection.close();
+				preparedStatement.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	}
+
 	@Override
 	public void deleteOne(int id) {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
-		ResultSet results = null;
 		try {
 			connection = this.daoFactory.getConnection();
 			preparedStatement = connection.prepareStatement("DELETE FROM owner WHERE id = ?");
 			preparedStatement.setInt(1, id);
 			preparedStatement.executeUpdate();
 
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			try {
+				connection.close();
+				preparedStatement.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	}
+
+	@Override
+	public void updateOne(Owner owner) {
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		try {
+			connection = this.daoFactory.getConnection();
+			preparedStatement = connection.prepareStatement("UPDATE owner SET first_name = ?, last_Name = ?, email = ?, phone_number = ?  WHERE id = ?;");
+			preparedStatement.setString(1, owner.getFirstName());
+			preparedStatement.setString(2, owner.getLastName());
+			preparedStatement.setString(3, owner.getEmail());
+			preparedStatement.setString(4, owner.getPhoneNumber());
+			preparedStatement.setInt(5, owner.getId());
+			preparedStatement.executeUpdate();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

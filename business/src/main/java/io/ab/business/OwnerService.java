@@ -76,8 +76,8 @@ public class OwnerService {
 			return -1;
 		}
 
-		return this.ownerDao.createOne(signUpForm.getFirstName(), signUpForm.getLastName(),
-				signUpForm.getEmail(), signUpForm.getPassword());
+		return this.ownerDao.createOne(signUpForm.getFirstName(), signUpForm.getLastName(), signUpForm.getEmail(),
+				signUpForm.getPassword());
 
 	}
 
@@ -111,6 +111,16 @@ public class OwnerService {
 
 	public String getError() {
 		return this.error;
+	}
+
+	public void updateOne(Owner owner) {
+		this.ownerDao.updateOne(owner);
+	}
+
+	public void deleteOne(Integer id) {
+		this.ownerDao.deleteTopos(id);
+		this.ownerDao.deleteOne(id);
+		
 	}
 
 }

@@ -10,39 +10,41 @@
 <body>
 	<div class="card">
 		<div class="card-header">
-			<h2>${ sessionScope.owner.fullName }</h2>
+			<div class="editable">
+				<form id="ownerForm" action="owner" method="post">
+					<input type="hidden" name="ownerId"
+						value="${ sessionScope.owner.id }" />
+					<input class="title" id="firstName" name=firstName disabled
+						placeholder="Prénom"
+						value="<c:out value="${ sessionScope.owner.firstName }"/>" />
+					<input class="title" id="lastName" name=lastName disabled
+						placeholder="Nom de famille" style="margin: 0;"
+						value="<c:out value="${ sessionScope.owner.lastName }"/>" />
+				</form>
+
+				<div class="columnCenter">
+					<button form="ownerForm" name="action" value="owner"
+						onclick="return enableForm(this, [firstName, lastName, email, phone]);">éditer</button>
+					<form id="deleteForm" class="simpleForm" action="owner" method="post"></form>
+					<button form="deleteForm" name="action" value="delete"
+						onclick="return confirm('Êtes vous certain de vouloir supprimer votre compte ? Cela est irréversible')">supprimer</button>
+				</div>
+			</div>
 		</div>
 		<div class="card-content">
 			<table>
 				<tr>
 					<td>Email:</td>
-					<td>
-						<form id="formEmail" action="owner" method="post">
-							<input type="email" id="inputEmail"
-								value="<c:out value="${ sessionScope.owner.email }"/>" disabled />
-							<input type="hidden" id="hiddenEmail" name="email" />
-						</form>
-					</td>
-					<td>
-						<button form="formEmail" type="submit" id="buttonEmail"
-							name="action" value="email"
-							onClick="return editPersonalData('Email')">editer</button>
-					</td>
+					<td><input type="email" id="email" name="email"
+							placeholder="Email" form="ownerForm"
+							value="<c:out value="${ sessionScope.owner.email }"/>" disabled />
 				</tr>
 				<tr>
 					<td>Téléphone:</td>
-					<td>
-						<form id="formPhone" action="owner" method="post">
-							<input type="text" id="inputPhone"
-								value="<c:out value="${ sessionScope.owner.phoneNumber }"/>"
-								disabled /> <input type="hidden" id="hiddenPhone" name="phone" />
-						</form>
-					</td>
-					<td>
-						<button form="formPhone" type="submit" id="buttonPhone"
-							name="action" value="phone"
-							onClick="return editPersonalData('Phone')">editer</button>
-					</td>
+					<td><input type="text" id="phone" name="phone"
+							placeholder="Numéro de téléphone" form="ownerForm"
+							value="<c:out value="${ sessionScope.owner.phoneNumber }"/>"
+							disabled /></td>
 				</tr>
 			</table>
 		</div>
@@ -62,27 +64,28 @@
 						<form class="editable" action="owner#input${ topoOwned.id }"
 							method="post">
 							<div>
-								<label for="${ topoOwned.id }">Ce topo est disponible:</label> <input
-									type="checkbox" id="input${ topoOwned.id }"
-									${ topoOwned.available ? 'checked' : '' } disabled /> <input
-									type="hidden" id="available${ topoOwned.id }" name="available" />
+								<label for="${ topoOwned.id }">Ce topo est disponible:</label>
+								<input type="checkbox" id="input${ topoOwned.id }"
+									${ topoOwned.available ? 'checked' : '' } disabled />
+								<input type="hidden" id="available${ topoOwned.id }"
+									name="available" />
 								<input type="hidden" id="id${ topoOwned.id }" name="id"
 									value="${ topoOwned.id }" />
 							</div>
 							<button type="submit" id="button${ topoOwned.id }" name="action"
 								value="availability"
-								onClick="return editAvailability(${ topoOwned.id })">editer</button>
+								onClick="return editAvailability(${ topoOwned.id })">éditer</button>
 						</form>
 					</div>
 				</c:forEach>
 			</div>
 			<h4>Ajouter:</h4>
 			<div>
-				<label for="existing">un topo existant</label> <input id="existing"
-					type="radio" name="addChoice" value="existing"
-					onchange='setDisplay(formExistingTopo, formNewTopo);' /> <label
-					for="new">un nouveau topo</label> <input id="new" type="radio"
-					name="addChoice" value="new"
+				<label for="existing">un topo existant</label>
+				<input id="existing" type="radio" name="addChoice" value="existing"
+					onchange='setDisplay(formExistingTopo, formNewTopo);' />
+				<label for="new">un nouveau topo</label>
+				<input id="new" type="radio" name="addChoice" value="new"
 					onchange="setDisplay(formNewTopo, formExistingTopo);" />
 			</div>
 
@@ -98,8 +101,8 @@
 					var="topoNotOwned">
 					<div>
 						<label for="topo${ topoNotOwned.id }"><c:out
-								value="${ topoNotOwned.name }" /></label> <input
-							id="topo${ topoNotOwned.id }" type="radio" name="topoId"
+								value="${ topoNotOwned.name }" /></label>
+						<input id="topo${ topoNotOwned.id }" type="radio" name="topoId"
 							value="${ topoNotOwned.id }" />
 					</div>
 				</c:forEach>
@@ -115,8 +118,9 @@
 				<c:forEach items="${ requestScope.sites }" var="site">
 					<div>
 						<label for="radio${ site.id }"><c:out
-								value="${ site.name }" /></label> <input id="radio${ site.id }"
-							type="radio" name="siteId" value="${ site.id }" />
+								value="${ site.name }" /></label>
+						<input id="radio${ site.id }" type="radio" name="siteId"
+							value="${ site.id }" />
 					</div>
 				</c:forEach>
 				<input id="siteName" placeholder="nom du nouveau site" type="text"

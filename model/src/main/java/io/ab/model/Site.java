@@ -17,6 +17,8 @@ public class Site extends Entity {
 	private List<Comment> comments;
 
 	private List<Secteur> secteurs;
+	
+	private List<Topo> topos;
 
 	public Site() {
 	}
@@ -95,6 +97,14 @@ public class Site extends Entity {
 		secteur.setSite(null);
 
 		return secteur;
+	}
+
+	public List<Topo> getTopos() {
+		return topos;
+	}
+
+	public void setTopos(List<Topo> topos) {
+		this.topos = topos;
 	}
 
 }

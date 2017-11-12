@@ -15,4 +15,6 @@ public interface OwnerDao {
 	public void addTopo(int topoId, int ownerId);
 	public int createOne(String firstName, String lastName, String email, String password);
 	void deleteOne(int id);
+	public void updateOne(Owner owner);
+	public void deleteTopos(Integer id);
 }

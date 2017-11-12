@@ -13,6 +13,7 @@ import io.ab.business.SearchService;
 import io.ab.business.SiteService;
 import io.ab.business.TopoService;
 import io.ab.business.dto.AddTopoForm;
+import io.ab.controller.mapper.OwnerMapper;
 import io.ab.model.Owner;
 
 @WebServlet("/owner")
@@ -20,10 +21,11 @@ public class OwnerServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	public static final String ACTION = "action";
-	public static final String EMAIL = "email";
-	public static final String PHONE = "phone";
+	public static final String OWNER = "owner";
 	public static final String AVAILABILITY = "availability";
 	public static final String TOPO = "topo";
+
+	private static final String DELETE = "delete";
 
 	private TopoService topoService;
 	private OwnerService ownerService;
@@ -53,15 +55,10 @@ public class OwnerServlet extends HttpServlet {
 		String action = request.getParameter(ACTION);
 
 		switch (action) {
-		case EMAIL:
-			String email = request.getParameter(EMAIL);
-			this.ownerService.updateEmail(email, owner.getId());
-			request.getSession().setAttribute("owner", this.ownerService.findOneById(owner.getId()));
-			break;
-		case PHONE:
-			String phone = request.getParameter(PHONE);
-			this.ownerService.updatePhone(phone, owner.getId());
-			request.getSession().setAttribute("owner", this.ownerService.findOneById(owner.getId()));
+		case OWNER:
+			owner = OwnerMapper.map(request);
+			this.ownerService.updateOne(owner);
+			request.getSession().setAttribute("owner", owner);
 			break;
 		case AVAILABILITY:
 			String paramId = request.getParameter("id");
@@ -79,6 +76,12 @@ public class OwnerServlet extends HttpServlet {
 			if (this.ownerService.hasError()) {
 				request.setAttribute("error", this.ownerService.getError());
 			}
+			break;
+		case DELETE:
+			this.ownerService.deleteOne(owner.getId());
+			request.getSession().invalidate();
+			response.sendRedirect(this.getServletContext().getContextPath() + "/home");
+			return;
 		}
 		
 		request.setAttribute("toposOwned", this.topoService.findAllByOwner(owner.getId()));

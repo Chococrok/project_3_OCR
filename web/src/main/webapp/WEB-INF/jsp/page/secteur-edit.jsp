@@ -63,7 +63,7 @@
 						value="${ requestScope.secteur.id }" />
 				</form>
 				<button form="addVoieForm" type="submit" name="action"
-					value="addVoie" onclick="return activateForm(addVoieForm, this)">Nouvelle
+					value="addVoie" onclick="return displayForm(addVoieForm, this)">Nouvelle
 					voie</button>
 			</div>
 

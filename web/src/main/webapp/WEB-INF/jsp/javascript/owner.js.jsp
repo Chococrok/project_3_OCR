@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <script>
 	var error = document.getElementById('error');
 
@@ -17,20 +19,15 @@
 		toggleTextEdit(button);
 	}
 
-	function editPersonalData(value) {
-		var input = document.getElementById('input' + value);
-		var button = document.getElementById('button' + value);
-		var hidden = document.getElementById('hidden' + value);
-
-		if (input.disabled) {
-			input.disabled = false;
+	function enableForm(button, inputList) {
+		if (inputList[1].disabled) {
+			inputList.forEach((input) => {
+				input.disabled = false;
+			});
+			
 			toggleTextEdit(button);
 			return false;
 		}
-
-		hidden.value = input.value;
-		input.disabled = true;
-		toggleTextEdit(button);
 	}
 
 	function uncheckRadio(name) {
@@ -64,7 +61,7 @@
 
 	function toggleTextEdit(button) {
 		var text = button.firstChild;
-		text.data = text.data == 'editer' ? 'confirmer' : 'editer';
+		text.data = text.data == 'éditer' ? 'confirmer' : 'éditer';
 	}
 
 	function toggleTextAdd(button) {
@@ -93,7 +90,7 @@
 	function validateExisting(form) {
 		if (!form.topoId.value) {
 			error.style.display = 'unset';
-			error.innerHTML = 'Choisissez au moins un topo � ajouter ou ajoutez en un nouveau';
+			error.innerHTML = 'Choisissez au moins un topo à ajouter ou ajoutez en un nouveau';
 			return false;
 		}
 	}

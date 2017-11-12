@@ -28,7 +28,7 @@
 			<include-prelude>/WEB-INF/jsp/layout/header.jsp</include-prelude>
 			<include-coda>/WEB-INF/jsp/layout/footer.jsp</include-coda>
 			<include-coda>/WEB-INF/jsp/javascript/navigation.js.jsp</include-coda>
-			<include-coda>/WEB-INF/jsp/javascript/display.js.jsp</include-coda>
+			<include-coda>/WEB-INF/jsp/javascript/form-controller.js.jsp</include-coda>
 		</jsp-property-group>
 	</jsp-config>
 </web-app>

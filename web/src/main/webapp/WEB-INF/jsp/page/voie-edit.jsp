@@ -67,7 +67,7 @@
 				</form>
 				<button form="addLongueurForm" type="submit" name="action"
 					value="addLongueur"
-					onclick="return activateForm(addLongueurForm, this)">Nouvelle
+					onclick="return displayForm(addLongueurForm, this)">Nouvelle
 					longueur</button>
 			</div>
 

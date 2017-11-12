@@ -12,6 +12,7 @@ import io.ab.consumer.OwnerDao;
 import io.ab.consumer.SiteDao;
 import io.ab.consumer.TopoDao;
 import io.ab.model.Comment;
+import io.ab.model.Site;
 import io.ab.model.Topo;
 
 public class TopoService {
@@ -88,8 +89,12 @@ public class TopoService {
 		this.topoDao.updateAvailability(ownerId, topoId, available);
 	}
 	
-	public void deleteSiteId(int id) {
-		this.topoDao.deleteSiteId(id);
+	public void deleteSiteId(int siteId) {
+		this.topoDao.deleteSiteId(siteId);
+	}
+	
+	public void deleteSiteIdByTopo(int siteId, int topoId) {
+		this.topoDao.deleteSiteIdByTopo(siteId, topoId);
 	}
 
 	public int createOne(String topoName, int siteId) {
@@ -112,5 +117,20 @@ public class TopoService {
 
 	public String getError() {
 		return error;
+	}
+
+	public void updateSite(Integer topoId, Integer siteId) {
+		this.topoDao.updateSite(topoId, siteId);
+		
+	}
+
+	public void updateOne(Topo topo) {
+		this.topoDao.updateOne(topo);
+		
+	}
+
+	public void deleteOne(int id) {
+		this.topoDao.deleteOne(id);
+		
 	}
 }

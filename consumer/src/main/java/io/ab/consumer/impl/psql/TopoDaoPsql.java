@@ -345,13 +345,13 @@ public class TopoDaoPsql implements TopoDao {
 	}
 	
 	@Override
-	public void deleteSiteId(int id) {
+	public void deleteSiteId(int siteId) {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		try {
 			connection = this.daoFactory.getConnection();
 			preparedStatement = connection.prepareStatement("UPDATE topo SET site_id = null WHERE site_id = ?");
-			preparedStatement.setInt(1, id);
+			preparedStatement.setInt(1, siteId);
 			preparedStatement.executeUpdate();
 
 		} catch (SQLException e) {
@@ -366,5 +366,80 @@ public class TopoDaoPsql implements TopoDao {
 				e.printStackTrace();
 			}
 		}
+	}
+	
+	@Override
+	public void deleteSiteIdByTopo(int siteId, int topoId) {
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		try {
+			connection = this.daoFactory.getConnection();
+			preparedStatement = connection.prepareStatement("UPDATE topo SET site_id = null WHERE site_id = ? AND id = ?");
+			preparedStatement.setInt(1, siteId);
+			preparedStatement.setInt(2, topoId);
+			preparedStatement.executeUpdate();
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			try {
+				connection.close();
+				preparedStatement.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	}
+
+	@Override
+	public void updateSite(Integer topoId, Integer siteId) {
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		try {
+			connection = this.daoFactory.getConnection();
+			preparedStatement = connection.prepareStatement("UPDATE topo SET site_id = ? WHERE id = ?");
+			preparedStatement.setInt(1, siteId);
+			preparedStatement.setInt(2, topoId);
+			preparedStatement.executeUpdate();
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			try {
+				connection.close();
+				preparedStatement.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}		
+	}
+
+	@Override
+	public void updateOne(Topo topo) {
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		try {
+			connection = this.daoFactory.getConnection();
+			preparedStatement = connection.prepareStatement(
+					"UPDATE topo SET name = ? WHERE id = ?;");
+			preparedStatement.setString(1, topo.getName());
+			preparedStatement.setInt(2, topo.getId());
+			preparedStatement.executeUpdate();
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			try {
+				connection.close();
+				preparedStatement.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}		
 	}
 }

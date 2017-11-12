@@ -10,9 +10,12 @@
 <body>
 	<div class="card-container">
 		<c:forEach items="${ requestScope.topos }" var="topo">
-			<div class="card topo clickable" onclick="location.href='topo?id=${ topo.id }'">
+			<div class="card topo clickable"
+				onclick="location.href='topo?id=${ topo.id }'">
 				<div class="card-header">
-					<h2><c:out value="${ topo.name }"></c:out></h2>
+					<h2>
+						<c:out value="${ topo.name }"></c:out>
+					</h2>
 				</div>
 				<div class="card-content">
 					<h3>site correspondant:</h3>
