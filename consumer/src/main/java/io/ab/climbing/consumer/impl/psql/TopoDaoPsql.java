@@ -10,7 +10,6 @@ import java.util.List;
 
 import javax.inject.Named;
 
-import io.ab.climbing.consumer.DaoFactory;
 import io.ab.climbing.consumer.TopoDao;
 import io.ab.climbing.model.Site;
 import io.ab.climbing.model.Topo;
@@ -30,7 +29,7 @@ public class TopoDaoPsql  extends AbstractDaoPsql implements TopoDao {
 		PreparedStatement preparedStatement = null;
 		ResultSet results = null;
 		try {
-			connection = this.daoFactory.getConnection();
+			connection = this.dataSource.getConnection();
 			preparedStatement = connection.prepareStatement("SELECT * FROM topo;");
 			results = preparedStatement.executeQuery();
 
@@ -74,7 +73,7 @@ public class TopoDaoPsql  extends AbstractDaoPsql implements TopoDao {
 		PreparedStatement preparedStatement = null;
 		ResultSet result = null;
 		try {
-			connection = this.daoFactory.getConnection();
+			connection = this.dataSource.getConnection();
 			preparedStatement = connection.prepareStatement("SELECT * FROM topo WHERE id = ?;");
 			preparedStatement.setInt(1, id);
 			result = preparedStatement.executeQuery();
@@ -109,7 +108,7 @@ public class TopoDaoPsql  extends AbstractDaoPsql implements TopoDao {
 		PreparedStatement preparedStatement = null;
 		ResultSet results = null;
 		try {
-			connection = this.daoFactory.getConnection();
+			connection = this.dataSource.getConnection();
 			preparedStatement = connection.prepareStatement(
 					"SELECT topo.*, topo_owner.available FROM topo INNER JOIN topo_owner ON (topo_owner.owner_id = ?) WHERE topo.id =  topo_owner.topo_id;");
 			preparedStatement.setInt(1, id);
@@ -150,7 +149,7 @@ public class TopoDaoPsql  extends AbstractDaoPsql implements TopoDao {
 		PreparedStatement preparedStatement = null;
 		ResultSet results = null;
 		try {
-			connection = this.daoFactory.getConnection();
+			connection = this.dataSource.getConnection();
 			preparedStatement = connection.prepareStatement(
 					"SELECT * FROM topo WHERE site_id =  ?;");
 			preparedStatement.setInt(1, id);
@@ -191,7 +190,7 @@ public class TopoDaoPsql  extends AbstractDaoPsql implements TopoDao {
 		PreparedStatement preparedStatement = null;
 		ResultSet results = null;
 		try {
-			connection = this.daoFactory.getConnection();
+			connection = this.dataSource.getConnection();
 			preparedStatement = connection.prepareStatement(
 					"???????");
 			preparedStatement.setInt(1, id);
@@ -230,7 +229,7 @@ public class TopoDaoPsql  extends AbstractDaoPsql implements TopoDao {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		try {
-			connection = this.daoFactory.getConnection();
+			connection = this.dataSource.getConnection();
 			preparedStatement = connection.prepareStatement(
 					"UPDATE topo_owner SET available = ? WHERE topo_id = ? AND owner_id = ?;");
 			preparedStatement.setBoolean(1, available);
@@ -258,7 +257,7 @@ public class TopoDaoPsql  extends AbstractDaoPsql implements TopoDao {
 		PreparedStatement preparedStatement = null;
 		ResultSet results = null;
 		try {
-			connection = this.daoFactory.getConnection();
+			connection = this.dataSource.getConnection();
 			preparedStatement = connection.prepareStatement("INSERT INTO topo (name, site_id) VALUES (?, ?) RETURNING id");
 			preparedStatement.setString(1, topoName);
 			preparedStatement.setInt(2, siteId);
@@ -291,7 +290,7 @@ public class TopoDaoPsql  extends AbstractDaoPsql implements TopoDao {
 		PreparedStatement preparedStatement = null;
 		ResultSet results = null;
 		try {
-			connection = this.daoFactory.getConnection();
+			connection = this.dataSource.getConnection();
 			preparedStatement = connection.prepareStatement("SELECT EXISTS(SELECT id FROM topo WHERE id = ? AND site_id = ?);");
 			preparedStatement.setInt(1, topoId);
 			preparedStatement.setInt(2, siteId);
@@ -322,7 +321,7 @@ public class TopoDaoPsql  extends AbstractDaoPsql implements TopoDao {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		try {
-			connection = this.daoFactory.getConnection();
+			connection = this.dataSource.getConnection();
 			preparedStatement = connection.prepareStatement("DELETE FROM topo WHERE id = ?");
 			preparedStatement.setInt(1, id);
 			preparedStatement.executeUpdate();
@@ -346,7 +345,7 @@ public class TopoDaoPsql  extends AbstractDaoPsql implements TopoDao {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		try {
-			connection = this.daoFactory.getConnection();
+			connection = this.dataSource.getConnection();
 			preparedStatement = connection.prepareStatement("UPDATE topo SET site_id = null WHERE site_id = ?");
 			preparedStatement.setInt(1, siteId);
 			preparedStatement.executeUpdate();
@@ -370,7 +369,7 @@ public class TopoDaoPsql  extends AbstractDaoPsql implements TopoDao {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		try {
-			connection = this.daoFactory.getConnection();
+			connection = this.dataSource.getConnection();
 			preparedStatement = connection.prepareStatement("UPDATE topo SET site_id = null WHERE site_id = ? AND id = ?");
 			preparedStatement.setInt(1, siteId);
 			preparedStatement.setInt(2, topoId);
@@ -395,7 +394,7 @@ public class TopoDaoPsql  extends AbstractDaoPsql implements TopoDao {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		try {
-			connection = this.daoFactory.getConnection();
+			connection = this.dataSource.getConnection();
 			preparedStatement = connection.prepareStatement("UPDATE topo SET site_id = ? WHERE id = ?");
 			preparedStatement.setInt(1, siteId);
 			preparedStatement.setInt(2, topoId);
@@ -420,7 +419,7 @@ public class TopoDaoPsql  extends AbstractDaoPsql implements TopoDao {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		try {
-			connection = this.daoFactory.getConnection();
+			connection = this.dataSource.getConnection();
 			preparedStatement = connection.prepareStatement(
 					"UPDATE topo SET name = ? WHERE id = ?;");
 			preparedStatement.setString(1, topo.getName());

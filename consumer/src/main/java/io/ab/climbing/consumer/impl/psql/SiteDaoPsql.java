@@ -10,7 +10,6 @@ import java.util.List;
 
 import javax.inject.Named;
 
-import io.ab.climbing.consumer.DaoFactory;
 import io.ab.climbing.consumer.SiteDao;
 import io.ab.climbing.model.Entity;
 import io.ab.climbing.model.Secteur;
@@ -26,7 +25,7 @@ public class SiteDaoPsql  extends AbstractDaoPsql implements SiteDao {
 		Statement statement = null;
 		ResultSet results = null;
 		try {
-			connection = this.daoFactory.getConnection();
+			connection = this.dataSource.getConnection();
 			statement = connection.createStatement();
 			results = statement.executeQuery("SELECT * FROM site;");
 
@@ -66,7 +65,7 @@ public class SiteDaoPsql  extends AbstractDaoPsql implements SiteDao {
 		PreparedStatement preparedStatement = null;
 		ResultSet result = null;
 		try {
-			connection = this.daoFactory.getConnection();
+			connection = this.dataSource.getConnection();
 			preparedStatement = connection.prepareStatement("SELECT * FROM site WHERE id = ?;");
 			preparedStatement.setInt(1, id);
 			result = preparedStatement.executeQuery();
@@ -103,7 +102,7 @@ public class SiteDaoPsql  extends AbstractDaoPsql implements SiteDao {
 		PreparedStatement preparedStatement = null;
 		ResultSet results = null;
 		try {
-			connection = this.daoFactory.getConnection();
+			connection = this.dataSource.getConnection();
 			preparedStatement = connection
 					.prepareStatement("SELECT id, name FROM site WHERE UPPER(name) LIKE UPPER(?)");
 			preparedStatement.setString(1, "%" + name + "%");
@@ -142,7 +141,7 @@ public class SiteDaoPsql  extends AbstractDaoPsql implements SiteDao {
 		PreparedStatement preparedStatement = null;
 		ResultSet results = null;
 		try {
-			connection = this.daoFactory.getConnection();
+			connection = this.dataSource.getConnection();
 			preparedStatement = connection.prepareStatement(
 					"SELECT DISTINCT site.id, site.name FROM site INNER JOIN secteur ON (site.id = secteur.site_id) INNER JOIN voie ON (secteur.id = voie.secteur_id) WHERE UPPER(voie.cotation) LIKE UPPER(?);");
 			preparedStatement.setString(1, "%" + cotation + "%");
@@ -181,7 +180,7 @@ public class SiteDaoPsql  extends AbstractDaoPsql implements SiteDao {
 		PreparedStatement preparedStatement = null;
 		ResultSet results = null;
 		try {
-			connection = this.daoFactory.getConnection();
+			connection = this.dataSource.getConnection();
 			preparedStatement = connection.prepareStatement("INSERT INTO site (name) VALUES (?) RETURNING id");
 			preparedStatement.setString(1, name);
 			results = preparedStatement.executeQuery();
@@ -211,7 +210,7 @@ public class SiteDaoPsql  extends AbstractDaoPsql implements SiteDao {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		try {
-			connection = this.daoFactory.getConnection();
+			connection = this.dataSource.getConnection();
 			preparedStatement = connection.prepareStatement("DELETE FROM site WHERE id = ?");
 			preparedStatement.setInt(1, id);
 			preparedStatement.executeUpdate();
@@ -237,7 +236,7 @@ public class SiteDaoPsql  extends AbstractDaoPsql implements SiteDao {
 		PreparedStatement preparedStatement = null;
 		ResultSet result = null;
 		try {
-			connection = this.daoFactory.getConnection();
+			connection = this.dataSource.getConnection();
 			preparedStatement = connection.prepareStatement("SELECT EXISTS (SELECT id FROM site WHERE id = ?);");
 			preparedStatement.setInt(1, id);
 			result = preparedStatement.executeQuery();
@@ -266,7 +265,7 @@ public class SiteDaoPsql  extends AbstractDaoPsql implements SiteDao {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		try {
-			connection = this.daoFactory.getConnection();
+			connection = this.dataSource.getConnection();
 			preparedStatement = connection.prepareStatement(
 					"UPDATE site SET name = ?, description = ?, how_to_find = ?, lat = ?, long = ?  WHERE id = ?");
 			preparedStatement.setString(1, site.getName());
@@ -296,7 +295,7 @@ public class SiteDaoPsql  extends AbstractDaoPsql implements SiteDao {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		try {
-			connection = this.daoFactory.getConnection();
+			connection = this.dataSource.getConnection();
 			preparedStatement = connection.prepareStatement(
 					"INSERT INTO site (name, description, how_to_find, lat, long) VALUES (?, ?, ?, ?, ?)");
 			preparedStatement.setString(1, site.getName());

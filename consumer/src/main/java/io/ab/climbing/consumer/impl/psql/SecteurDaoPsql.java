@@ -10,7 +10,6 @@ import java.util.List;
 
 import javax.inject.Named;
 
-import io.ab.climbing.consumer.DaoFactory;
 import io.ab.climbing.consumer.SecteurDao;
 import io.ab.climbing.model.Entity;
 import io.ab.climbing.model.Secteur;
@@ -27,7 +26,7 @@ public class SecteurDaoPsql  extends AbstractDaoPsql implements SecteurDao {
 		Statement statement = null;
 		ResultSet results = null;
 		try {
-			connection = this.daoFactory.getConnection();
+			connection = this.dataSource.getConnection();
 			statement = connection.createStatement();
             results = statement.executeQuery(String.format("SELECT id, name, description FROM secteur where site_id = %d;", id));
 
@@ -63,7 +62,7 @@ public class SecteurDaoPsql  extends AbstractDaoPsql implements SecteurDao {
 		Statement statement = null;
 		ResultSet result = null;
 		try {
-			connection = this.daoFactory.getConnection();
+			connection = this.dataSource.getConnection();
 			statement = connection.createStatement();
 			result = statement.executeQuery(String.format("SELECT * FROM secteur WHERE id = %d;", id));
 			
@@ -96,7 +95,7 @@ public class SecteurDaoPsql  extends AbstractDaoPsql implements SecteurDao {
 		PreparedStatement preparedStatement = null;
 		ResultSet results = null;
 		try {
-			connection = this.daoFactory.getConnection();
+			connection = this.dataSource.getConnection();
 			preparedStatement = connection.prepareStatement("SELECT id, name FROM secteur WHERE UPPER(name) LIKE UPPER(?);");
 			preparedStatement.setString(1, "%" + name + "%");
 			results = preparedStatement.executeQuery();
@@ -133,7 +132,7 @@ public class SecteurDaoPsql  extends AbstractDaoPsql implements SecteurDao {
 		PreparedStatement preparedStatement = null;
 		ResultSet results = null;
 		try {
-			connection = this.daoFactory.getConnection();
+			connection = this.dataSource.getConnection();
 			preparedStatement = connection.prepareStatement(
 					"SELECT DISTINCT secteur.id, secteur.name FROM secteur INNER JOIN voie ON (secteur.id = voie.secteur_id) WHERE UPPER(voie.cotation) LIKE UPPER(?);");
 			preparedStatement.setString(1, "%" + cotation + "%");
@@ -170,7 +169,7 @@ public class SecteurDaoPsql  extends AbstractDaoPsql implements SecteurDao {
 		PreparedStatement preparedStatement = null;
 		ResultSet results = null;
 		try {
-			connection = this.daoFactory.getConnection();
+			connection = this.dataSource.getConnection();
 			preparedStatement = connection.prepareStatement("DELETE FROM secteur WHERE id = ?");
 			preparedStatement.setInt(1, id);
 			preparedStatement.executeUpdate();
@@ -194,7 +193,7 @@ public class SecteurDaoPsql  extends AbstractDaoPsql implements SecteurDao {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		try {
-			connection = this.daoFactory.getConnection();
+			connection = this.dataSource.getConnection();
 			preparedStatement = connection.prepareStatement("DELETE FROM secteur WHERE site_id = ?");
 			preparedStatement.setInt(1, id);
 			preparedStatement.executeUpdate();
@@ -218,7 +217,7 @@ public class SecteurDaoPsql  extends AbstractDaoPsql implements SecteurDao {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		try {
-			connection = this.daoFactory.getConnection();
+			connection = this.dataSource.getConnection();
 			preparedStatement = connection.prepareStatement(
 					"UPDATE secteur SET name = ?, description = ?  WHERE id = ?");
 			preparedStatement.setString(1, secteur.getName());
@@ -245,7 +244,7 @@ public class SecteurDaoPsql  extends AbstractDaoPsql implements SecteurDao {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		try {
-			connection = this.daoFactory.getConnection();
+			connection = this.dataSource.getConnection();
 			preparedStatement = connection.prepareStatement(
 					"INSERT INTO secteur (name, description, site_id) VALUES (?, ?, ?)");
 			preparedStatement.setString(1, secteur.getName());

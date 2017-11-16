@@ -7,6 +7,18 @@
         http://www.springframework.org/schema/context
         http://www.springframework.org/schema/context/spring-context.xsd">
 
+	<!-- BoneCP configuration -->
+	<bean id="mainDataSource" class="com.jolbox.bonecp.BoneCPDataSource"
+		destroy-method="close">
+		<property name="driverClass" value="org.postgresql.Driver" />
+		<property name="jdbcUrl" value="jdbc:postgresql://localhost:5432/climbing" />
+		<property name="username" value="dbuser" />
+		<property name="password" value="dbuser" />
+		<property name="maxConnectionsPerPartition" value="10" />
+		<property name="minConnectionsPerPartition" value="5" />
+		<property name="partitionCount" value="1" />
+	</bean>
+
 	<!-- Prend en compte la configuration des injections (@Inject...) -->
 	<context:annotation-config />
 

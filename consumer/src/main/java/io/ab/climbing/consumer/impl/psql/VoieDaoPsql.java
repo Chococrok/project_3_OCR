@@ -10,7 +10,6 @@ import java.util.List;
 
 import javax.inject.Named;
 
-import io.ab.climbing.consumer.DaoFactory;
 import io.ab.climbing.consumer.VoieDao;
 import io.ab.climbing.model.Entity;
 import io.ab.climbing.model.Secteur;
@@ -26,7 +25,7 @@ public class VoieDaoPsql  extends AbstractDaoPsql implements VoieDao {
 		PreparedStatement preparedStatement = null;
 		ResultSet results = null;
 		try {
-			connection = this.daoFactory.getConnection();
+			connection = this.dataSource.getConnection();
 			preparedStatement = connection.prepareStatement(
 					"SELECT id, name, length, point_number, cotation, description FROM voie WHERE secteur_id = ?;");
 			preparedStatement.setInt(1, id);
@@ -67,7 +66,7 @@ public class VoieDaoPsql  extends AbstractDaoPsql implements VoieDao {
 		PreparedStatement preparedStatement = null;
 		ResultSet result = null;
 		try {
-			connection = this.daoFactory.getConnection();
+			connection = this.dataSource.getConnection();
 			preparedStatement = connection.prepareStatement("SELECT * FROM voie WHERE id = ?;");
 			preparedStatement.setInt(1, id);
 			result = preparedStatement.executeQuery();
@@ -104,7 +103,7 @@ public class VoieDaoPsql  extends AbstractDaoPsql implements VoieDao {
 		PreparedStatement preparedStatement = null;
 		ResultSet results = null;
 		try {
-			connection = this.daoFactory.getConnection();
+			connection = this.dataSource.getConnection();
 			preparedStatement = connection
 					.prepareStatement("SELECT id, name FROM voie WHERE UPPER(name) LIKE UPPER(?);");
 			preparedStatement.setString(1, "%" + name + "%");
@@ -143,7 +142,7 @@ public class VoieDaoPsql  extends AbstractDaoPsql implements VoieDao {
 		PreparedStatement preparedStatement = null;
 		ResultSet results = null;
 		try {
-			connection = this.daoFactory.getConnection();
+			connection = this.dataSource.getConnection();
 			preparedStatement = connection
 					.prepareStatement("SELECT id, name FROM voie WHERE UPPER(cotation) LIKE UPPER(?);");
 			preparedStatement.setString(1, "%" + cotation + "%");
@@ -181,7 +180,7 @@ public class VoieDaoPsql  extends AbstractDaoPsql implements VoieDao {
 		PreparedStatement preparedStatement = null;
 		ResultSet results = null;
 		try {
-			connection = this.daoFactory.getConnection();
+			connection = this.dataSource.getConnection();
 			preparedStatement = connection.prepareStatement("DELETE FROM voie WHERE id = ?");
 			preparedStatement.setInt(1, id);
 			preparedStatement.executeUpdate();
@@ -206,7 +205,7 @@ public class VoieDaoPsql  extends AbstractDaoPsql implements VoieDao {
 		PreparedStatement preparedStatement = null;
 		ResultSet results = null;
 		try {
-			connection = this.daoFactory.getConnection();
+			connection = this.dataSource.getConnection();
 			preparedStatement = connection.prepareStatement("DELETE FROM voie WHERE secteur_id = ?");
 			preparedStatement.setInt(1, id);
 			preparedStatement.executeUpdate();
@@ -230,7 +229,7 @@ public class VoieDaoPsql  extends AbstractDaoPsql implements VoieDao {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		try {
-			connection = this.daoFactory.getConnection();
+			connection = this.dataSource.getConnection();
 			preparedStatement = connection.prepareStatement(
 					"UPDATE voie SET name = ?, description = ?, cotation = ?, length = ?, point_number = ?  WHERE id = ?");
 			preparedStatement.setString(1, voie.getName());
@@ -260,7 +259,7 @@ public class VoieDaoPsql  extends AbstractDaoPsql implements VoieDao {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		try {
-			connection = this.daoFactory.getConnection();
+			connection = this.dataSource.getConnection();
 			preparedStatement = connection.prepareStatement(
 					"INSERT INTO voie (name, description, cotation, length, point_number, secteur_id) VALUES (?, ?, ?, ?, ?, ?)");
 			preparedStatement.setString(1, voie.getName());

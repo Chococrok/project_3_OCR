@@ -1,15 +1,16 @@
 package io.ab.climbing.consumer.impl.psql;
 
 import javax.inject.Inject;
+import javax.sql.DataSource;
 
-import io.ab.climbing.consumer.DaoFactory;
 
 public abstract class AbstractDaoPsql {
 
 	@Inject
-	DaoFactory daoFactory;
+	DataSource dataSource;
 
-	public void setDaoFactory(DaoFactory daoFactory) {
-		this.daoFactory = daoFactory;
+	public void setDataSource(DataSource dataSource) {
+		this.dataSource = dataSource;
 	}
+	
 }

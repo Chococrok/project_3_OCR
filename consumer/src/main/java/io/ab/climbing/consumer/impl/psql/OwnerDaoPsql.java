@@ -10,7 +10,6 @@ import java.util.List;
 
 import javax.inject.Named;
 
-import io.ab.climbing.consumer.DaoFactory;
 import io.ab.climbing.consumer.OwnerDao;
 import io.ab.climbing.model.Owner;
 import io.ab.climbing.model.Site;
@@ -26,7 +25,7 @@ public class OwnerDaoPsql extends AbstractDaoPsql implements OwnerDao {
 		PreparedStatement preparedStatement = null;
 		ResultSet results = null;
 		try {
-			connection = this.daoFactory.getConnection();
+			connection = this.dataSource.getConnection();
 			preparedStatement = connection.prepareStatement(
 					"SELECT owner.*, topo_owner.available FROM owner INNER JOIN topo_owner ON (topo_owner.topo_id = ?) WHERE topo_owner.owner_id = owner.id;");
 			preparedStatement.setInt(1, id);
@@ -68,7 +67,7 @@ public class OwnerDaoPsql extends AbstractDaoPsql implements OwnerDao {
 		PreparedStatement preparedStatement = null;
 		ResultSet result = null;
 		try {
-			connection = this.daoFactory.getConnection();
+			connection = this.dataSource.getConnection();
 			preparedStatement = connection.prepareStatement("SELECT * FROM owner WHERE id = ?;");
 			preparedStatement.setInt(1, id);
 			result = preparedStatement.executeQuery();
@@ -104,7 +103,7 @@ public class OwnerDaoPsql extends AbstractDaoPsql implements OwnerDao {
 		PreparedStatement preparedStatement = null;
 		ResultSet result = null;
 		try {
-			connection = this.daoFactory.getConnection();
+			connection = this.dataSource.getConnection();
 			preparedStatement = connection.prepareStatement("SELECT * FROM owner WHERE email = ?;");
 			preparedStatement.setString(1, email);
 			result = preparedStatement.executeQuery();
@@ -140,7 +139,7 @@ public class OwnerDaoPsql extends AbstractDaoPsql implements OwnerDao {
 		PreparedStatement preparedStatement = null;
 		ResultSet result = null;
 		try {
-			connection = this.daoFactory.getConnection();
+			connection = this.dataSource.getConnection();
 			preparedStatement = connection.prepareStatement("SELECT EXISTS (SELECT email FROM owner WHERE email = ?);");
 			preparedStatement.setString(1, email);
 			result = preparedStatement.executeQuery();
@@ -171,7 +170,7 @@ public class OwnerDaoPsql extends AbstractDaoPsql implements OwnerDao {
 		PreparedStatement preparedStatement = null;
 		ResultSet result = null;
 		try {
-			connection = this.daoFactory.getConnection();
+			connection = this.dataSource.getConnection();
 			preparedStatement = connection
 					.prepareStatement("SELECT (password = ?) AS match FROM owner WHERE email = ?;");
 			preparedStatement.setString(1, password);
@@ -202,7 +201,7 @@ public class OwnerDaoPsql extends AbstractDaoPsql implements OwnerDao {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		try {
-			connection = this.daoFactory.getConnection();
+			connection = this.dataSource.getConnection();
 			preparedStatement = connection.prepareStatement("UPDATE owner SET email = ?  WHERE id = ?;");
 			preparedStatement.setString(1, email);
 			preparedStatement.setInt(2, id);
@@ -226,7 +225,7 @@ public class OwnerDaoPsql extends AbstractDaoPsql implements OwnerDao {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		try {
-			connection = this.daoFactory.getConnection();
+			connection = this.dataSource.getConnection();
 			preparedStatement = connection.prepareStatement("UPDATE owner SET phone_number = ?  WHERE id = ?;");
 			preparedStatement.setString(1, phone);
 			preparedStatement.setInt(2, id);
@@ -250,7 +249,7 @@ public class OwnerDaoPsql extends AbstractDaoPsql implements OwnerDao {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		try {
-			connection = this.daoFactory.getConnection();
+			connection = this.dataSource.getConnection();
 			preparedStatement = connection
 					.prepareStatement("INSERT INTO topo_owner (topo_id, owner_id) VALUES (?, ?);");
 			preparedStatement.setInt(1, topoId);
@@ -277,7 +276,7 @@ public class OwnerDaoPsql extends AbstractDaoPsql implements OwnerDao {
 		PreparedStatement preparedStatement = null;
 		ResultSet results = null;
 		try {
-			connection = this.daoFactory.getConnection();
+			connection = this.dataSource.getConnection();
 			preparedStatement = connection.prepareStatement(
 					"INSERT INTO owner (first_name, last_name, email, password) VALUES (?, ?, ?, ?) RETURNING id");
 			preparedStatement.setString(1, firstName);
@@ -310,7 +309,7 @@ public class OwnerDaoPsql extends AbstractDaoPsql implements OwnerDao {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		try {
-			connection = this.daoFactory.getConnection();
+			connection = this.dataSource.getConnection();
 			preparedStatement = connection.prepareStatement("DELETE FROM topo_owner WHERE owner_id = ?");
 			preparedStatement.setInt(1, id);
 			preparedStatement.executeUpdate();
@@ -334,7 +333,7 @@ public class OwnerDaoPsql extends AbstractDaoPsql implements OwnerDao {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		try {
-			connection = this.daoFactory.getConnection();
+			connection = this.dataSource.getConnection();
 			preparedStatement = connection.prepareStatement("DELETE FROM owner WHERE id = ?");
 			preparedStatement.setInt(1, id);
 			preparedStatement.executeUpdate();
@@ -358,7 +357,7 @@ public class OwnerDaoPsql extends AbstractDaoPsql implements OwnerDao {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		try {
-			connection = this.daoFactory.getConnection();
+			connection = this.dataSource.getConnection();
 			preparedStatement = connection.prepareStatement("UPDATE owner SET first_name = ?, last_Name = ?, email = ?, phone_number = ?  WHERE id = ?;");
 			preparedStatement.setString(1, owner.getFirstName());
 			preparedStatement.setString(2, owner.getLastName());

@@ -10,7 +10,6 @@ import java.util.List;
 
 import javax.inject.Named;
 
-import io.ab.climbing.consumer.DaoFactory;
 import io.ab.climbing.consumer.LongueurDao;
 import io.ab.climbing.model.Longueur;
 import io.ab.climbing.model.Voie;
@@ -25,7 +24,7 @@ public class LongueurDaoPsql  extends AbstractDaoPsql implements LongueurDao {
 		PreparedStatement preparedStatement = null;
 		ResultSet result = null;
 		try {
-			connection = this.daoFactory.getConnection();
+			connection = this.dataSource.getConnection();
 			preparedStatement = connection.prepareStatement("SELECT * FROM longueur WHERE id = ?;");
 			preparedStatement.setInt(1, id);
 			result = preparedStatement.executeQuery();
@@ -63,7 +62,7 @@ public class LongueurDaoPsql  extends AbstractDaoPsql implements LongueurDao {
 		ResultSet results = null;
 
 		try {
-			connection = this.daoFactory.getConnection();
+			connection = this.dataSource.getConnection();
 			statement = connection.createStatement();
 			results = statement.executeQuery(
 					String.format("SELECT id, name, length, cotation FROM longueur WHERE voie_id = %d;", id));
@@ -99,7 +98,7 @@ public class LongueurDaoPsql  extends AbstractDaoPsql implements LongueurDao {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		try {
-			connection = this.daoFactory.getConnection();
+			connection = this.dataSource.getConnection();
 			preparedStatement = connection.prepareStatement("DELETE FROM longueur WHERE id = ?");
 			preparedStatement.setInt(1, id);
 			preparedStatement.executeUpdate();
@@ -124,7 +123,7 @@ public class LongueurDaoPsql  extends AbstractDaoPsql implements LongueurDao {
 		PreparedStatement preparedStatement = null;
 		ResultSet results = null;
 		try {
-			connection = this.daoFactory.getConnection();
+			connection = this.dataSource.getConnection();
 			preparedStatement = connection.prepareStatement("DELETE FROM longueur WHERE voie_id = ?");
 			preparedStatement.setInt(1, id);
 			preparedStatement.executeUpdate();
@@ -148,7 +147,7 @@ public class LongueurDaoPsql  extends AbstractDaoPsql implements LongueurDao {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		try {
-			connection = this.daoFactory.getConnection();
+			connection = this.dataSource.getConnection();
 			preparedStatement = connection
 					.prepareStatement("INSERT INTO longueur (name, cotation, length, voie_id) VALUES (?, ?, ?, ?)");
 			preparedStatement.setString(1, longueur.getName());
@@ -176,7 +175,7 @@ public class LongueurDaoPsql  extends AbstractDaoPsql implements LongueurDao {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		try {
-			connection = this.daoFactory.getConnection();
+			connection = this.dataSource.getConnection();
 			preparedStatement = connection.prepareStatement(
 					"UPDATE longueur SET name = ?, cotation = ?, length = ?  WHERE id = ?");
 			preparedStatement.setString(1, longueur.getName());
