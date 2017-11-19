@@ -34,7 +34,7 @@ public class SecteurServlet extends AbstractInjectionServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		CommentDTO commentDTO = new CommentDTO(request);
+		CommentDTO commentDTO = new CommentDTO();
 		this.secteurService.addComment(commentDTO);
 
 		request.setAttribute("secteur", this.secteurService.findOneWithCommentsAndVoies(commentDTO.getEntityId()));

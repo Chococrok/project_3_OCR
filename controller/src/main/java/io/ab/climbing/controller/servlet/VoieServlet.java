@@ -32,7 +32,7 @@ public class VoieServlet extends AbstractInjectionServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {	
-		CommentDTO commentDTO = new CommentDTO(request);
+		CommentDTO commentDTO = new CommentDTO();
 
 		this.voieService.addComment(commentDTO);
 

@@ -10,11 +10,6 @@ public class CommentDTO {
 	private Integer entityId;
 	private String content;
 
-	public CommentDTO(HttpServletRequest request) {
-		this.entityId = request.getParameter(ID) == null ? null : Integer.parseInt(request.getParameter(ID));
-		this.content = request.getParameter(CONTENT);
-	}
-
 	public Integer getEntityId() {
 		return entityId;
 	}

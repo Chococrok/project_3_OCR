@@ -35,7 +35,7 @@ public class TopoServlet extends AbstractInjectionServlet {
 
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		CommentDTO commentDTO = new CommentDTO(request);
+		CommentDTO commentDTO = new CommentDTO();
 		this.topoService.addComment(commentDTO);
 		if (this.topoService.hasError()) {
 			request.setAttribute("error", this.topoService.getError());

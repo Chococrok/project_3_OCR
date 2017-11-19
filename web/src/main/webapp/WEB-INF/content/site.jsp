@@ -13,7 +13,7 @@
 			<div class="editable">
 				<h2>${ requestScope.site.name }</h2>
 				<input value="editer" class="editButton"
-					type="button" onclick="return navigate('/site/edit?id=${requestScope.site.id}')">
+					type="button" onclick="return navigate('/site/${requestScope.site.id}/edit')">
 			</div>
 			<c:if test="${ empty site.description }">
 				<p class="false">Ce site n'est pas encore référencé sur
@@ -78,11 +78,12 @@
 				</c:forEach>
 			</div>
 			<form method="post"
-				action="site?id=${ requestScope.site.id }#comment"
+				action="${ requestScope.site.id }/comment"
 				onSubmit="return validateComment(this)">
 				<div class="input">
 					<label for="comment">Commentaire: </label>
-					<textarea name="content" id="comment"
+					<input type="hidden" name="comment.entityId" value="${ requestScope.site.id }"/>
+					<textarea name="comment.content" id="comment"
 						placeholder="entrer un nouveau commentaire"></textarea>
 					<input type="submit" />
 				</div>

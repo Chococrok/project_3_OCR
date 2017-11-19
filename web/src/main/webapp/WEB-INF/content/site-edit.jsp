@@ -17,24 +17,26 @@
 			<p class="description">"${ requestScope.site.description }"</p>
 		</div>
 		<div class="card-content">
-			<form action="edit?id=${ requestScope.site.id }" method="post">
-				<input type="hidden" name="siteId" value="${ requestScope.site.id }" />
-				<input name="name" required
+			<form action="edit/submit" method="post">
+				<input name="site.name" required
 					value="<c:out value="${ requestScope.site.name }"/>"
 					placeholder="nom du site" />
-				<input name="description" required
+				<input name="site.description" required
 					value="<c:out value="${ requestScope.site.description }"/>"
 					placeholder="description du site" />
-				<input name="howToFind" required
+				<input name="site.howToFind" required
 					value="<c:out value="${ requestScope.site.howToFind }"/>"
 					placeholder="comment trouver ce site" />
-				<input name="latitude" required
+				<input name="site.latitude" required pattern="^-?[0-9]{1,3},[0-9]+$"
 					value="<c:out value="${ requestScope.site.latitude }"/>"
 					placeholder="latitude" />
-				<input name="longitude" required
+				<input name="site.longitude" required
+					pattern="^-?[0-9]{1,3},[0-9]+$"
 					value="<c:out value="${ requestScope.site.longitude }"/>"
 					placeholder="longitude" />
-				<button type="submit" name="action" value="updateSite">
+				<input type="hidden" name="site.id"
+					value="${ requestScope.site.id }" />
+				<button type="submit">
 					Editer
 					<c:out value="${ requestScope.site.name }" />
 				</button>
@@ -118,9 +120,8 @@
 			</div>
 
 			<h3>Supprimer ce site ?</h3>
-			<form class="simpleForm" action="edit?id=${ requestScope.site.id }"
-				method="post">
-				<button type="submit" name="action" value="delete"
+			<form class="simpleForm" action="delete" method="post">
+				<button type="submit"
 					onClick="return confirm('Supprimer ce site ? Les secteurs, les voies et les longueures associés seront également supprimés.');">
 					<i class="material-icons">delete</i>
 				</button>

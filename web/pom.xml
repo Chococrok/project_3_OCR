@@ -1,51 +1,66 @@
 <?xml version="1.0"?>
-<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <modelVersion>4.0.0</modelVersion>
-  <parent>
-    <groupId>io.ab</groupId>
-    <artifactId>climbing</artifactId>
-    <version>1.0-SNAPSHOT</version>
-  </parent>
-  <artifactId>web</artifactId>
-  <packaging>war</packaging>
-  <name>web</name>
-  <url>http://maven.apache.org</url>
+<project
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>io.ab</groupId>
+		<artifactId>climbing</artifactId>
+		<version>1.0-SNAPSHOT</version>
+	</parent>
+	<artifactId>web</artifactId>
+	<packaging>war</packaging>
+	<name>web</name>
+	<url>http://maven.apache.org</url>
 
-  <dependencies>
-    <dependency>
-      <groupId>io.ab</groupId>
-      <artifactId>model</artifactId>
-    </dependency>
+	<dependencies>
+		<dependency>
+			<groupId>io.ab</groupId>
+			<artifactId>model</artifactId>
+		</dependency>
 
-    <dependency>
-      <groupId>io.ab</groupId>
-      <artifactId>controller</artifactId>
-    </dependency>
+		<dependency>
+			<groupId>io.ab</groupId>
+			<artifactId>controller</artifactId>
+		</dependency>
 
-    <!-- Test -->
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <scope>test</scope>
-    </dependency>
+		<!-- Test -->
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<scope>test</scope>
+		</dependency>
 
-    <!-- External -->
-    <dependency>
-      <groupId>javax.servlet</groupId>
-      <artifactId>javax.servlet-api</artifactId>
-      <scope>provided</scope>
-    </dependency>
+		<!-- External -->
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+			<scope>provided</scope>
+		</dependency>
 
-    <dependency>
-    		<groupId>javax.servlet</groupId>
-	    	<artifactId>jstl</artifactId>
-	    	<scope>runtime</scope>
-	</dependency>
-	
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>jstl</artifactId>
+			<scope>runtime</scope>
+		</dependency>
+
+		<!-- Struts2 core -->
+		<dependency>
+			<groupId>org.apache.struts</groupId>
+			<artifactId>struts2-core</artifactId>
+			<version>2.5.13</version>
+		</dependency>
+
+		<!-- Struts2 convention plugin -->
+		<dependency>
+			<groupId>org.apache.struts</groupId>
+			<artifactId>struts2-convention-plugin</artifactId>
+			<version>2.5.13</version>
+		</dependency>
+
 	</dependencies>
 
-  <build>
-    <finalName>web</finalName>
-  </build>
+	<build>
+		<finalName>web</finalName>
+	</build>
 </project>

@@ -52,7 +52,7 @@ public class SiteServlet extends AbstractInjectionServlet {
 			return;
 		}
 		
-		CommentDTO commentDTO = new CommentDTO(request);
+		CommentDTO commentDTO = new CommentDTO();
 		this.siteService.addComment(commentDTO);
 
 		site.setTopos(this.topoService.findAllBySite(id));
