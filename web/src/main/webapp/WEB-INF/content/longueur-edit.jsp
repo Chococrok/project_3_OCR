@@ -16,27 +16,29 @@
 			</h2>
 		</div>
 		<div class="card-content">
-			<form action="edit?id=${ requestScope.longueur.id }" method="post">
-				<input name="name" required
+			<form action="edit/submit" method="post">
+				<input name="longueur.name" required
 					value="<c:out value="${ requestScope.longueur.name }"/>"
 					placeholder="nom de la voie" />
-				<input name="cotation" required
+				<input name="longueur.cotation" required
 					value="<c:out value="${ requestScope.longueur.cotation }"/>"
 					placeholder="cotation de la voie" />
-				<input name="length" required type="number"
+				<input name="longueur.length" required type="number"
 					value="<c:out value="${ requestScope.longueur.length }"/>"
 					placeholder="longueur de la voie" />
-				<input type="hidden" name="longueurId" value="${ requestScope.longueur.id }" />
-				<button type="submit" name="action" value="updateLongueur">
+				<input type="hidden" name="longueur.id"
+					value="${ requestScope.longueur.id }" />
+				<input type="hidden" name="longueur.voie.id"
+					value="${ requestScope.longueur.voie.id }" />
+				<button type="submit">
 					Editer
 					<c:out value="${ requestScope.longueur.name }" />
 				</button>
 			</form>
 
 			<h3>Supprimer cette longueur ?</h3>
-			<form class="simpleForm" action="edit?id=${ requestScope.longueur.id }"
-				method="post">
-				<button type="submit" name="action" value="delete"
+			<form class="simpleForm" action="delete" method="post">
+				<button type="submit"
 					onClick="return confirm('Supprimer cette longueur ?');">
 					<i class="material-icons">delete</i>
 				</button>

@@ -11,7 +11,7 @@
 	<div class="card-container">
 		<c:forEach items="${ requestScope.topos }" var="topo">
 			<div class="card topo clickable"
-				onclick="location.href='topo?id=${ topo.id }'">
+				onClick="navigate('/topo/${ topo.id }')">
 				<div class="card-header">
 					<h2>
 						<c:out value="${ topo.name }"></c:out>

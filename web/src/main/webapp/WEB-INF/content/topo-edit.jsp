@@ -20,7 +20,7 @@
 				</form>
 
 				<div class="columnCenter">
-					<button form="topoForm" name="action" value="editTopo"
+					<button form="topoForm"
 						onclick="return enableForm(this, [inputTitle]);">éditer</button>
 					<form id="deleteForm" class="simpleForm"
 						action="edit?id=${ requestScope.topo.id }" method="post"></form>

@@ -12,8 +12,8 @@
 		<div class="card-header">
 			<div class="editable">
 				<h2>${ requestScope.voie.name }</h2>
-				<input value="editer" class="editButton"
-					type="button" onclick="return navigate('/voie/edit?id=${requestScope.voie.id}')">
+				<input value="editer" class="editButton" type="button"
+					onclick="return navigate('/voie/${requestScope.voie.id}/edit')">
 			</div>
 			<p class="description">"${ voie.description }"</p>
 		</div>
@@ -22,7 +22,7 @@
 			<table>
 				<tr>
 					<td>Longueur de la voie:</td>
-					<td>${ voie.length } m</td>
+					<td>${ voie.length }m</td>
 				</tr>
 				<tr>
 					<td>Nombre de points:</td>
@@ -39,7 +39,7 @@
 				<c:forEach items="${ voie.longueurs }" var="longueur">
 					<div class="list-item-column">
 						<p>${ longueur.name }</p>
-						<p class="date">${ longueur.length } m</p>
+						<p class="date">${ longueur.length }m</p>
 						<p class="date">${ longueur.cotation }</p>
 					</div>
 				</c:forEach>
@@ -57,13 +57,14 @@
 				</c:forEach>
 			</div>
 
-			<form method="post" action="voie?id=${ requestScope.voie.id }#comment" onSubmit="return validateComment(this)">
+			<form method="post" action="${ requestScope.voie.id }/comment"
+				onSubmit="return validateComment(this)">
 				<div class="input">
 					<label for="comment">Commentaire: </label>
-					<textarea name="content" id="comment"
+					<input type="hidden" name="comment.entityId" value="${ voie.id }" />
+					<textarea name="comment.content" id="comment"
 						placeholder="entrer un nouveau commentaire"></textarea>
-					<input type="hidden" name="id" value="${ voie.id }" /> <input
-						type="submit" />
+					<input type="submit" />
 				</div>
 			</form>
 		</div>

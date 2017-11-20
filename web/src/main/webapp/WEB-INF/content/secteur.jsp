@@ -13,7 +13,7 @@
 			<div class="editable">
 				<h2>${ requestScope.secteur.name }</h2>
 				<input value="editer" class="editButton" type="button"
-					onclick="return navigate('/secteur/edit?id=${requestScope.secteur.id}')">
+					onclick="return navigate('/secteur/${requestScope.secteur.id}/edit')">
 			</div>
 			<p class="description">"${ secteur.description }"</p>
 		</div>
@@ -21,7 +21,7 @@
 			<h3>Les voies de ce secteur:</h3>
 			<div class="list">
 				<c:forEach items="${ secteur.voies }" var="voie">
-					<div class="clickable" onClick="navigate('/voie?id=${ voie.id }')">
+					<div class="clickable" onClick="navigate('/voie/${ voie.id }')">
 						<p>${ voie.name }(${ voie.cotation },${ voie.length }m)</p>
 						<i class="material-icons">&#xE315;</i>
 					</div>
@@ -47,13 +47,13 @@
 			</div>
 
 			<form method="post"
-				action="secteur?id=${ requestScope.secteur.id }#comment"
+				action="${ requestScope.secteur.id }/comment"
 				onSubmit="return validateComment(this)">
 				<div class="input">
 					<label for="comment">Commentaire: </label>
-					<textarea type="text" name="content" id="comment"
+					<input type="hidden" name="comment.entityId" value="${ requestScope.secteur.id }"/>
+					<textarea type="text" name="comment.content" id="comment"
 						placeholder="entrer un nouveau commentaire"></textarea>
-					<input type="hidden" name="id" value="${ secteur.id }" />
 					<input type="submit" />
 				</div>
 			</form>

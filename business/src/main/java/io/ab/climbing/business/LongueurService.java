@@ -21,4 +21,8 @@ public class LongueurService extends AbstractService {
 	public void updateOne(Longueur longueur) {
 		this.daoFactory.getLongueurDao().updateOne(longueur);
 	}
+	
+	public void addOne(Longueur longueur) {
+		this.daoFactory.getLongueurDao().insertOne(longueur);
+	}
 }

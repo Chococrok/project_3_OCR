@@ -45,32 +45,31 @@
 			<h3>Les secteurs de ce site:</h3>
 			<div>
 				<c:forEach items="${ site.secteurs }" var="secteur">
-					<form class="editable" action="edit?id=${ requestScope.site.id }"
+					<form class="editable"
+						action="${pageContext.request.contextPath}/secteur/${ secteur.id }/delete"
 						method="post">
-						<input type="hidden" name="secteurId" value="${ secteur.id }" />
 						<p>
 							<c:out value="${ secteur.name }"></c:out>
 						</p>
 						<div class="editable">
 							<button class="editButton" type="button"
-								onclick="navigate('/secteur/edit?id=${ secteur.id }');">éditer</button>
-							<button class="editButton" type="submit" name="action"
-								value="deleteSecteur"
+								onclick="navigate('/secteur/${ secteur.id }/edit');">éditer</button>
+							<button class="editButton" type="submit"
 								onclick="return confirm('Supprimer ce secteur ? Les voies et longueurs associées seront également supprimées.');">
 								supprimer</button>
 						</div>
 					</form>
 				</c:forEach>
 				<form style="display: none;" id="addSecteurForm"
-					action="edit?id=${ requestScope.site.id }" method="post">
-					<input name="name" placeholder="nom du secteur" required />
-					<input name="description" placeholder="description du secteur"
-						required />
-					<input type="hidden" name="siteId"
+					action="${pageContext.request.contextPath}/secteur/add"
+					method="post">
+					<input name="secteur.name" placeholder="nom du secteur" required />
+					<input name="secteur.description"
+						placeholder="description du secteur" required />
+					<input type="hidden" name="secteur.site.id"
 						value="${ requestScope.site.id }" />
 				</form>
-				<button form="addSecteurForm" type="submit" name="action"
-					value="addSecteur"
+				<button form="addSecteurForm" type="submit"
 					onclick="return displayForm(addSecteurForm, this)">Nouveau
 					secteur</button>
 			</div>
@@ -78,31 +77,32 @@
 			<h3>Les topos de ce site:</h3>
 			<div>
 				<c:forEach items="${ requestScope.site.topos }" var="topo">
-					<form class="editable" action="edit?id=${ requestScope.site.id }"
+					<form class="editable"
+						action="${pageContext.request.contextPath}/topo/${ topo.id }/delete"
 						method="post">
-						<input type="hidden" name="topoId" value="${ topo.id }" />
 						<p>
 							<c:out value="${ topo.name }"></c:out>
 						</p>
 						<div class="editable">
 							<button class="editButton" type="button"
-								onclick="navigate('/topo/edit?id=${ topo.id }');">éditer</button>
-							<button class="editButton" type="submit" name="action"
-								value="deleteTopo">supprimer</button>
+								onclick="navigate('/topo/${ topo.id }/edit');">éditer</button>
+							<button class="editButton" type="submit">supprimer</button>
 						</div>
 					</form>
 				</c:forEach>
 				<form style="display: none;" id="addNewTopoForm"
-					action="edit?id=${ requestScope.site.id }" method="post">
-					<input name="name" placeholder="nom du secteur" required />
-					<input type="hidden" name="siteId"
+					action="${ pageContext.request.contextPath }/topo/new"
+					method="post">
+					<input name="topo.name" placeholder="nom du topo" required />
+					<input type="hidden" name="topo.site.id"
 						value="${ requestScope.site.id }" />
 				</form>
 				<form style="display: none;" id="addExistingTopoForm"
-					action="edit?id=${ requestScope.site.id }" method="post">
-					<input type="hidden" name="siteId"
+					action="${ pageContext.request.contextPath }/topo/edit/site"
+					method="post">
+					<input type="hidden" name="topo.site.id"
 						value="${ requestScope.site.id }" />
-					<select name="topoId">
+					<select name="topo.id">
 						<c:forEach items="${ requestScope.topos }" var="topo">
 							<option value="${ topo.id }"><c:out
 									value="${ topo.name }"></c:out></option>
@@ -110,11 +110,10 @@
 					</select>
 				</form>
 				<button id="newTopoButton" form="addNewTopoForm" type="submit"
-					name="action" value="addNewTopoForm"
 					onclick="return displayForm(addNewTopoForm, this, [existingTopoButton])">Nouveau
 					topo</button>
 				<button id="existingTopoButton" form="addExistingTopoForm"
-					type="submit" name="action" value="addExistingTopoForm"
+					type="submit"
 					onclick="return displayForm(addExistingTopoForm, this, [newTopoButton])">Ajouter
 					un topo existant</button>
 			</div>

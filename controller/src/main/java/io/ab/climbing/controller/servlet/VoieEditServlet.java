@@ -76,7 +76,7 @@ public class VoieEditServlet extends AbstractInjectionServlet {
 			response.sendRedirect(this.getServletContext().getContextPath() + "/voie?id=" + id);
 			return;
 		case "addLongueur":
-			this.voieService.addLongueur(LongueurMapper.map(request));
+			//this.voieService.addLongueur(LongueurMapper.map(request));
 			response.sendRedirect(this.getServletContext().getContextPath() + "/voie?id=" + id);
 			return;
 		}

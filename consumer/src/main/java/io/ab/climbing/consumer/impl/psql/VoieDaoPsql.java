@@ -79,6 +79,10 @@ public class VoieDaoPsql  extends AbstractDaoPsql implements VoieDao {
 			voie.setLength(result.getInt("length"));
 			voie.setPointNumber(result.getInt("point_number"));
 			voie.setCotation(result.getString("cotation"));
+			
+			Secteur secteur = new Secteur();
+			secteur.setId(result.getInt("secteur_id"));
+			voie.setSecteur(secteur);
 
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

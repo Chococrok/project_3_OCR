@@ -42,9 +42,9 @@
 
 				<h3>Secteurs de ce site:</h3>
 				<div class="list">
-					<c:forEach items="${ site.secteurs }" var="secteur">
+					<c:forEach items="${ requestScope.site.secteurs }" var="secteur">
 						<div class="clickable"
-							onClick="navigate('/secteur?id=${ secteur.id }')">
+							onClick="navigate('/secteur/${ secteur.id }')">
 							<p>${ secteur.name }</p>
 							<i class="material-icons">&#xE315;</i>
 						</div>
@@ -59,7 +59,7 @@
 			<h3>Topos associés à ce site:</h3>
 			<form action="secteur" method="get" class="list">
 				<c:forEach items="${ requestScope.site.topos }" var="topo">
-					<div class="clickable" onClick="navigate('/topo?id=${ topo.id }')">
+					<div class="clickable" onClick="navigate('/topo/${ topo.id }')">
 						<p>${ topo.name }</p>
 						<i class="material-icons">&#xE315;</i>
 					</div>

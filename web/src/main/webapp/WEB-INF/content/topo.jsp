@@ -15,13 +15,13 @@
 					<c:out value="${ requestScope.topo.name }"></c:out>
 				</h2>
 				<input value="editer" class="editButton" type="button"
-					onclick="return navigate('/topo/edit?id=${requestScope.topo.id}')">
+					onclick="return navigate('/topo/${requestScope.topo.id}/edit')">
 			</div>
 		</div>
 		<div class="card-content">
 			<h3>site correspondant:</h3>
 			<div class="clickable"
-				onClick="navigate('/site?id=${ requestScope.topo.site.id }')">
+				onClick="navigate('/site/${ requestScope.topo.site.id }')">
 				<p>${ requestScope.topo.site.name }</p>
 				<i class="material-icons">&#xE315;</i>
 			</div>

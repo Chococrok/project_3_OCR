@@ -71,6 +71,9 @@ public class SecteurDaoPsql  extends AbstractDaoPsql implements SecteurDao {
             secteur.setName(result.getString("name"));
             secteur.setId(result.getInt("id"));
             secteur.setDescription(result.getString("description"));
+            Site site = new Site();
+            site.setId(result.getInt("site_id"));
+            secteur.setSite(site);
                 
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

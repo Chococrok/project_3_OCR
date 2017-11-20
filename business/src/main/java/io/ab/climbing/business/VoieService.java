@@ -85,8 +85,4 @@ public class VoieService extends AbstractService {
 	public void addOne(Voie voie) {
 		this.daoFactory.getVoieDao().insertOne(voie);
 	}
-	
-	public void addLongueur(Longueur longueur) {
-		this.daoFactory.getLongueurDao().insertOne(longueur);
-	}
 }

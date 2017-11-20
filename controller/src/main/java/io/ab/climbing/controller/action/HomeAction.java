@@ -10,16 +10,21 @@ import com.opensymphony.xwork2.ActionSupport;
 import io.ab.climbing.business.SiteService;
 import io.ab.climbing.model.Site;
 
-public class HomeAction extends ActionSupport {
+public class HomeAction extends CustomActionSupport {
 	
-	@Inject
-	SiteService siteService;
-	
-	public List<Site> sites;
+	private List<Site> sites;
 
 	@Override
 	public String execute() throws Exception {
 		this.sites = this.siteService.findAll();
 		return SUCCESS;
+	}
+
+	public List<Site> getSites() {
+		return sites;
+	}
+
+	public void setSites(List<Site> sites) {
+		this.sites = sites;
 	}
 }
