@@ -438,4 +438,28 @@ public class TopoDaoPsql  extends AbstractDaoPsql implements TopoDao {
 			}
 		}		
 	}
+	
+	@Override
+	public void deleteLinkToOwner(Integer id) {
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		try {
+			connection = this.dataSource.getConnection();
+			preparedStatement = connection.prepareStatement("DELETE FROM topo_owner WHERE topo_id = ?");
+			preparedStatement.setInt(1, id);
+			preparedStatement.executeUpdate();
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			try {
+				connection.close();
+				preparedStatement.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	}
 }

@@ -4,7 +4,6 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.ServletContext;
 
-import io.ab.climbing.business.dto.AddTopoForm;
 import io.ab.climbing.business.dto.SignInForm;
 import io.ab.climbing.business.dto.SignUpForm;
 import io.ab.climbing.consumer.DaoFactory;

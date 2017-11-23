@@ -112,6 +112,7 @@ public class TopoService extends AbstractService {
 	}
 
 	public void deleteOne(int id) {
+		this.daoFactory.getTopoDao().deleteLinkToOwner(id);
 		this.daoFactory.getTopoDao().deleteOne(id);
 		
 	}

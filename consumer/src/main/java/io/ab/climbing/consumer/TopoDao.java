@@ -19,4 +19,5 @@ public interface TopoDao {
 	public void updateSite(Integer topoId, Integer siteId);
 	public void deleteSiteIdByTopo(int siteId, int topoId);
 	public void updateOne(Topo topo);
+	void deleteLinkToOwner(Integer id);
 }
