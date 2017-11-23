@@ -36,15 +36,15 @@ public class SignInServlet extends AbstractInjectionServlet {
 		switch (action) {
 		
 		case SIGN_IN:
-			SignInForm signInForm = new SignInForm(request);
-			this.ownerService.signIn(signInForm);
+			//SignInForm signInForm = new SignInForm(request);
+			//this.ownerService.signIn(signInForm);
 			if (this.ownerService.hasError()) {
 				request.setAttribute("error", this.ownerService.getError());
 				this.getServletContext().getRequestDispatcher("/WEB-INF/jsp/page/sign-in.jsp").forward(request,
 						response);
 				return;
 			}
-			request.getSession().setAttribute("owner", this.ownerService.findOneByEmail(signInForm.getEmail()));
+			//request.getSession().setAttribute("owner", this.ownerService.findOneByEmail(signInForm.getEmail()));
 			response.sendRedirect(this.getServletContext().getContextPath() + "/owner");
 			break;
 			

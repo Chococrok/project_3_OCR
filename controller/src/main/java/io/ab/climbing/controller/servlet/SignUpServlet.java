@@ -28,8 +28,8 @@ public class SignUpServlet extends AbstractInjectionServlet {
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		SignUpForm signUpForm = new SignUpForm(request);
-		int newOwnerId = this.ownerService.signUp(signUpForm);
+		//SignUpForm signUpForm = new SignUpForm(request);
+		//int newOwnerId = this.ownerService.signUp(signUpForm);
 		if (this.ownerService.hasError()) {
 			request.setAttribute("error", this.ownerService.getError());
 			this.getServletContext().getRequestDispatcher("/WEB-INF/jsp/page/sign-up.jsp").forward(request,
@@ -37,7 +37,7 @@ public class SignUpServlet extends AbstractInjectionServlet {
 			return;
 		}
 		
-		request.getSession().setAttribute("owner", this.ownerService.findOneById(newOwnerId));
+		//request.getSession().setAttribute("owner", this.ownerService.findOneById(newOwnerId));
 		response.sendRedirect(this.getServletContext().getContextPath() + "/owner");
 	}
 

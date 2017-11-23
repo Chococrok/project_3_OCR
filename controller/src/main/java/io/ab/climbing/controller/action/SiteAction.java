@@ -2,21 +2,10 @@ package io.ab.climbing.controller.action;
 
 import java.util.List;
 
-import javax.inject.Inject;
-
-import org.apache.struts2.ServletActionContext;
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.Result;
 import org.apache.struts2.convention.annotation.Results;
 
-import com.opensymphony.xwork2.ActionSupport;
-
-import io.ab.climbing.business.SecteurService;
-import io.ab.climbing.business.SiteService;
-import io.ab.climbing.business.TopoService;
-import io.ab.climbing.business.dto.CommentDTO;
-import io.ab.climbing.model.Secteur;
-import io.ab.climbing.model.Site;
 import io.ab.climbing.model.Topo;
 
 @Results({ 
@@ -24,7 +13,7 @@ import io.ab.climbing.model.Topo;
 	@Result(name = "edit", location = "site-edit.jsp"),
 	@Result(name = "done", type="redirect", location = "/site/${id}")
 	})
-public class SiteAction extends CustomActionSupport {
+public class SiteAction extends CustomAbstractActionSupport {
 	
 	private List<Topo> topos;
 

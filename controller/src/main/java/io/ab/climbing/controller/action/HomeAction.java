@@ -10,7 +10,7 @@ import com.opensymphony.xwork2.ActionSupport;
 import io.ab.climbing.business.SiteService;
 import io.ab.climbing.model.Site;
 
-public class HomeAction extends CustomActionSupport {
+public class HomeAction extends CustomAbstractActionSupport {
 	
 	private List<Site> sites;
 

@@ -15,10 +15,10 @@
 		</c:when>
 
 		<c:otherwise>
-			<form class="simpleForm" action="signIn" method="post">
+			<form class="simpleForm" action="${ pageContext.request.contextPath }/logout" method="post">
 				<a onclick="navigate('/owner')"><c:out
 						value=" Mon espace (${ sessionScope.owner.fullName })" /></a>
-				<button type="submit" name="action" value="signOut">Déconnexion</button>
+				<button type="submit">Déconnexion</button>
 			</form>
 		</c:otherwise>
 	</c:choose>

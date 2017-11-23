@@ -17,17 +17,26 @@
 		</div>
 
 		<div class="card-content">
-			<form id="signIn" action="signIn" method="post">
-				<span> <input type="email" id="email" name="email"
+			<form id="signIn"
+				action="${ pageContext.request.contextPath }/login/submit"
+				method="post">
+				<span> <input type="email" id="email" name="signInForm.email"
 						placeholder="Email" /> <input type="password" id="password"
-						name="password" placeholder="Mot de passe" />
+						name="signInForm.password" placeholder="Mot de passe" />
 				</span>
-				<button type="submit" form="signIn" name="action" value="signIn">s'authentifier</button>
+				<button type="submit" form="signIn">s'authentifier</button>
 				<c:if test="${ !empty error }">
 					<p class="false">${ error }</p>
 				</c:if>
-				<br /> <a onclick="navigate('/signUp')">Pas encore de compte ?
-					C'est par ici que ça se passe !</a>
+
+				<s:if test="hasActionErrors()">
+					<div class="false">
+						<s:actionerror />
+					</div>
+				</s:if>
+
+				<br /> <a onclick="navigate('/register')">Pas encore de compte
+					? C'est par ici que ça se passe !</a>
 			</form>
 
 		</div>

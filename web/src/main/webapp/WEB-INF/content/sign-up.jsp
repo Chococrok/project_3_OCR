@@ -17,26 +17,35 @@
 		</div>
 
 		<div class="card-content">
-			<form id="signUp" action="signUp#signUp" method="post"
-				onSubmit="return validate(this)">
-				<input type="text" id="firstName" name="firstName"
+			<form id="register"
+				action="${pageContext.request.contextPath }/register/submit"
+				method="post" onSubmit="return validate(this)">
+				<input type="text" id="firstName" name="signUpForm.firstName"
 					placeholder="Prénom" />
-				<input type="text" id="lastName" name="lastName"
+				<input type="text" id="lastName" name="signUpForm.lastName"
 					placeholder="Nom" />
-				<input type="email" id="email" name="email" placeholder="Email" />
-				<input type="password" id="password" name="password"
+				<input type="email" id="email" name="signUpForm.email"
+					placeholder="Email" />
+				<input type="password" id="password" name="signUpForm.password"
 					placeholder="Mot de passe" />
 				<input type="password" id="confirmPassword"
-					name="confirmPassword" placeholder="Confirmez le mot de passe" />
+					name="signUpForm.confirmPassword"
+					placeholder="Confirmez le mot de passe" />
 			</form>
 
 			<p id="error" class="false" style="display: none;"></p>
-			<c:if test="${ !empty error }">
-				<p class="false">${ error }</p>
+			<c:if test="${ !empty requestScope['Globals.ERROR_KEY'] }">
+				<p class="false">${ requestScope['Globals.ERROR_KEY']] }</p>
 			</c:if>
 
-			<button type="submit" form="signUp" name="action" value="signUp">s'authentifier</button>
-			
+			<s:if test="hasActionErrors()">
+				<div class="false">
+					<s:actionerror />
+				</div>
+			</s:if>
+
+			<button type="submit" form="register">s'authentifier</button>
+
 		</div>
 
 	</div>

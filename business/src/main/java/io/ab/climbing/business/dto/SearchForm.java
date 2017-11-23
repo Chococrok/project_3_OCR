@@ -1,6 +1,5 @@
 package io.ab.climbing.business.dto;
 
-import javax.servlet.http.HttpServletRequest;
 
 public class SearchForm {
 	public static final String METHOD = "method";
@@ -16,12 +15,6 @@ public class SearchForm {
 	private String method;
 	private String type;
 	private String content;
-
-	public SearchForm(HttpServletRequest request) {
-		this.method = request.getParameter(METHOD);
-		this.type = request.getParameter(TYPE);
-		this.content = request.getParameter(CONTENT);
-	}
 
 	public String getMethod() {
 		return method;

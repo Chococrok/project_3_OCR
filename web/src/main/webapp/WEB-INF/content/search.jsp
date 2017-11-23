@@ -11,35 +11,43 @@
 			<h2>Recherche:</h2>
 		</div>
 		<div class="card-content">
-			<form action="search#submit" method="get">
+			<form action="${ pageContext.request.contextPath }/search/submit"
+				method="get">
 				<div>
 					<p>Je souhaite effectuer une recherche par:</p>
-					<input type="radio" name="method" id="name" value="name"
+					<input type="radio" name="searchForm.method" id="name" value="name"
 						${ empty param.method || param.method == 'name' ? 'checked':'' } />
-					<label for="name">nom</label> <input type="radio" name="method"
-						id="cotation" value="cotation"
-						${ param.method == 'cotation' ? 'checked':'' } /> <label
-						for="cotation">cotation</label>
+					<label for="name">nom</label>
+					<input type="radio" name="searchForm.method" id="cotation" value="cotation"
+						${ param.method == 'cotation' ? 'checked':'' } />
+					<label for="cotation">cotation</label>
 				</div>
 
 				<div>
 					<p>Je recherche:</p>
-					<input type="radio" name="type" id="site" value="site"
-						${ empty param.type || param.type == 'site' ? 'checked':'' } /> <label
-						for="site">site</label> <input type="radio" name="type"
-						id="secteur" value="secteur"
-						${ param.type == 'secteur' ? 'checked':'' } /> <label
-						for="secteur">secteur</label> <input type="radio" name="type"
-						id="voie" value="voie" ${ param.type == 'voie' ? 'checked':'' } />
+					<input type="radio" name="searchForm.type" id="site" value="site"
+						${ empty param.type || param.type == 'site' ? 'checked':'' } />
+					<label for="site">site</label>
+					<input type="radio" name="searchForm.type" id="secteur" value="secteur"
+						${ param.type == 'secteur' ? 'checked':'' } />
+					<label for="secteur">secteur</label>
+					<input type="radio" name="searchForm.type" id="voie" value="voie"
+						${ param.type == 'voie' ? 'checked':'' } />
 					<label for="voie">voie</label>
 				</div>
 
-				<input type="search" name="content" />
+				<input type="search" name="searchForm.content" />
 				<button type="submit" id="submit">Rechercher</button>
 			</form>
 			<c:if test="${ !empty error }">
 				<p class="false">${ error }</p>
 			</c:if>
+
+			<s:if test="hasActionErrors()">
+				<div class="false">
+					<s:actionerror />
+				</div>
+			</s:if>
 
 			<c:if test="${!empty entities && !entities.isEmpty()}">
 				<h3>

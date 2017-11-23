@@ -69,7 +69,7 @@ public class OwnerServlet extends AbstractInjectionServlet {
 			break;
 		case TOPO:
 			AddTopoForm topoForm = new AddTopoForm(request);
-			this.ownerService.addTopo(topoForm, owner);
+			//this.ownerService.addTopo(topoForm, owner);
 			if (this.ownerService.hasError()) {
 				request.setAttribute("error", this.ownerService.getError());
 			}

@@ -63,13 +63,13 @@
 			</div>
 
 			<form method="post"
-				action="topo?id=${ requestScope.topo.id }#comment"
+				action="${ pageContext.request.contextPath }/topo/${ requestScope.topo.id }/comment"
 				onSubmit="return validateComment(this)">
 				<div class="input">
 					<label for="comment">Commentaire: </label>
-					<textarea name="content" id="comment"
+					<textarea name="comment.content" id="comment"
 						placeholder="entrer un nouveau commentaire"></textarea>
-					<input type="hidden" name="id" value="${ topo.id }" />
+					<input type="hidden" name="comment.entityId" value="${ topo.id }" />
 					<input type="submit" />
 				</div>
 			</form>

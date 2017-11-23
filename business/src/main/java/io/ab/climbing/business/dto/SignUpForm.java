@@ -1,28 +1,13 @@
 package io.ab.climbing.business.dto;
 
-import javax.servlet.http.HttpServletRequest;
 
 public class SignUpForm {
-
-	private static final String FIRST_NAME = "firstName";
-	private static final String LAST_NAME = "lastName";
-	private static final String EMAIL = "email";
-	private static final String PASSWORD = "password";
-	private static final String CONFIRM_PASSWORD = "confirmPassword";
 
 	private String firstName;
 	private String lastName;
 	private String email;
 	private String password;
 	private String confirmPassword;
-
-	public SignUpForm(HttpServletRequest request) {
-		firstName = request.getParameter(FIRST_NAME);
-		lastName = request.getParameter(LAST_NAME);
-		email = request.getParameter(EMAIL);
-		password = request.getParameter(PASSWORD);
-		confirmPassword = request.getParameter(CONFIRM_PASSWORD);
-	}
 
 	public String getFirstName() {
 		return firstName;
@@ -54,6 +39,14 @@ public class SignUpForm {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public String getConfirmPassword() {
+		return confirmPassword;
+	}
+
+	public void setConfirmPassword(String confirmPassword) {
+		this.confirmPassword = confirmPassword;
 	}
 
 	public boolean passwordIsMatching() {

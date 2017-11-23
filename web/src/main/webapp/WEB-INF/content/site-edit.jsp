@@ -86,7 +86,8 @@
 						<div class="editable">
 							<button class="editButton" type="button"
 								onclick="navigate('/topo/${ topo.id }/edit');">éditer</button>
-							<button class="editButton" type="submit">supprimer</button>
+							<button class="editButton" onclick="return confirm('êtes vous certain de vouloir supprimer ce topo ?')"
+							type="submit">supprimer</button>
 						</div>
 					</form>
 				</c:forEach>

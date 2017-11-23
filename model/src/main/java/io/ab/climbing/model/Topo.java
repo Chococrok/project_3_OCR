@@ -11,10 +11,7 @@ public class Topo extends Entity {
 
 	private List<Owner> owners;
 	
-	private boolean available;
-
-	public Topo() {
-	}
+	private Boolean available;
 
 	public Site getSite() {
 		return site;

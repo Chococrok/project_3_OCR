@@ -10,7 +10,7 @@ import org.apache.struts2.convention.annotation.Results;
 	@Result(name = "done", type="redirect", location = "/secteur/${id}"),
 	@Result(name = "back", type="redirect", location = "/site/${secteur.site.id}")
 	})
-public class SecteurAction extends CustomActionSupport {
+public class SecteurAction extends CustomAbstractActionSupport {
 
 	@Override
 	@Action("secteur/{id}")

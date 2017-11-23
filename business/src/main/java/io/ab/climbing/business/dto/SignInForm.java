@@ -1,19 +1,9 @@
 package io.ab.climbing.business.dto;
 
-import javax.servlet.http.HttpServletRequest;
-
 public class SignInForm {
-
-	public static final String EMAIL = "email";
-	public static final String PASSWORD = "password";
 
 	private String email;
 	private String password;
-
-	public SignInForm(HttpServletRequest request) {
-		this.email = request.getParameter(EMAIL);
-		this.password = request.getParameter(PASSWORD);
-	}
 
 	public String getEmail() {
 		return email;

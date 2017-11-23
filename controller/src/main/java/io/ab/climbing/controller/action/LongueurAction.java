@@ -8,7 +8,7 @@ import org.apache.struts2.convention.annotation.Results;
 	@Result(name = "edit", location = "longueur-edit.jsp"),
 	@Result(name = "back", type="redirect", location = "/voie/${longueur.voie.id}")
 	})
-public class LongueurAction extends CustomActionSupport {
+public class LongueurAction extends CustomAbstractActionSupport {
 	
 	//the method is named explode because with stupid struts2 trying to guess action name if not define
 	//you can not use "delete" or "remove" 

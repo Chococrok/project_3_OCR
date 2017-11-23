@@ -15,36 +15,20 @@
 		value="false" />
 	<constant name="struts.patternMatcher" value="regex" />
 
-
-
-	<package name="customPackage" extends="struts-default">
+	<package name="loginPackage" extends="struts-default">
 		<interceptors>
-			<interceptor-stack name="customStack">
-                <interceptor-ref name="exception"/>
-                <interceptor-ref name="alias"/>
-                <interceptor-ref name="servletConfig"/>
-                <interceptor-ref name="i18n"/>
-                <interceptor-ref name="prepare"/>
-                <interceptor-ref name="chain"/>
-                <interceptor-ref name="scopedModelDriven"/>
-                <interceptor-ref name="modelDriven"/>
-                <interceptor-ref name="fileUpload"/>
-                <interceptor-ref name="checkbox"/>
-                <interceptor-ref name="datetime"/>
-                <interceptor-ref name="multiselect"/>
-                <interceptor-ref name="staticParams"/>
-                <interceptor-ref name="actionMappingParams"/>
-                <interceptor-ref name="params"/>
-                <interceptor-ref name="conversionError"/>
-                <interceptor-ref name="validation">
-                    <param name="excludeMethods">input,back,cancel,browse</param>
-                </interceptor-ref>
-                <interceptor-ref name="workflow">
-                    <param name="excludeMethods">input,back,cancel,browse</param>
-                </interceptor-ref>
-                <interceptor-ref name="debugging"/>
-            </interceptor-stack>
+			<interceptor name="login"
+				class="io.ab.climbing.controller.interceptor.LoginInterceptor" />
+			<interceptor-stack name="loginStack">
+				<interceptor-ref name="defaultStack" />
+				<interceptor-ref name="login" />
+			</interceptor-stack>
 		</interceptors>
+
+
+		<global-results>
+			<result name="loginRedirect" type="redirect">/login</result>
+		</global-results>
 	</package>
 
 </struts>

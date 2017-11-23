@@ -3,6 +3,7 @@ package io.ab.climbing.controller.action;
 import javax.inject.Inject;
 
 import org.apache.struts2.convention.annotation.Result;
+import org.apache.struts2.convention.annotation.Results;
 
 import com.opensymphony.xwork2.ActionSupport;
 
@@ -21,13 +22,19 @@ import io.ab.climbing.model.Site;
 import io.ab.climbing.model.Topo;
 import io.ab.climbing.model.Voie;
 
-@Result(name = "input", type = "redirect", location = "/home")
-public abstract class CustomActionSupport extends ActionSupport {
+@Results({
+	@Result(name = "input", type = "redirect", location = "/home"),
+	@Result(name = "home", type = "redirect", location = "/home"),
+	@Result(name = "owner", type = "redirect", location = "/owner")
+	})
+public abstract class CustomAbstractActionSupport extends ActionSupport {
 	
 	public static final String DONE = "done";
 	public static final String EDIT = "edit";
 	public static final String BACK = "back";
 	public static final String ALL = "all";
+	public static final String OWNER = "owner";
+	public static final String HOME = "home";
 	
 	@Inject
 	protected SiteService siteService;

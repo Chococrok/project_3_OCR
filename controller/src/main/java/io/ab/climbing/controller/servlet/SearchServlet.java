@@ -27,7 +27,7 @@ public class SearchServlet extends AbstractInjectionServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		SearchForm searchForm = new SearchForm(request);
+		SearchForm searchForm = new SearchForm();
 		this.searchService.search(searchForm);
 
 		request.setAttribute(SearchService.ERROR, this.searchService.getError());

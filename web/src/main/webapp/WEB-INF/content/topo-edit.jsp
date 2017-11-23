@@ -11,10 +11,10 @@
 	<div class="card">
 		<div class="card-header">
 			<div class="editable">
-				<form id="topoForm" action="edit?id=${ requestScope.topo.id }"
+				<form id="topoForm" action="edit/submit"
 					method="post">
-					<input type="hidden" name="topoId" value="${ requestScope.topo.id }" />
-					<input class="title" id="inputTitle" name="name" disabled
+					<input type="hidden" name="topo.id" value="${ requestScope.topo.id }" />
+					<input class="title" id="inputTitle" name="topo.name" disabled
 						placeholder="Titre"
 						value="<c:out value="${ requestScope.topo.name }"/>" />
 				</form>
@@ -23,7 +23,7 @@
 					<button form="topoForm"
 						onclick="return enableForm(this, [inputTitle]);">éditer</button>
 					<form id="deleteForm" class="simpleForm"
-						action="edit?id=${ requestScope.topo.id }" method="post"></form>
+						action="delete" method="post"></form>
 					<button form="deleteForm" name="action" value="delete"
 						onclick="return confirm('Êtes vous certain de vouloir supprimer ce topo ? Cela est irréversible')">supprimer</button>
 				</div>
@@ -32,9 +32,9 @@
 		<div class="card-content">
 
 			<h3>Site associé à ce topo :</h3>
-			<form action="edit?id=${ requestScope.topo.id }" method="post">
-				<input type="hidden" name="topoId" value="${ requestScope.topo.id }" />
-				<select name="siteId">
+			<form action="edit/site" method="post">
+				<input type="hidden" name="topo.id" value="${ requestScope.topo.id }" />
+				<select name="topo.site.id">
 					<c:forEach items="${ requestScope.sites }" var="site">
 						<option ${ site.id == requestScope.topo.site.id ? 'selected' : '' }
 							value="${ site.id }"><c:out value="${ site.name }"></c:out></option>

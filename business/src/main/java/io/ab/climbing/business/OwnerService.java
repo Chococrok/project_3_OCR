@@ -10,6 +10,7 @@ import io.ab.climbing.business.dto.SignUpForm;
 import io.ab.climbing.consumer.DaoFactory;
 import io.ab.climbing.consumer.OwnerDao;
 import io.ab.climbing.model.Owner;
+import io.ab.climbing.model.Topo;
 
 @Named
 public class OwnerService extends AbstractService {
@@ -80,21 +81,21 @@ public class OwnerService extends AbstractService {
 
 	}
 
-	public void addTopo(AddTopoForm addTopoForm, Owner owner) {
-		if (addTopoForm.getTopoId() != null) {
-			this.daoFactory.getOwnerDao().addTopo(addTopoForm.getTopoId(), owner.getId());
+	public void addTopo(Topo topo, Owner owner) {
+		if (topo.getId() != null) {
+			this.daoFactory.getOwnerDao().addTopo(topo.getId(), owner.getId());
 			return;
 		}
 
-		if (addTopoForm.getSiteId() != null && addTopoForm.getTopoName() != null) {
-			int topoId = this.topoService.createOne(addTopoForm.getTopoName(), addTopoForm.getSiteId());
+		if (topo.getSite().getId() != null && topo.getName() != null) {
+			int topoId = this.topoService.createOne(topo.getName(), topo.getSite().getId());
 			this.daoFactory.getOwnerDao().addTopo(topoId, owner.getId());
 			return;
 		}
 
-		if (addTopoForm.getSiteName() != null && addTopoForm.getTopoName() != null) {
-			String siteName = addTopoForm.getSiteName();
-			String topoName = addTopoForm.getTopoName();
+		if (topo.getSite().getName() != null && topo.getName() != null) {
+			String siteName = topo.getSite().getName();
+			String topoName = topo.getName();
 			int topoId = this.topoService.createOne(topoName, this.siteService.addEmptyOne(siteName));
 			this.daoFactory.getOwnerDao().addTopo(topoId, owner.getId());
 			return;
